@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <global-method-security secured-annotations="enabled"/>
+
+    <http auto-config="true">
+        <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+        <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/cme/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+        <intercept-url pattern="/**" access="ROLE_USER"/>
+
+        <form-login login-page="/login_page"
+                    login-processing-url="/login"
+                    username-parameter="username"
+                    password-parameter="password"
+                    default-target-url="/explorer"
+                    authentication-failure-url="/login_page?login_error=1"/>
+
+        <logout logout-url="/logout" logout-success-url="/login"/>
+    </http>
+
+    <beans:bean class="wang.huaichao.security.MyUserDetailsService" id="detailsService"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="detailsService"/>
+    </authentication-manager>
+
+</beans:beans>

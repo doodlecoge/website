@@ -1,0 +1,84 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+
+    <context:property-placeholder location="classpath*:db.properties"/>
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="wang.huaichao.web"/>
+
+
+    <!--==========================================================-->
+    <!--h2database config-->
+    <!--==========================================================-->
+    <jdbc:embedded-database id="h2Ds" type="H2">
+        <jdbc:script location="classpath*:h2.sql" encoding="utf-8"/>
+    </jdbc:embedded-database>
+
+    <bean id="h2Sf"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="h2Ds"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.default_schema">${db.schema}</prop>
+                <prop key="hibernate.connection.pool_size">10</prop>
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.timeout">1800</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+            </props>
+        </property>
+
+        <!-- use packagesToScan instead of listing all the classes here
+        <property name="annotatedClasses">
+            <list>
+                <value>wang.huaichao.web.model.User</value>
+                <value>wang.huaichao.web.model.Article</value>
+            </list>
+        </property>
+        -->
+
+        <property name="packagesToScan">
+            <list>
+                <value>wang.huaichao.web.model</value>
+            </list>
+        </property>
+
+    </bean>
+
+    <bean id="h2Tm" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="h2Sf"/>
+    </bean>
+
+    <!-- 支持通过注解使用事务 -->
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="h2Tm"/>
+
+    <!-- 事务的传播特性 -->
+    <tx:advice id="txAdvice" transaction-manager="h2Tm">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+</beans>

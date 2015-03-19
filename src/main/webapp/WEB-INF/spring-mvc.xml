@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <context:property-placeholder location="classpath*:db.properties"/>
+
+    <!--<mvc:annotation-driven>-->
+        <!--<mvc:message-converters register-defaults="true">-->
+            <!--<bean class="me.hch.aciton.ActionResultMessageConvertor">-->
+                <!--<constructor-arg>-->
+                    <!--<bean class="org.springframework.http.MediaType">-->
+                        <!--<constructor-arg index="0" value="*"/>-->
+                        <!--<constructor-arg index="1" value="*"/>-->
+                    <!--</bean>-->
+                <!--</constructor-arg>-->
+            <!--</bean>-->
+        <!--</mvc:message-converters>-->
+    <!--</mvc:annotation-driven>-->
+
+    <context:annotation-config/>
+    <context:component-scan base-package="wang.huaichao.web"/>
+
+
+
+
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/cme/**" location="/cme/"/>
+
+    <!-- jsp view resolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--<bean id="appListener" class="me.hch.AppListener"/>-->
+    <!--<import resource="spring-hibernate.xml"/>-->
+
+
+</beans>

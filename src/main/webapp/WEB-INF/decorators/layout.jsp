@@ -45,9 +45,9 @@
 <body>
 <div id="nav">
     <div class="c">
-        <a href="/">Home</a>
-        <a href="/article">Articles</a>
-        <a href="/article/new">Write sth.</a>
+        <a href="<%=request.getContextPath()%>/">Home</a>
+        <a href="<%=request.getContextPath()%>/article">Articles</a>
+        <a href="<%=request.getContextPath()%>/article/new">Write sth.</a>
     </div>
 </div>
 <div id="header">

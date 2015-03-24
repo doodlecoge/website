@@ -40,7 +40,8 @@ public class ArticleDao extends TheDao {
 
 
         Session session = sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Article.class);
+        Criteria criteria = session.createCriteria(Article.class)
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 

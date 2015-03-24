@@ -43,6 +43,13 @@ public class ArticleController {
         return "article/new";
     }
 
+    @RequestMapping(value = "/edit/{id}")
+    public String edit(@PathVariable int id, ModelMap map) {
+        Article article = articleService.getArticleById(id);
+        map.put("article", article);
+        return "article/new";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@RequestParam String title,

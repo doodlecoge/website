@@ -59,11 +59,11 @@ CREATE TABLE website.articles
 INSERT INTO website.articles
 (id, title, content, username, created_at, updated_at)
 VALUES
-  (1, 'spring security', '', 'huaichao', '2014-11-29', '2014-11-29'),
-  (2, 'c/c++          ', '', 'chaochao', '2014-11-29', '2014-11-29'),
-  (3, 'sed command    ', '', 'huaichao', '2014-11-29', '2014-11-29'),
-  (4, 'java reflection', '', 'huaichao', '2014-11-29', '2014-11-29'),
-  (5, 'python network ', '', 'huaichao', '2014-11-29', '2014-11-29');
+  (1, 'spring security', '1 content', 'huaichao', '2014-11-29', '2014-11-29'),
+  (2, 'c/c++          ', '2 content', 'chaochao', '2014-11-29', '2014-11-29'),
+  (3, 'sed command    ', '3 content', 'huaichao', '2014-11-29', '2014-11-29'),
+  (4, 'java reflection', '4 content', 'huaichao', '2014-11-29', '2014-11-29'),
+  (5, 'python network ', '5 content', 'huaichao', '2014-11-29', '2014-11-29');
 
 CREATE TABLE website.articles_tags
 (

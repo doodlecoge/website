@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String cp = request.getContextPath();
 %>
@@ -105,7 +106,7 @@
             smartypants: false
         });
         $(function () {
-            var mde = CodeMirror(document.getElementById("editor"), {
+            var mde = CodeMirror.fromTextArea(document.getElementById('raw'), {
                 lineNumbers: true,
                 mode: "markdown",
                 indentUnit: 4,
@@ -165,6 +166,16 @@
             });
         });
     </script>
+
+    <c:if test="${article != null}">
+        <script type="text/javascript">
+            $(function () {
+                <c:forEach items="${article.tags}" var="tag">
+                $('#tags').inputs('addItem', {id:${tag.id}, name: '${tag.name}'});
+                </c:forEach>
+            });
+        </script>
+    </c:if>
 </head>
 <body>
 <table class="tbl_editor">
@@ -175,7 +186,14 @@
     <tr>
         <td class="h">Title:</td>
         <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
-            <input type="text" id="title">
+            <c:choose>
+                <c:when test="${article == null}">
+                    <input type="text" id="title">
+                </c:when>
+                <c:otherwise>
+                    <input type="text" id="title" value="${article.title}">
+                </c:otherwise>
+            </c:choose>
         </td>
     </tr>
 
@@ -197,7 +215,16 @@
     <tr>
         <td class="h">Content:</td>
         <td style="border-bottom: 1px solid #ccc;">
-            <div id="editor"></div>
+            <div id="editor">
+                <c:choose>
+                    <c:when test="${article == null}">
+                        <textarea id='raw'></textarea>
+                    </c:when>
+                    <c:otherwise>
+                        <textarea id='raw'>${article.content}</textarea>
+                    </c:otherwise>
+                </c:choose>
+            </div>
         </td>
     </tr>
 

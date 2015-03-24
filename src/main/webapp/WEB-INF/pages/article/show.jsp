@@ -52,7 +52,6 @@
 </head>
 <body>
 <textarea id="raw" style="display: none;">${article.content}</textarea>
-
 <div class="title">${article.title}</div>
 <hr/>
 <div class="tags">
@@ -61,7 +60,6 @@
     </c:forEach>
 </div>
 <hr/>
-<div>${article.content}</div>
 <div id="note"></div>
 </body>
 </html>

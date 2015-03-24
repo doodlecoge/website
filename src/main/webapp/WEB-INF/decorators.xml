@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/WEB-INF/decorators">
     <excludes>
-        <pattern>/explorer</pattern>
+        <pattern>/tag/json</pattern>
     </excludes>
     <decorator name="layout" page="layout.jsp">
         <pattern>/*</pattern>

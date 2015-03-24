@@ -39,6 +39,7 @@
     <mvc:resources mapping="/img/**" location="/img/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
     <mvc:resources mapping="/cme/**" location="/cme/"/>
+    <mvc:resources mapping="/jqp/**" location="/jqp/"/>
 
     <!-- jsp view resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

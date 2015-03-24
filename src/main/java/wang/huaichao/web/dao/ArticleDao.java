@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import wang.huaichao.web.model.Article;
 import wang.huaichao.web.model.User;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -41,5 +42,17 @@ public class ArticleDao extends TheDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Article.class);
         return criteria.list();
+    }
+
+    public void addArticle(String title, String content, String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Calendar now = Calendar.getInstance();
+        Article article = new Article();
+        article.setUsername(username);
+        article.setTitle(title);
+        article.setContent(content);
+        article.setCreatedAt(now.getTime());
+        article.setUpdatedAt(now.getTime());
+        session.save(article);
     }
 }

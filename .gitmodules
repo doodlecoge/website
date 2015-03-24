@@ -1,0 +1,3 @@
+[submodule "src/main/webapp/jqp"]
+	path = src/main/webapp/jqp
+	url = https://github.com/doodlecoge/jquery-plugins.git

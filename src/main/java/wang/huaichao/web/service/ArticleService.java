@@ -30,5 +30,7 @@ public class ArticleService {
         return articleDao.getArticles(pageNum, pageSize);
     }
 
-
+    public void addArticle(String title, String content, String username) {
+        articleDao.addArticle(title, content, username);
+    }
 }

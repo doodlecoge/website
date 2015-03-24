@@ -13,16 +13,20 @@
 <head>
     <title>Add/Edit Article</title>
     <link rel="stylesheet" type="text/css"
-          href="<%=cp%>/css/jquery-plugins.css">
+          href="<%=cp%>/jqp/menu/jquery-menu.css">
+    <link rel="stylesheet" type="text/css"
+          href="<%=cp%>/jqp/inputs/jquery-inputs.css">
     <link rel="stylesheet" type="text/css"
           href="<%=cp%>/cme/lib/codemirror.css">
 
     <script type="text/javascript"
             src="<%=cp%>/js/marked.js"></script>
     <script type="text/javascript"
-            src="<%=cp%>/js/jquery-ui-core.js"></script>
+            src="<%=cp%>/jqp/lib/jquery-ui-core.js"></script>
     <script type="text/javascript"
-            src="<%=cp%>/js/jquery-plugins.js"></script>
+            src="<%=cp%>/jqp/menu/jquery-menu.js"></script>
+    <script type="text/javascript"
+            src="<%=cp%>/jqp/inputs/jquery-inputs.js"></script>
     <script type="text/javascript"
             src="<%=cp%>/cme/lib/codemirror.js"></script>
     <script type="text/javascript"
@@ -61,6 +65,7 @@
             height: 100%;
             outline: none;
             border: 0px;
+            font-size: 16px;
         }
 
         #preview {
@@ -78,9 +83,27 @@
         .CodeMirror-gutters {
             height: 100% !important;
         }
+
+        #tags {
+            min-height: 30px;
+        }
+
+        .ui_menu {
+            z-index: 1000;
+        }
     </style>
 
     <script type="text/javascript">
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: false
+        });
         $(function () {
             var mde = CodeMirror(document.getElementById("editor"), {
                 lineNumbers: true,
@@ -88,6 +111,57 @@
                 indentUnit: 4,
                 indentWithTabs: true,
                 extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+            });
+            mde.on("change", function (Editor, changes) {
+                var txt = mde.getValue();
+                var html = marked(txt);
+                $("#preview").html(html);
+            });
+            var tags;
+            $('#tags').inputs().inputs('autocomplete', function (filter, cb) {
+                if (!tags) {
+                    var xhr = $.ajax({
+                        url: '<%=request.getContextPath()%>/tag/json',
+                        dataType: 'json'
+                    });
+                    xhr.done(function (data) {
+                        tags = data;
+                        var source = foo();
+                        cb(source);
+                    });
+                } else cb(foo());
+                function foo() {
+                    if (!tags) return [];
+                    var reg = new RegExp(filter);
+                    var source = $.map(tags, function (tag) {
+                        if (reg.test(tag.text)) return tag;
+                    });
+                    return source;
+                }
+            });
+            $('#btn_submit').click(function () {
+                var tags = $('#tags').inputs('getValues');
+                var ids = [];
+                $.each(tags, function (i, tag) {
+                    ids.push(tag.id);
+                });
+                var xhr = $.ajax({
+                    method: 'POST',
+                    url: '<%=request.getContextPath()%>/article/save',
+                    data: {
+                        title: $('#title').val(),
+                        tags: ids.join(','),
+                        content: mde.getValue()
+                    }
+                });
+
+                xhr.done(function (data) {
+                    console.log(data);
+                });
+
+                xhr.fail(function (data) {
+                    console.log(data);
+                });
             });
         });
     </script>
@@ -133,29 +207,11 @@
 
     <tr>
         <td colspan="2" style="text-align: right;">
-            <button class="button">Save</button>
+            <button class="button" id="btn_submit">Save</button>
         </td>
     </tr>
 </table>
 
 <div id="preview"></div>
-
-
-<script type="text/javascript">
-
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false
-    });
-
-    $(function () {
-    });
-</script>
 </body>
 </html>

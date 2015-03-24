@@ -18,6 +18,7 @@
         <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/cme/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/jqp/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <intercept-url pattern="/**" access="ROLE_USER"/>
 

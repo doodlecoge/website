@@ -1,12 +1,9 @@
 package wang.huaichao.web.model;
 
-import org.springframework.context.annotation.Lazy;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/1/19.
@@ -15,6 +12,7 @@ import java.util.Date;
 @Table(name = "articles")
 public class Article {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -34,6 +32,14 @@ public class Article {
 
     @Column(name = "logo_id")
     private Integer logoId;
+
+    @JoinTable(
+            name = "articles_tags",
+            joinColumns = @JoinColumn(name = "aid"),
+            inverseJoinColumns = @JoinColumn(name = "tid")
+    )
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Tag> tags = new ArrayList<Tag>();
 
     public int getId() {
         return id;
@@ -89,5 +95,13 @@ public class Article {
 
     public void setLogoId(Integer logoId) {
         this.logoId = logoId;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

@@ -7,10 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import wang.huaichao.web.model.Article;
 import wang.huaichao.web.model.User;
 import wang.huaichao.web.service.ArticleService;
@@ -31,6 +28,14 @@ public class ArticleController {
         List<Article> articles = articleService.getArticles(1, 10);
         map.put("articles", articles);
         return "article/index";
+    }
+
+    @RequestMapping(value = "/{id}")
+    public String show(@PathVariable int id, ModelMap map) {
+        Article article = articleService.getArticleById(id);
+        map.put("article", article);
+        article.getTags();
+        return "article/show";
     }
 
     @RequestMapping(value = "/new")

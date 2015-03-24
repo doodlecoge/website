@@ -13,7 +13,8 @@
 </head>
 <body>
 <c:forEach items="${articles}" var="article">
-    <c:out value="${article.title}"/>,
+    <a href="<%=request.getContextPath()%>/article/${article.id}">${article.title}</a>
+    <br/>
 </c:forEach>
 </body>
 </html>

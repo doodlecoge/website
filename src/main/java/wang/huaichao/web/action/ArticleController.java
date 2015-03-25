@@ -1,5 +1,6 @@
 package wang.huaichao.web.action;
 
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import wang.huaichao.web.model.Article;
+import wang.huaichao.web.model.Tag;
 import wang.huaichao.web.model.User;
 import wang.huaichao.web.service.ArticleService;
+import wang.huaichao.web.service.TagService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +26,8 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap map) {
@@ -34,7 +40,7 @@ public class ArticleController {
     public String show(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);
         map.put("article", article);
-        article.getTags();
+
         return "article/show";
     }
 
@@ -43,7 +49,7 @@ public class ArticleController {
         return "article/new";
     }
 
-    @RequestMapping(value = "/edit/{id}")
+    @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);
         map.put("article", article);
@@ -51,24 +57,39 @@ public class ArticleController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(@RequestParam String title,
+    @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
+    public String save(@PathVariable int id,
+                       @RequestParam String title,
                        @RequestParam String tags,
                        @RequestParam String content) {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
 
-        if (auth.getPrincipal() instanceof UserDetails) {
-            String username = ((UserDetails) auth.getPrincipal()).getUsername();
-            articleService.addArticle(title, content, username);
-        } else return "{error:true}";
-
         String[] ids = tags.split(",");
-        int[] ints = new int[ids.length];
+        List<Integer> tids = new ArrayList<Integer>();
         for (int i = 0; i < ids.length; i++) {
-            ints[i] = Integer.valueOf(ids[i]);
+            try {
+                tids.add(Integer.valueOf(ids[i]));
+            } catch (NumberFormatException e) {
+            }
         }
 
-        return "{error:false}";
+        JsonObject jobj = new JsonObject();
+
+        if (auth.getPrincipal() instanceof UserDetails) {
+            String username = ((UserDetails) auth.getPrincipal()).getUsername();
+            Article a;
+            if (id == 0)
+                a = articleService.addArticle(
+                        title, content, username, tids
+                );
+            else
+                a = articleService.updateArticle(
+                        id, title, content, username, tids
+                );
+            jobj.addProperty("error", false);
+            jobj.addProperty("aid", a.getId());
+        } else jobj.addProperty("error", true);
+        return jobj.toString();
     }
 }

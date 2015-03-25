@@ -14,6 +14,7 @@
 <body>
 <c:forEach items="${articles}" var="article">
     <a href="<%=request.getContextPath()%>/article/${article.id}">${article.title}</a>
+    ${article.username}
     <br/>
 </c:forEach>
 </body>

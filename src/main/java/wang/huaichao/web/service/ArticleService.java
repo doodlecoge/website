@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wang.huaichao.web.dao.ArticleDao;
+import wang.huaichao.web.dao.TagDao;
 import wang.huaichao.web.model.Article;
+import wang.huaichao.web.model.Tag;
 import wang.huaichao.web.model.User;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 public class ArticleService {
     @Autowired
     private ArticleDao articleDao;
+    @Autowired
+    private TagDao tagDao;
 
     public Article getArticleById(int id) {
         return articleDao.getArticleById(id);
@@ -30,7 +34,13 @@ public class ArticleService {
         return articleDao.getArticles(pageNum, pageSize);
     }
 
-    public void addArticle(String title, String content, String username) {
-        articleDao.addArticle(title, content, username);
+    public Article addArticle(String title, String content, String username, List<Integer> tids) {
+        List<Tag> tags = tagDao.getTags(tids);
+        return articleDao.addArticle(title, content, username, tags);
+    }
+
+    public Article updateArticle(int id, String title, String content, String username, List<Integer> tids) {
+        List<Tag> tags = tagDao.getTags(tids);
+        return articleDao.updateArticle(id, title, content, username, tags);
     }
 }

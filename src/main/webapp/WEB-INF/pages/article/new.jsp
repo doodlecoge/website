@@ -146,20 +146,26 @@
                 $.each(tags, function (i, tag) {
                     ids.push(tag.id);
                 });
+                var id = 0;
+                if ($('#aid').length == 1) id = $('#aid').val();
                 var xhr = $.ajax({
                     method: 'POST',
-                    url: '<%=request.getContextPath()%>/article/save',
+                    url: '<%=request.getContextPath()%>/article/' + id + '/save',
                     data: {
+                        id: id,
                         title: $('#title').val(),
                         tags: ids.join(','),
                         content: mde.getValue()
+                    },
+                    dataType: 'json'
+                });
+                xhr.done(function (data) {
+                    console.log(data.error);
+                    console.log(data);
+                    if (data && data.error == false) {
+                        location.href = "<%=request.getContextPath()%>/article/" + data.aid;
                     }
                 });
-
-                xhr.done(function (data) {
-                    console.log(data);
-                });
-
                 xhr.fail(function (data) {
                     console.log(data);
                 });
@@ -167,17 +173,19 @@
         });
     </script>
 
-    <c:if test="${article != null}">
-        <script type="text/javascript">
-            $(function () {
-                <c:forEach items="${article.tags}" var="tag">
-                $('#tags').inputs('addItem', {id:${tag.id}, name: '${tag.name}'});
-                </c:forEach>
-            });
-        </script>
-    </c:if>
+
 </head>
 <body>
+<c:if test="${article != null}">
+    <script type="text/javascript">
+        $(function () {
+            <c:forEach items="${article.tags}" var="tag">
+            $('#tags').inputs('addItem', {id:${tag.id}, text: '${tag.name}'});
+            </c:forEach>
+        });
+    </script>
+    <input id="aid" type="hidden" value="${article.id}">
+</c:if>
 <table class="tbl_editor">
     <tr>
         <td colspan="2" style="height: 5px;"></td>

@@ -10,6 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "articles")
+@org.hibernate.annotations.Entity(dynamicUpdate = true)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,10 @@ public class Article {
             joinColumns = @JoinColumn(name = "aid"),
             inverseJoinColumns = @JoinColumn(name = "tid")
     )
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+    )
     private List<Tag> tags = new ArrayList<Tag>();
 
     public int getId() {

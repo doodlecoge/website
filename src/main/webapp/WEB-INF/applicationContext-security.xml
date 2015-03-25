@@ -8,12 +8,13 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <global-method-security secured-annotations="enabled"/>
-
+    <http request-matcher="regex" pattern="/article/\d+" security="none"></http>
     <http auto-config="true">
         <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/article" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>

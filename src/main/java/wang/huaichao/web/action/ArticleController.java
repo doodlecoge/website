@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import wang.huaichao.security.UserUtils;
 import wang.huaichao.web.model.Article;
 import wang.huaichao.web.model.Tag;
 import wang.huaichao.web.model.User;
@@ -33,6 +34,7 @@ public class ArticleController {
     public String index(ModelMap map) {
         List<Article> articles = articleService.getArticles(1, 10);
         map.put("articles", articles);
+        map.put("username", UserUtils.getUsername());
         return "article/index";
     }
 

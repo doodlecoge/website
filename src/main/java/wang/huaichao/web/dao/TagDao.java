@@ -22,6 +22,21 @@ public class TagDao extends TheDao {
         return criteria.list();
     }
 
+    public void deleteTag(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Object tag = session.createCriteria(Tag.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
+        session.delete(tag);
+    }
+
+    public void addTag(String name) {
+        Tag tag = new Tag();
+        tag.setName(name);
+        Session session = sessionFactory.getCurrentSession();
+        session.save(tag);
+    }
+
     public List<Tag> getTags(List<Integer> tids) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Tag.class)

@@ -48,12 +48,8 @@
                 by ${article.username},${username}
             </div>
             <c:if test="${username == article.username}">
-                <a href="<%=request.getContextPath()%>/article/${article.id}/del">
-                    Delete
-                </a>
-                <a href="<%=request.getContextPath()%>/article/${article.id}/edit">
-                    Edit
-                </a>
+                <a href="<%=request.getContextPath()%>/article/${article.id}/del">Delete</a>
+                <a href="<%=request.getContextPath()%>/article/${article.id}/edit">Edit</a>
             </c:if>
         </li>
     </c:forEach>

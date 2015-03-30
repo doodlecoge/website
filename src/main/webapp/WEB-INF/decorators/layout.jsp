@@ -1,5 +1,3 @@
-<%@ page import="java.util.regex.Pattern" %>
-<%@ page import="java.util.regex.Matcher" %>
 <%--
   Created by IntelliJ IDEA.
   User: hch
@@ -11,43 +9,39 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
            prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+    String cp = request.getContextPath();
+%>
+<!doctype html>
 <html>
 <head>
     <title><decorator:title/> - Huaichao Wang's Website</title>
-
-    <%
-        Pattern ptn = Pattern.compile("^http://(localhost|127\\.0\\.0\\.1)");
-        String url = request.getRequestURL().toString();
-        Matcher m = ptn.matcher(url);
-        if (m.find()) {
-
-        } else {
-
+    <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
+    <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
+    <style type="text/css">
+        .dock_bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
-    %>
-
-    <link rel="stylesheet"
-          href="<%=request.getContextPath()%>/css/site.css"
-          charset="utf-8">
-
-    <script type="text/javascript"
-            src="<%=request.getContextPath()%>/js/jquery-1.11.1.js"></script>
-
+    </style>
     <script type="text/javascript">
-        console = console || {
-            log: new Function()
+        if (typeof console === 'undefined') {
+            console = {
+                log: new Function()
+            }
         }
     </script>
-
     <decorator:head/>
 </head>
 <body>
 <div id="nav">
     <div class="c">
-        <a href="<%=request.getContextPath()%>/">Home</a>
-        <a href="<%=request.getContextPath()%>/article">Articles</a>
-        <a href="<%=request.getContextPath()%>/article/new">Write sth.</a>
+        <a href="<%=cp%>">Home</a>
+        <a href="<%=cp%>/article">Articles</a>
+        <a href="<%=cp%>/tag">tags</a>
+        <a href="<%=cp%>/article/new">Write sth.</a>
     </div>
 </div>
 <div id="header">
@@ -64,5 +58,13 @@
         Copyright &copy; huaichao.wang since 2014.
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+        console.log($(document).height(),$(document.body).height());
+        if ($(document).height() > $(document.body).height()) {
+            $('#footer').addClass('dock_bottom');
+        }
+    });
+</script>
 </body>
 </html>

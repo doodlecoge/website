@@ -17,7 +17,15 @@ public class TagService {
     @Autowired
     private TagDao tagDao;
 
-    public List<Tag> getUsers() {
+    public List<Tag> getTags() {
         return tagDao.getTags();
+    }
+
+    public void deleteTag(int id) {
+        tagDao.deleteTag(id);
+    }
+
+    public void addTag(String name) {
+        tagDao.addTag(name);
     }
 }

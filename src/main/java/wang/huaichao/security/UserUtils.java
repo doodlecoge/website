@@ -12,6 +12,7 @@ public class UserUtils {
     public static String getUsername() {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
+        if (auth == null) return null;
         Object principal = auth.getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();

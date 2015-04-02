@@ -38,7 +38,7 @@
 <ul class="tags">
     <c:forEach items="${tags}" var="tag">
         <li>
-            <a href="<%=cp%>/article/bytag/${tag.id}">${tag.name}</a>
+            <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
             <a href="<%=cp%>/tag/${tag.id}/del" class="del">x</a>
         </li>
     </c:forEach>

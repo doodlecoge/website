@@ -92,3 +92,19 @@ body, input {
     background: #279;
     border-color: #14a;
 }
+
+
+a.tag {
+    background: #e0e0f0;
+    border-right: 1px solid #79b;
+    border-bottom: 1px solid #468;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 2px 10px;
+}
+
+a.tag:hover {
+    background: #69c;
+    color: #fff;
+}

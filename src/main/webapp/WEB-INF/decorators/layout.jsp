@@ -20,7 +20,7 @@
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
         .dock_bottom {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;

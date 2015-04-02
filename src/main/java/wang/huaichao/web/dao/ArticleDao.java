@@ -1,13 +1,15 @@
 package wang.huaichao.web.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 import wang.huaichao.web.model.Article;
 import wang.huaichao.web.model.Tag;
-import wang.huaichao.web.model.User;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,6 +28,27 @@ public class ArticleDao extends TheDao {
         Criteria criteria = session.createCriteria(Article.class);
         criteria.add(Restrictions.eq("username", username));
         return criteria.list();
+    }
+
+    public List<Article> getArticlesByTag(int id) {
+        Session session = sessionFactory.getCurrentSession();
+
+        List rows = session.createSQLQuery("" +
+                " select aid" +
+                " from website.articles_tags at" +
+                " where at.tid=:id")
+                .addScalar("aid", StandardBasicTypes.INTEGER)
+                .setParameter("id", id)
+                .list();
+        List<Integer> aids = new ArrayList<Integer>();
+        for (Object row : rows) {
+            aids.add(Integer.valueOf(row.toString()));
+        }
+
+        return session.createCriteria(Article.class)
+                .add(Restrictions.in("id", aids))
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     public List<Article> getArticles(int pageNum, int pageSize) {

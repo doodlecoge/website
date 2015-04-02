@@ -38,6 +38,15 @@ public class ArticleController {
         return "article/index";
     }
 
+    // show articles by tag
+    @RequestMapping("/{id}/tag")
+    public String showArticlesByTag(@PathVariable int id, ModelMap map) {
+        List<Article> articles = articleService.getArticlesByTag(id);
+        map.put("articles", articles);
+        map.put("username", UserUtils.getUsername());
+        return "article/index";
+    }
+
     @RequestMapping(value = "/{id}")
     public String show(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);

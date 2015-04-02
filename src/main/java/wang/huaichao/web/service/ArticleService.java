@@ -30,6 +30,12 @@ public class ArticleService {
         return articleDao.getArticlesByUser(username);
     }
 
+    public List<Article> getArticlesByTag(int id) {
+        return articleDao.getArticlesByTag(id);
+    }
+
+
+
     public List<Article> getArticles(int pageNum, int pageSize) {
         return articleDao.getArticles(pageNum, pageSize);
     }

@@ -26,6 +26,7 @@
     <!--==========================================================-->
     <jdbc:embedded-database id="h2Ds" type="H2">
         <jdbc:script location="classpath*:h2.sql" encoding="utf-8"/>
+        <jdbc:script location="classpath*:h2-data.sql" encoding="utf-8"/>
     </jdbc:embedded-database>
 
     <bean id="h2Sf"

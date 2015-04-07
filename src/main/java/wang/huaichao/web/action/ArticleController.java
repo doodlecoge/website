@@ -51,6 +51,7 @@ public class ArticleController {
     public String show(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);
         map.put("article", article);
+        map.put("username", UserUtils.getUsername());
 
         return "article/show";
     }

@@ -55,15 +55,15 @@
                 </div>
             </c:if>
             <div style="margin-top: 6px; color: #888;">
-                by ${article.username},
-                created
+                by ${article.user.fullname},
+                created at
                 <fmt:formatDate value="${article.createdAt}"
-                                pattern="yyyy-MM-dd"/>
-                updated
+                                pattern="yyyy-MM-dd"/>,
+                updated at
                 <fmt:formatDate value="${article.updatedAt}"
                                 pattern="yyyy-MM-dd"/>
             </div>
-            <c:if test="${username == article.username}">
+            <c:if test="${username == article.user.username}">
                 <a href="<%=cp%>/article/${article.id}/del">Delete</a>
                 <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
             </c:if>

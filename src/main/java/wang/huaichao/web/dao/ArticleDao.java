@@ -8,6 +8,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 import wang.huaichao.web.model.Article;
 import wang.huaichao.web.model.Tag;
+import wang.huaichao.web.model.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,7 +75,10 @@ public class ArticleDao extends TheDao {
         Calendar now = Calendar.getInstance();
         Article article = new Article();
 
-        article.setUsername(username);
+        User user = new User();
+        user.setUsername(username);
+
+        article.setUser(user);
         article.setTitle(title);
         article.setContent(content);
         article.setCreatedAt(now.getTime());
@@ -85,13 +89,14 @@ public class ArticleDao extends TheDao {
         return article;
     }
 
-    public Article updateArticle(int id, String title, String content, String username, List<Tag> tags) {
+    public Article updateArticle(int id, String title, String content,
+                                 String username, List<Tag> tags) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Article.class);
         criteria.add(Restrictions.eq("id", id));
         Calendar now = Calendar.getInstance();
         Article article = (Article) criteria.uniqueResult();
-        if (!article.getUsername().equals(username))
+        if (!article.getUser().getUsername().equals(username))
             throw new RuntimeException("no privilege to update article " + id);
         article.setTitle(title);
         article.setContent(content);

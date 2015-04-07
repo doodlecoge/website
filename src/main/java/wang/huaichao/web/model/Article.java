@@ -22,9 +22,6 @@ public class Article {
     @Column
     private String content;
 
-    @Column
-    private String username;
-
     @Column(name = "created_at")
     private Date createdAt;
 
@@ -33,6 +30,10 @@ public class Article {
 
     @Column(name = "logo_id")
     private Integer logoId;
+
+    @OneToOne
+    @JoinColumn(name = "username")
+    private User user;
 
     @JoinTable(
             name = "articles_tags",
@@ -69,14 +70,6 @@ public class Article {
         this.content = content;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -99,6 +92,14 @@ public class Article {
 
     public void setLogoId(Integer logoId) {
         this.logoId = logoId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Tag> getTags() {

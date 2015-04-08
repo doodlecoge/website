@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            /*min-height: 100%;*/
+        }
+
         .dock_bottom {
             position: fixed;
             bottom: 0;
@@ -32,6 +40,30 @@
                 log: new Function()
             }
         }
+        $.fn.winresize = function (f) {
+            if (this.get(0) !== window) return;
+            var timer = null;
+            $(window).resize(function () {
+                clearTimeout(timer);
+                timer = setTimeout(function () {
+                    f();
+                }, 1);
+            });
+            return this;
+        };
+        function dock_bottom() {
+            var off = $('#footer').offset();
+            var outerheight = $('#footer').outerHeight()
+            if (off.top + outerheight < document.documentElement.clientHeight) {
+                $('#footer').addClass('dock_bottom');
+            }else {
+                $('#footer').removeClass('dock_bottom');
+            }
+        }
+        $(window).winresize(function() {
+            console.log('===================')
+            dock_bottom();
+        });
     </script>
     <decorator:head/>
 </head>
@@ -59,12 +91,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        console.log($(document).height(),$(document.body).height());
-        if ($(document).height() > $(document.body).height()) {
-            $('#footer').addClass('dock_bottom');
-        }
-    });
+    dock_bottom();
 </script>
 </body>
 </html>

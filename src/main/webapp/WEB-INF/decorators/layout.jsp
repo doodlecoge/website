@@ -56,12 +56,11 @@
             var outerheight = $('#footer').outerHeight()
             if (off.top + outerheight < document.documentElement.clientHeight) {
                 $('#footer').addClass('dock_bottom');
-            }else {
+            } else {
                 $('#footer').removeClass('dock_bottom');
             }
         }
-        $(window).winresize(function() {
-            console.log('===================')
+        $(window).winresize(function () {
             dock_bottom();
         });
     </script>

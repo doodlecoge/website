@@ -28,11 +28,19 @@ body, input {
 }
 
 #nav {
-    line-height: 35px;
+    line-height: 40px;
+    background: #555;
 }
 
 #nav a {
     margin-right: 10px;
+    color: #ccc;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#nav a:hover {
+    color: #f8f8f8;
 }
 
 #header {

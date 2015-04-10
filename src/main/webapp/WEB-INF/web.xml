@@ -8,12 +8,25 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/applicationContext.xml, WEB-INF/applicationContext-security.xml</param-value>
+        <param-value>WEB-INF/applicationContext.xml,
+            WEB-INF/applicationContext-security.xml
+        </param-value>
     </context-param>
 
     <listener>
         <!--<listener-class>me.hch.utils.SharedContexLoaderListener</listener-class>-->
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>webAppRootKey</param-name>
+        <param-value>web.root.dir</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.util.WebAppRootListener
+        </listener-class>
     </listener>
 
     <filter>
@@ -23,7 +36,8 @@
     </filter>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
     </filter>
 
     <filter-mapping>
@@ -35,6 +49,15 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>wang.huaichao.web.UploadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>progress</servlet-name>
+        <servlet-class>wang.huaichao.web.UploadProgress</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
@@ -46,6 +69,16 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>progress</servlet-name>
+        <url-pattern>/progress</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>

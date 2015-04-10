@@ -3,3 +3,4 @@ db.properties
 *.iml
 target/
 cme/
+tmp/

@@ -20,9 +20,9 @@
 
 
     <root>
-        <level value="warn"/>
+        <level value="debug"/>
         <appender-ref ref="consoleAppender"/>
-        <appender-ref ref="fileAppender"/>
+        <!--<appender-ref ref="fileAppender"/>-->
     </root>
 
 </log4j:configuration>

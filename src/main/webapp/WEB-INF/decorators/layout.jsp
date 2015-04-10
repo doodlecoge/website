@@ -47,7 +47,7 @@
                 clearTimeout(timer);
                 timer = setTimeout(function () {
                     f();
-                }, 1);
+                }, 10);
             });
             return this;
         };
@@ -69,7 +69,7 @@
 <body>
 <div id="nav">
     <div class="c">
-        <a href="<%=cp%>">Home</a>
+        <a href="<%=cp%>/">Home</a>
         <a href="<%=cp%>/article">Articles</a>
         <a href="<%=cp%>/tag">tags</a>
         <a href="<%=cp%>/article/new">Write sth.</a>

@@ -900,6 +900,8 @@ function Parser(options) {
   this.options.renderer = this.options.renderer || new Renderer;
   this.renderer = this.options.renderer;
   this.renderer.options = this.options;
+  this.outline = '';
+  this.headingLevel = 0;
 }
 
 /**
@@ -970,6 +972,25 @@ Parser.prototype.tok = function() {
       return this.renderer.hr();
     }
     case 'heading': {
+      var id = this.options.headerPrefix +
+        this.token.text.toLowerCase().replace(/[^\w]+/g, '-');
+
+      if (this.token.depth > this.headingLevel) {
+        for (var i = 0; i < this.token.depth - this.headingLevel - 1; i++) {
+          this.outline += '<ul><li><a>missing h' + (this.headingLevel + i + 1) + '</a>';
+        }
+        this.outline += '<ul><li><a href="#' + id + '">' + this.token.text + '</a>';
+      } else if (this.token.depth == this.headingLevel) {
+        this.outline += '</li><li><a>' + this.token.text + '</a>';
+      } else {
+        for (var i = 0; i < this.headingLevel - this.token.depth; i++) {
+          this.outline += '</li></ul>';
+        }
+        this.outline += '<li><a href="#' + id + '">' + this.token.text + '</a>';
+      }
+
+      this.headingLevel = this.token.depth;
+
       return this.renderer.heading(
         this.inline.output(this.token.text),
         this.token.depth,
@@ -1164,6 +1185,9 @@ function marked(src, opt, callback) {
 
       try {
         out = Parser.parse(tokens, opt);
+        for(var i = 0; i < this.headingLevel; i++) {
+          this.outline += '</li></ul>';
+        }
       } catch (e) {
         err = e;
       }
@@ -1172,7 +1196,7 @@ function marked(src, opt, callback) {
 
       return err
         ? callback(err)
-        : callback(null, out);
+        : callback(null, out, this.outline);
     };
 
     if (!highlight || highlight.length < 3) {
@@ -1204,7 +1228,11 @@ function marked(src, opt, callback) {
   }
   try {
     if (opt) opt = merge({}, marked.defaults, opt);
-    return Parser.parse(Lexer.lex(src, opt), opt);
+    var parser = new Parser(opt);
+    var out = parser.parse(Lexer.lex(src, opt));
+    var outline = parser.outline;
+    return '<div class="outline">' + outline + '</div>' + out;
+    //return Parser.parse(Lexer.lex(src, opt), opt);
   } catch (e) {
     e.message += '\nPlease report this to https://github.com/chjj/marked.';
     if ((opt || marked.defaults).silent) {

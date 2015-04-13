@@ -23,13 +23,13 @@
         ul.tags li {
             list-style: none;
             display: inline-block;
-            background: #eee;
-            padding: 5px 10px;
-            font-size: 18px;
         }
 
-        ul.tags li a.del {
-            text-decoration: none;
+        i.del {
+            font-size: 12px;
+        }
+        i.del:hover {
+            color: #eee;
         }
     </style>
 </head>
@@ -39,7 +39,7 @@
     <c:forEach items="${tags}" var="tag">
         <li>
             <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
-            <a href="<%=cp%>/tag/${tag.id}/del" class="del">x</a>
+            <i class="del fa fa-times" tid="${tag.id}"></i>
         </li>
     </c:forEach>
 </ul>
@@ -55,9 +55,10 @@
 <script type="text/javascript">
     $(function () {
         $('.tags').click(function (e) {
-            if (e.target.nodeName != 'i') return;
-            var tid = $(e.target).parent().attr('tid');
-            alert(tid);
+            if (e.target.nodeName != 'I') return;
+            e.preventDefault();
+            var tid = $(e.target).attr('tid');
+            location.href = "<%=cp%>/tag/" + tid + "/del";
         });
     });
 </script>

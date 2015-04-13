@@ -8,21 +8,20 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <global-method-security secured-annotations="enabled"/>
-    <http request-matcher="regex" pattern="/article/\d(/tag)?" security="none"></http>
-    <http request-matcher="regex" pattern="/tag" security="none"></http>
-    <http auto-config="true">
-        <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    <!--<http request-matcher="regex" pattern="/article/\d(/tag)?" security="none"></http>-->
+    <!--<http request-matcher="regex" pattern="/tag" security="none"></http>-->
 
-        <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/article" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/img/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/cme/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="/jqp/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    <http auto-config="true" path-type="regex">
+        <intercept-url pattern="^/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/login.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/article" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/article/\d+(/tag)?" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/tag" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
-        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+        <intercept-url pattern="/.*" access="ROLE_USER"/>
 
         <form-login login-page="/login_page"
                     login-processing-url="/login"

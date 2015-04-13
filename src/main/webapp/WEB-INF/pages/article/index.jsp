@@ -16,59 +16,92 @@
 <head>
     <title>Articles</title>
     <style type="text/css">
-        .articles {
+        ul.articles {
             margin: 0;
             padding: 0;
         }
 
-        .articles li {
+        ul.articles li.line {
             padding-bottom: 20px;
             list-style: none;
+            position: relative;
         }
 
-        .articles li .title {
+        ul.articles li.line div.img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        ul.articles li.line div.right {
+            margin-left: 80px;
+        }
+
+        ul.articles li.line .title {
             font-size: 1.6em;
             text-decoration: none;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
-        .articles li .title:hover{
+
+        ul.articles li.line .title:hover {
             text-decoration: underline;
             color: #f66;
         }
     </style>
 </head>
 <body>
-<ul class="articles">
-    <c:forEach items="${articles}" var="article">
-        <li>
-            <a href="<%=cp%>/article/${article.id}"
-               class="title">
-                    ${article.title}
-            </a>
-            <c:if test="${fn:length(article.tags) > 0}">
-                <div>
-                    <c:forEach items="${article.tags}" var="tag">
-                        <a class="tag"
-                           href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
-                    </c:forEach>
+<br/>
+<c:if test="${fn:length(articles) > 0}">
+    <ul class="articles">
+        <c:forEach items="${articles}" var="article">
+            <li class="line">
+                <div class="img"></div>
+                <div class="right">
+                    <a href="<%=cp%>/article/${article.id}"
+                       class="title">
+                            ${article.title}
+                    </a>
+                    <c:if test="${fn:length(article.tags) > 0}">
+                        <ul class="tags">
+                            <c:forEach items="${article.tags}" var="tag">
+                                <li>
+                                    <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                    <div style="margin-bottom:10px; color: #888;">
+                        by ${article.user.fullname},
+                        created at
+                        <fmt:formatDate value="${article.createdAt}"
+                                        pattern="yyyy-MM-dd"/>,
+                        updated at
+                        <fmt:formatDate value="${article.updatedAt}"
+                                        pattern="yyyy-MM-dd"/>
+                    </div>
+                    <c:if test="${username == article.user.username}">
+                        <div>
+                            <a href="<%=cp%>/article/${article.id}/del">Delete</a>
+                            <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
+                        </div>
+                    </c:if>
                 </div>
-            </c:if>
-            <div style="margin-top: 6px; color: #888;">
-                by ${article.user.fullname},
-                created at
-                <fmt:formatDate value="${article.createdAt}"
-                                pattern="yyyy-MM-dd"/>,
-                updated at
-                <fmt:formatDate value="${article.updatedAt}"
-                                pattern="yyyy-MM-dd"/>
-            </div>
-            <c:if test="${username == article.user.username}">
-                <a href="<%=cp%>/article/${article.id}/del">Delete</a>
-                <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
-            </c:if>
-        </li>
-    </c:forEach>
-</ul>
+            </li>
+        </c:forEach>
+    </ul>
+</c:if>
+
+<c:if test="${fn:length(articles) == 0}">
+    <p>
+        <i class="fa fa-exclamation-triangle"
+           style="font-size: 24px; color: #f33;"></i>
+        No Articles!
+    </p>
+</c:if>
 </body>
 </html>

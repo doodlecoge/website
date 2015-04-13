@@ -17,6 +17,7 @@
 <head>
     <title><decorator:title/> - Huaichao Wang's Website</title>
     <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
+    <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css" charset="utf-8">
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
         html {

@@ -5,18 +5,23 @@ VALUES
   ('chaochao', 'pass1234', 'Chaochao Wang', NULL, 'USER', '2014-11-29');
 
 
-
 INSERT INTO website.tags (id, name)
 VALUES
-  (1, 'hibernate'),
-  (2, 'java'),
-  (3, 'javascript'),
-  (4, 'c/c++'),
-  (5, 'spring'),
-  (6, 'struts'),
-  (7, 'vb'),
-  (8, 'c#'),
-  (9, 'python');
+  (01, 'hibernate'),
+  (02, 'java'),
+  (03, 'javascript'),
+  (04, 'c/c++'),
+  (05, 'spring'),
+  (06, 'struts'),
+  (07, 'vb'),
+  (08, 'c#'),
+  (09, 'python'),
+  (10, 'shell'),
+  (11, 'jdbc'),
+  (12, 'oracle'),
+  (13, 'obj-c'),
+  (14, 'android'),
+  (15, 'tcp/udp');
 
 
 INSERT INTO website.articles

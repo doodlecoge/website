@@ -31,6 +31,7 @@
 
         #note {
             border-top: 1px dashed #69c;
+            margin-top: 10px;
         }
     </style>
     <script type="text/javascript">
@@ -54,9 +55,9 @@
 <body>
 <textarea id="raw" style="display: none;">${article.content}</textarea>
 
-<h1>${article.title}</h1>
+<h1 style="margin-bottom: 10px;">${article.title}</h1>
 
-<div style="margin-top: 6px; color: #888;">
+<div style="color: #888; margin-bottom: 10px">
     by ${article.user.username}
     created at
     <fmt:formatDate value="${article.createdAt}"
@@ -66,11 +67,13 @@
                     pattern="yyyy-MM-dd"/>
 </div>
 <c:if test="${fn:length(article.tags) > 0}">
-    <div class="tags">
+    <ul class="tags">
         <c:forEach items="${article.tags}" var="tag">
-            <a href="<%=cp%>/article/${tag.id}/tag" class="tag">${tag.name}</a>
+            <li>
+                <a href="<%=cp%>/article/${tag.id}/tag" class="tag">${tag.name}</a>
+            </li>
         </c:forEach>
-    </div>
+    </ul>
 </c:if>
 <c:if test="${username == article.user.username}">
     <a href="<%=cp%>/article/${article.id}/del">Delete</a>

@@ -4,3 +4,5 @@ db.properties
 target/
 cme/
 tmp/
+fonts/
+font-awesome.min.css

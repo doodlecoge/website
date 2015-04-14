@@ -15,21 +15,32 @@
 <head>
     <title>Articles</title>
     <style type="text/css">
-        ul.tags {
-            padding: 0;
-            margin: 0;
+        @media screen and (min-device-width: 960px) {
+            ul.tags li i.fa-times {
+                color: #f55;
+                cursor: pointer;
+            }
+
+            ul.tags li i.fa-times:hover {
+                color: #f00;
+            }
         }
 
-        ul.tags li {
-            list-style: none;
-            display: inline-block;
-        }
-
-        i.del {
-            font-size: 12px;
-        }
-        i.del:hover {
-            color: #eee;
+        @media screen and (max-device-width: 600px) {
+            ul.tags li {
+                display: block;
+                line-height: 35px;
+                border-right-color: transparent;
+            }
+            ul.tags li:active {
+                border: 1px solid transparent;
+                border-bottom: 1px solid #468;
+            }
+            ul.tags li i {
+                float: right;
+                margin-top: 10px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>

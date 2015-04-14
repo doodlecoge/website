@@ -16,6 +16,7 @@
 <html>
 <head>
     <title><decorator:title/> - Huaichao Wang's Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
     <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css" charset="utf-8">
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
@@ -27,10 +28,6 @@
         body {
             /*min-height: 100%;*/
             padding-bottom: 50px;
-            background: #f8f8f8;
-        }
-
-        input {
             background: #f8f8f8;
         }
 

@@ -1,7 +1,8 @@
-body, input {
+body, input[type="text"] {
     padding: 0px;
     margin: 0px;
     font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace, "微软雅黑", "宋体";
+    background: #f8f8f8;
 }
 
 .transparent50 {
@@ -22,9 +23,20 @@ body, input {
 }
 
 /***************************layout***************************/
-.c {
-    width: 960px;
-    margin: 0 auto;
+
+
+@media screen and (min-device-width: 960px) {
+    .c {
+        width: 960px;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+}
+
+@media screen and (max-device-width: 600px) {
+    .c {
+        padding: 0 10px;
+    }
 }
 
 #nav {
@@ -100,6 +112,7 @@ body, input {
     border-color: #14a;
 }
 
+
 ul.tags {
     padding: 0;
     margin: 0;
@@ -133,18 +146,7 @@ ul.tags li a:hover {
     color: #333;
 }
 
-ul.tags li i.fa-times {
-    color: #f55;
-    cursor: pointer;
-}
 
-/*ul.tags li:hover i.fa-times {*/
-    /*color: #f33;*/
-/*}*/
-
-ul.tags li i.fa-times:hover {
-    color: #f00;
-}
 
 /*===========================================================================*/
 /* preview                                                                   */

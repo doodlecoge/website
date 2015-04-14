@@ -26,6 +26,8 @@
 
         body {
             /*min-height: 100%;*/
+            padding-bottom: 50px;
+            background: #f8f8f8;
         }
 
         .dock_bottom {
@@ -41,29 +43,29 @@
                 log: new Function()
             }
         }
-        $.fn.winresize = function (f) {
-            if (this.get(0) !== window) return;
-            var timer = null;
-            $(window).resize(function () {
-                clearTimeout(timer);
-                timer = setTimeout(function () {
-                    f();
-                }, 10);
-            });
-            return this;
-        };
-        function dock_bottom() {
-            var off = $('#footer').offset();
-            var outerheight = $('#footer').outerHeight()
-            if (off.top + outerheight < document.documentElement.clientHeight) {
-                $('#footer').addClass('dock_bottom');
-            } else {
-                $('#footer').removeClass('dock_bottom');
-            }
-        }
-        $(window).winresize(function () {
-            dock_bottom();
-        });
+//        $.fn.winresize = function (f) {
+//            if (this.get(0) !== window) return;
+//            var timer = null;
+//            $(window).resize(function () {
+//                clearTimeout(timer);
+//                timer = setTimeout(function () {
+//                    f();
+//                }, 10);
+//            });
+//            return this;
+//        };
+//        function dock_bottom() {
+//            var off = $('#footer').offset();
+//            var outerheight = $('#footer').outerHeight()
+//            if (off.top + outerheight < document.documentElement.clientHeight) {
+//                $('#footer').addClass('dock_bottom');
+//            } else {
+//                $('#footer').removeClass('dock_bottom');
+//            }
+//        }
+//        $(window).winresize(function () {
+//            dock_bottom();
+//        });
     </script>
     <decorator:head/>
 </head>
@@ -85,13 +87,13 @@
 <div id="content" class="c">
     <decorator:body/>
 </div>
-<div id="footer">
+<div id="footer" class="dock_bottom">
     <div class="c">
         Copyright &copy; huaichao.wang since 2014.
     </div>
 </div>
 <script type="text/javascript">
-    dock_bottom();
+//    dock_bottom();
 </script>
 </body>
 </html>

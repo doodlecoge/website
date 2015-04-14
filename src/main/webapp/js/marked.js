@@ -904,12 +904,14 @@ Renderer.prototype.image = function(href, title, text) {
   Outline.prototype.render = function () {
     var len = this.headings.length;
     if (len == 0) return '';
-    var min = 0;
+    var min = 999;
     for (var i = 0; i < len; i++) {
-      if (this.headings[i].level > min) min = this.headings[i].level;
+      if (this.headings[i].level < min) min = this.headings[i].level;
     }
+    min = min - 1;
     var cur = min;
     var rst = '', id, level, text;
+
     for (var i = 0; i < len; i++) {
       id = this.headings[i].id;
       level = this.headings[i].level;
@@ -924,7 +926,7 @@ Renderer.prototype.image = function(href, title, text) {
       } else if (cur == level) {
         rst += '</li><li><a href="#' + id + '">' + text + '</a>';
       } else {
-        var down = level - cur;
+        var down = cur - level;
         for (var j = 0; j < down; j++) {
           rst += '</li></ul>';
         }
@@ -932,6 +934,7 @@ Renderer.prototype.image = function(href, title, text) {
       }
       cur = level;
     }
+    console.log(cur, min);
     for (var i = 0; i < cur - min; i++) {
       rst += '</li></ul>';
     }

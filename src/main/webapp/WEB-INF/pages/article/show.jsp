@@ -28,27 +28,38 @@
             background: #eee;
             margin-right: 10px;
         }
-
-        #note {
-            border-top: 1px dashed #69c;
+        #note_wrapper {
             margin-top: 10px;
+            background: #ddd;
+            position: relative;
+            border-top: 1px dashed #69c;
+            vertical-align: top;
+        }
+        #note {
+            margin-right: 310px;
+            padding-right: 10px;
+            height: 100%;
+            background: #f8f8f8;
+            vertical-align: top;
+        }
+        #outline {
+            float: right;
+            width: 300px;
+            padding: 5px 0;
+            min-height: 100px;
+        }
+        #outline ul {
+            padding: 0;
+            margin: 0;
+            padding-left: 30px;
         }
     </style>
     <script type="text/javascript">
-        marked.setOptions({
-            renderer: new marked.Renderer(),
-            gfm: true,
-            tables: true,
-            breaks: false,
-            pedantic: false,
-            sanitize: true,
-            smartLists: true,
-            smartypants: false
-        });
         $(function () {
             var txt = $('#raw').val();
-            var html = marked(txt);
-            $("#note").html(html);
+            var data = marked.withOutline(txt);
+            $("#note").html(data.html);
+            $("#outline").html(data.outline);
         });
     </script>
 </head>
@@ -79,6 +90,9 @@
     <a href="<%=cp%>/article/${article.id}/del">Delete</a>
     <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
 </c:if>
-<div id="note"></div>
+<div id="note_wrapper">
+    <div id="outline"></div>
+    <div id="note"></div>
+</div>
 </body>
 </html>

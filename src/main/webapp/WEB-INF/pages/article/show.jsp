@@ -28,13 +28,15 @@
             background: #eee;
             margin-right: 10px;
         }
+
         #note_wrapper {
             margin-top: 10px;
             background: #ddd;
-            position: relative;
             border-top: 1px dashed #69c;
             vertical-align: top;
+            position: relative;
         }
+
         #note {
             margin-right: 310px;
             padding-right: 10px;
@@ -42,16 +44,29 @@
             background: #f8f8f8;
             vertical-align: top;
         }
+
         #outline {
             float: right;
             width: 300px;
             padding: 5px 0;
             min-height: 100px;
         }
+
+        .overmenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+        }
+
         #outline ul {
             padding: 0;
             margin: 0;
             padding-left: 30px;
+        }
+
+        #outline ul li {
+            font-size: 18px;
+            line-height: 22px;
         }
     </style>
     <script type="text/javascript">
@@ -60,6 +75,20 @@
             var data = marked.withOutline(txt);
             $("#note").html(data.html);
             $("#outline").html(data.outline);
+
+            var outline = $('#outline');
+            var h = outline.offset().top;
+            var l = outline.offset().left;
+
+            $(window).on('scroll', function () {
+                if ($(window).scrollTop() > h) {
+                    outline.addClass('overmenu');
+                    outline.css('left', l + 'px');
+                } else {
+                    outline.removeClass('overmenu');
+                    outline.css('left', '');
+                }
+            });
         });
     </script>
 </head>
@@ -92,7 +121,7 @@
 </c:if>
 <div id="note_wrapper">
     <div id="outline"></div>
-    <div id="note"></div>
+    <div id="note" class="preview"></div>
 </div>
 </body>
 </html>

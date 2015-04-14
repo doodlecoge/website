@@ -108,6 +108,7 @@ ul.tags {
 ul.tags li {
     list-style: none;
     display: inline-block;
+    border: 1px solid transparent;
     border-right: 1px solid #79b;
     border-bottom: 1px solid #468;
     background: #e0e0f0;
@@ -116,15 +117,20 @@ ul.tags li {
     margin-bottom: 10px;
 }
 
-ul.tags li:hover {
-    background: #69c;
-    color: #fff;
+ul.tags li:active {
+    border: 1px solid transparent;
+    border-left: 1px solid #79b;
+    border-top: 1px solid #468;
 }
 
 ul.tags li a {
     cursor: pointer;
     text-decoration: none;
-    color: inherit;
+    color: #888;
+}
+
+ul.tags li a:hover {
+    color: #333;
 }
 
 ul.tags li i.fa-times {
@@ -132,18 +138,56 @@ ul.tags li i.fa-times {
     cursor: pointer;
 }
 
-ul.tags li:hover i.fa-times {
-    color: #fbb;
-}
+/*ul.tags li:hover i.fa-times {*/
+    /*color: #f33;*/
+/*}*/
 
 ul.tags li i.fa-times:hover {
-    color: #fff;
+    color: #f00;
 }
 
 /*===========================================================================*/
 /* preview                                                                   */
 /*===========================================================================*/
 
-h1, h2, h3, h4, h5, h6 {
+.preview {
+    font-size: 18px;
+}
+
+.preview h1, .preview h2, .preview h3, .preview h4, .preview h5, .preview h6 {
     margin: 0;
+    color: #222;
+}
+
+.preview code {
+    display: block;
+    background: #eee;
+    padding: 10px;
+    border-left: 5px solid #ccc;
+    color: #444;
+}
+
+.preview p {
+    padding: 0;
+    line-height: 22px;
+    color: #222;
+}
+
+.preview table {
+    border-collapse: collapse;
+}
+
+.preview table th {
+    border: 1px solid #888;
+    background: #eee;
+    padding: 0.5em 1em;
+}
+
+.preview table td {
+    border: 1px solid #888;
+    padding: 0.5em 1em;
+}
+
+.preview del {
+    color: #f33;
 }

@@ -48,17 +48,13 @@
             padding: 0;
             margin: 0;
             border: 0;
-            height: 40px;
+            height: 30px;
         }
 
         .tbl_editor .h {
             width: 1%;
             background: #ccc;
             padding: 5px;
-        }
-
-        #editor {
-            height: 250px;
         }
 
         #title {
@@ -70,9 +66,7 @@
         }
 
         #preview {
-            max-height: 250px;
             overflow-y: auto;
-            font-size: 12px;
             margin: 10px 0;
         }
 
@@ -108,6 +102,7 @@
         $(function () {
             var mde = CodeMirror.fromTextArea(document.getElementById('raw'), {
                 lineNumbers: true,
+                lineWrapping: true,
                 mode: "markdown",
                 indentUnit: 4,
                 indentWithTabs: true,
@@ -196,10 +191,10 @@
         <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
             <c:choose>
                 <c:when test="${article == null}">
-                    <input type="text" id="title">
+                    <input type="text" id="title" style="font-size: 14px;">
                 </c:when>
                 <c:otherwise>
-                    <input type="text" id="title" value="${article.title}">
+                    <input type="text" id="title" style="font-size: 24px;" value="${article.title}">
                 </c:otherwise>
             </c:choose>
         </td>
@@ -223,7 +218,7 @@
     <tr>
         <td class="h">Content:</td>
         <td style="border-bottom: 1px solid #ccc;">
-            <div id="editor">
+            <div id="editor" style="height: 300px">
                 <c:choose>
                     <c:when test="${article == null}">
                         <textarea id='raw'></textarea>
@@ -247,6 +242,6 @@
     </tr>
 </table>
 
-<div id="preview"></div>
+<div id="preview" class="preview"></div>
 </body>
 </html>

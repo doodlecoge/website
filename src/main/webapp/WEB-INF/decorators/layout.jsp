@@ -30,6 +30,10 @@
             background: #f8f8f8;
         }
 
+        input {
+            background: #f8f8f8;
+        }
+
         .dock_bottom {
             position: fixed;
             bottom: 0;

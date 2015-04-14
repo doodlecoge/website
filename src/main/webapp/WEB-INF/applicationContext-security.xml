@@ -18,6 +18,7 @@
         <intercept-url pattern="^/article" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="^/article/\d+(/tag)?" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="^/tag" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/helper/.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
         <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 

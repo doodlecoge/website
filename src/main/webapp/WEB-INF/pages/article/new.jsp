@@ -191,7 +191,7 @@
         <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
             <c:choose>
                 <c:when test="${article == null}">
-                    <input type="text" id="title" style="font-size: 14px;">
+                    <input type="text" id="title" style="font-size: 24px;">
                 </c:when>
                 <c:otherwise>
                     <input type="text" id="title" style="font-size: 24px;" value="${article.title}">

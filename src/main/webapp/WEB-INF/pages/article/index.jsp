@@ -60,7 +60,12 @@
     <ul class="articles">
         <c:forEach items="${articles}" var="article">
             <li class="line">
-                <div class="img"></div>
+                <div class="img">
+                    <div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">
+                        <img src="<%=cp%>/img/no-img.png"
+                             style="max-width: 60px; max-height: 60px;">
+                    </div>
+                </div>
                 <div class="right">
                     <a href="<%=cp%>/article/${article.id}"
                        class="title">

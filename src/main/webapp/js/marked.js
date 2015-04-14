@@ -889,6 +889,55 @@ Renderer.prototype.image = function(href, title, text) {
   return out;
 };
 
+  /**
+   * Outline
+   */
+
+  function Outline() {
+    this.headings = [];
+  }
+
+  Outline.prototype.addHeading = function (id, text, level) {
+    this.headings.push({id: id, text: text, level: level});
+  };
+
+  Outline.prototype.render = function () {
+    var len = this.headings.length;
+    if (len == 0) return '';
+    var min = 0;
+    for (var i = 0; i < len; i++) {
+      if (this.headings[i].level > min) min = this.headings[i].level;
+    }
+    var cur = min;
+    var rst = '', id, level, text;
+    for (var i = 0; i < len; i++) {
+      id = this.headings[i].id;
+      level = this.headings[i].level;
+      text = this.headings[i].text;
+
+      if (cur < level) {
+        var missing = level - cur - 1;
+        for (var j = 0; j < missing; j++) {
+          rst += '<ul><li><a>missing h' + (cur + j + 1) + '</a>';
+        }
+        rst += '<ul><li><a href="#' + id + '">' + text + '</a>';
+      } else if (cur == level) {
+        rst += '</li><li><a href="#' + id + '">' + text + '</a>';
+      } else {
+        var down = level - cur;
+        for (var j = 0; j < down; j++) {
+          rst += '</li></ul>';
+        }
+        rst += '</li><li><a href="#' + id + '">' + text + '</a>';
+      }
+      cur = level;
+    }
+    for (var i = 0; i < cur - min; i++) {
+      rst += '</li></ul>';
+    }
+    return rst;
+  };
+
 /**
  * Parsing & Compiling
  */
@@ -900,8 +949,7 @@ function Parser(options) {
   this.options.renderer = this.options.renderer || new Renderer;
   this.renderer = this.options.renderer;
   this.renderer.options = this.options;
-  this.outline = '';
-  this.headingLevel = 0;
+  this.outline = null;
 }
 
 /**
@@ -972,24 +1020,11 @@ Parser.prototype.tok = function() {
       return this.renderer.hr();
     }
     case 'heading': {
-      var id = this.options.headerPrefix +
-        this.token.text.toLowerCase().replace(/[^\w]+/g, '-');
-
-      if (this.token.depth > this.headingLevel) {
-        for (var i = 0; i < this.token.depth - this.headingLevel - 1; i++) {
-          this.outline += '<ul><li><a>missing h' + (this.headingLevel + i + 1) + '</a>';
-        }
-        this.outline += '<ul><li><a href="#' + id + '">' + this.token.text + '</a>';
-      } else if (this.token.depth == this.headingLevel) {
-        this.outline += '</li><li><a>' + this.token.text + '</a>';
-      } else {
-        for (var i = 0; i < this.headingLevel - this.token.depth; i++) {
-          this.outline += '</li></ul>';
-        }
-        this.outline += '<li><a href="#' + id + '">' + this.token.text + '</a>';
+      if(this.outline) {
+        var id = this.options.headerPrefix +
+          this.token.text.toLowerCase().replace(/[^\w]+/g, '-');
+        this.outline.addHeading(id, this.token.text, this.token.depth);
       }
-
-      this.headingLevel = this.token.depth;
 
       return this.renderer.heading(
         this.inline.output(this.token.text),
@@ -1228,11 +1263,7 @@ function marked(src, opt, callback) {
   }
   try {
     if (opt) opt = merge({}, marked.defaults, opt);
-    var parser = new Parser(opt);
-    var out = parser.parse(Lexer.lex(src, opt));
-    var outline = parser.outline;
-    return '<div class="outline">' + outline + '</div>' + out;
-    //return Parser.parse(Lexer.lex(src, opt), opt);
+    return Parser.parse(Lexer.lex(src, opt), opt);
   } catch (e) {
     e.message += '\nPlease report this to https://github.com/chjj/marked.';
     if ((opt || marked.defaults).silent) {
@@ -1243,6 +1274,18 @@ function marked(src, opt, callback) {
     throw e;
   }
 }
+
+  /**
+   * marked with outline
+   */
+
+  function markedWithOutline(src, opt) {
+    var parser = new Parser(opt);
+    parser.outline = new Outline;
+    var out = parser.parse(Lexer.lex(src, opt));
+    var outline = parser.outline.render();
+    return {outline: outline, html: out};
+  }
 
 /**
  * Options
@@ -1286,6 +1329,8 @@ marked.InlineLexer = InlineLexer;
 marked.inlineLexer = InlineLexer.output;
 
 marked.parse = marked;
+
+  marked.withOutline = markedWithOutline;
 
 if (typeof module !== 'undefined' && typeof exports === 'object') {
   module.exports = marked;

@@ -20,6 +20,7 @@
         <intercept-url pattern="^/tag" access="permitAll"/>
         <intercept-url pattern="^/t" access="permitAll"/>
         <intercept-url pattern="^/t/.*" access="permitAll"/>
+        <intercept-url pattern="^/html/.*" access="permitAll"/>
 
         <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*"
                        access="permitAll"/>

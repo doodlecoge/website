@@ -35,4 +35,9 @@ public class ToolsController {
         }
         return "tools/reqinfo";
     }
+
+    @RequestMapping("/runjs")
+    public String runjs() {
+        return "tools/runjs";
+    }
 }

@@ -41,6 +41,7 @@
     <mvc:resources mapping="/cme/**" location="/cme/"/>
     <mvc:resources mapping="/jqp/**" location="/jqp/"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
+    <mvc:resources mapping="/html/**" location="/html/"/>
 
     <!-- jsp view resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

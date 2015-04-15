@@ -24,7 +24,6 @@ public class ToolsController {
     }
 
     @RequestMapping("/reqinfo")
-    @ResponseBody
     public String reqinfo(HttpServletRequest request, ModelMap map) {
         Enumeration headerNames = request.getHeaderNames();
         Map<String, String> req = new HashMap<String, String>();
@@ -33,6 +32,7 @@ public class ToolsController {
             if (name == null) continue;
             req.put(name.toString(), request.getHeader(name.toString()));
         }
+        map.put("reqinfo", req);
         return "tools/reqinfo";
     }
 

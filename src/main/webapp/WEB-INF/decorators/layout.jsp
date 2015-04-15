@@ -34,7 +34,7 @@
         }
 
         .dock_bottom {
-            /*position: fixed;*/
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
@@ -73,6 +73,21 @@
                 log: new Function()
             }
         }
+
+        function dockFooter() {
+            var clientHeight = document.clientHeight ||
+                    document.documentElement.clientHeight;
+            var height = $(document.body).height();
+            console.log(clientHeight, height);
+            if (clientHeight > height) {
+                $('#footer').addClass('dock_bottom');
+            } else {
+                $('#footer').removeClass('dock_bottom');
+            }
+        }
+        $(function () {
+            dockFooter();
+        });
     </script>
     <decorator:head/>
 </head>
@@ -131,7 +146,7 @@
 <div id="content" class="c">
     <decorator:body/>
 </div>
-<div id="footer" class="dock_bottom">
+<div id="footer">
     <div class="c">
         Copyright &copy; huaichao.wang since 2014.
     </div>

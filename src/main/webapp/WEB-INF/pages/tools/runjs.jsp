@@ -12,6 +12,7 @@
 <!doctype html>
 <html>
 <head>
+    <title>Online HTML/CSS/Javascript Editor</title>
     <link rel=stylesheet href="<%=cp%>/cme/lib/codemirror.css">
     <script type="text/javascript" src="<%=cp%>/cme/lib/codemirror.js"></script>
     <script type="text/javascript" src="<%=cp%>/cme/mode/xml/xml.js"></script>

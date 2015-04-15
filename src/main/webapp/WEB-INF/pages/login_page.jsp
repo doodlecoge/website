@@ -11,7 +11,13 @@
     <title>Login</title>
     <style type="text/css">
         form input[type=text], form input[type=password] {
-            width: 350px;
+            width: 90%;
+            font-size: 18px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        table {
+            width: 100%;
         }
     </style>
 </head>
@@ -19,11 +25,11 @@
 <form method="post" action="login">
     <table>
         <tr>
-            <td>Username</td>
+            <td style="width: 1%">Username</td>
             <td><input type="text" name="username"></td>
         </tr>
         <tr>
-            <td>Password</td>
+            <td style="width: 1%">Password</td>
             <td><input type="password" name="password"></td>
         </tr>
         <tr>

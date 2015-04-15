@@ -1,3 +1,4 @@
+<%@ page import="wang.huaichao.security.UserUtils" %>
 <%--
   Created by IntelliJ IDEA.
   User: hch
@@ -9,6 +10,7 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
            prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%
     String cp = request.getContextPath();
 %>
@@ -16,9 +18,11 @@
 <html>
 <head>
     <title><decorator:title/> - Huaichao Wang's Website</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
-    <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css" charset="utf-8">
+    <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css"
+          charset="utf-8">
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
         html {
@@ -26,16 +30,41 @@
         }
 
         body {
-            /*min-height: 100%;*/
-            padding-bottom: 50px;
             background: #f8f8f8;
         }
 
         .dock_bottom {
-            position: fixed;
+            /*position: fixed;*/
             bottom: 0;
             left: 0;
             right: 0;
+        }
+
+        .menus {
+            float: left;
+            white-space: nowrap;
+        }
+
+        .login_info {
+            float: right;
+            white-space: nowrap;
+        }
+
+        @media screen and (max-device-width: 600px) {
+            .menus {
+                float: none;
+                white-space: normal;
+            }
+
+            .menus a {
+                display: inline-block;
+                width: 45%;
+                box-sizing: border-box;
+            }
+
+            .login_info {
+                float: none;
+            }
         }
     </style>
     <script type="text/javascript">
@@ -44,39 +73,53 @@
                 log: new Function()
             }
         }
-//        $.fn.winresize = function (f) {
-//            if (this.get(0) !== window) return;
-//            var timer = null;
-//            $(window).resize(function () {
-//                clearTimeout(timer);
-//                timer = setTimeout(function () {
-//                    f();
-//                }, 10);
-//            });
-//            return this;
-//        };
-//        function dock_bottom() {
-//            var off = $('#footer').offset();
-//            var outerheight = $('#footer').outerHeight()
-//            if (off.top + outerheight < document.documentElement.clientHeight) {
-//                $('#footer').addClass('dock_bottom');
-//            } else {
-//                $('#footer').removeClass('dock_bottom');
-//            }
-//        }
-//        $(window).winresize(function () {
-//            dock_bottom();
-//        });
     </script>
     <decorator:head/>
 </head>
 <body>
 <div id="nav">
     <div class="c">
-        <a href="<%=cp%>/">Home</a>
-        <a href="<%=cp%>/article">Articles</a>
-        <a href="<%=cp%>/tag">tags</a>
-        <a href="<%=cp%>/article/new">Write sth.</a>
+        <div class="menus">
+            <a href="<%=cp%>/">
+                <i class="fa fa-home"></i>
+                Home
+            </a>
+            <a href="<%=cp%>/article">
+                <i class="fa fa-file-text-o"></i>
+                Articles
+            </a>
+            <a href="<%=cp%>/tag">
+                <i class="fa fa-bookmark-o"></i>
+                tags
+            </a>
+            <a href="<%=cp%>/article/new">
+                <i class="fa fa-pencil-square-o"></i>
+                Write sth.
+            </a>
+            <a href="<%=cp%>/t">
+                <i class="fa fa-wrench"></i>
+                Tools
+            </a>
+        </div>
+        <div class="login_info">
+            <sec:authorize access="isAuthenticated()">
+                <a href="javascript:;">
+                    Hi, <i class="fa fa-user"></i>
+                    <sec:authentication property="principal.username"/>!
+                </a>
+                <a href="<%=cp%>/logout">
+                    <i class="fa fa-power-off"></i>
+                    Logout
+                </a>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous()">
+                <a href="<%=cp%>/login">
+                    <i class="fa fa-key"></i>
+                    Login
+                </a>
+            </sec:authorize>
+        </div>
+        <div style="clear: both;"></div>
     </div>
 </div>
 <div id="header">
@@ -94,7 +137,7 @@
     </div>
 </div>
 <script type="text/javascript">
-//    dock_bottom();
+    //    dock_bottom();
 </script>
 </body>
 </html>

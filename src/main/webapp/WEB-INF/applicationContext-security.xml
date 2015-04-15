@@ -11,30 +11,34 @@
     <!--<http request-matcher="regex" pattern="/article/\d(/tag)?" security="none"></http>-->
     <!--<http request-matcher="regex" pattern="/tag" security="none"></http>-->
 
-    <http auto-config="true" path-type="regex">
-        <intercept-url pattern="^/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/login.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/article" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/article/\d+(/tag)?" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/tag" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-        <intercept-url pattern="^/helper/.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+    <http auto-config="true" path-type="regex" use-expressions="true">
+        <intercept-url pattern="^/favicon.ico" access="permitAll"/>
+        <intercept-url pattern="^/login.*" access="permitAll"/>
+        <intercept-url pattern="^/" access="permitAll"/>
+        <intercept-url pattern="^/article" access="permitAll"/>
+        <intercept-url pattern="^/article/\d+(/tag)?" access="permitAll"/>
+        <intercept-url pattern="^/tag" access="permitAll"/>
+        <intercept-url pattern="^/t" access="permitAll"/>
+        <intercept-url pattern="^/t/.*" access="permitAll"/>
 
-        <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*"
+                       access="permitAll"/>
 
-        <intercept-url pattern="/.*" access="ROLE_USER"/>
+        <intercept-url pattern="/.*" access="hasRole('ROLE_USER')"/>
 
         <form-login login-page="/login_page"
                     login-processing-url="/login"
                     username-parameter="username"
                     password-parameter="password"
-                    default-target-url="/explorer"
+                    default-target-url="/"
                     authentication-failure-url="/login_page?login_error=1"/>
 
         <logout logout-url="/logout" logout-success-url="/login"/>
     </http>
 
-    <beans:bean class="wang.huaichao.security.MyUserDetailsService" id="detailsService"/>
+
+    <beans:bean class="wang.huaichao.security.MyUserDetailsService"
+                id="detailsService"/>
 
     <authentication-manager>
         <authentication-provider user-service-ref="detailsService"/>

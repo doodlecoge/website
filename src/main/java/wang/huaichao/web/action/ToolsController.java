@@ -1,34 +1,38 @@
-package wang.huaichao.web.action.helper;
+package wang.huaichao.web.action;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/4/14.
  */
 @Controller
-@RequestMapping("/helper")
-public class RequestController {
+@RequestMapping("/t")
+public class ToolsController {
+    @RequestMapping(method = RequestMethod.GET)
+    public String index() {
+        return "/tools/index";
+    }
+
     @RequestMapping("/reqinfo")
     @ResponseBody
-    public String reqinfo(HttpServletRequest request) {
-        StringBuilder sb = new StringBuilder();
+    public String reqinfo(HttpServletRequest request, ModelMap map) {
         Enumeration headerNames = request.getHeaderNames();
-        sb.append("<table>");
+        Map<String, String> req = new HashMap<String, String>();
         while (headerNames.hasMoreElements()) {
             Object name = headerNames.nextElement();
             if (name == null) continue;
-            sb.append("<tr>").append("<td>").append(name).append("</td><td>")
-                    .append(name).append("=").append("</td><td>")
-                    .append(request.getHeader(name.toString()))
-                    .append("</td></tr>").append("<br/>");
+            req.put(name.toString(), request.getHeader(name.toString()));
         }
-        sb.append("</table>");
-        return sb.toString();
+        return "tools/reqinfo";
     }
 }

@@ -45,10 +45,15 @@ body, input[type="text"] {
 }
 
 #nav a {
-    margin-right: 10px;
     color: #ccc;
     font-weight: bold;
     text-decoration: none;
+}
+
+@media screen and (min-device-width: 960px) {
+    #nav a {
+        margin-right: 15px;
+    }
 }
 
 #nav a:hover {
@@ -64,6 +69,16 @@ body, input[type="text"] {
 #header .brand {
     font-size: 60px;
     color: #fff;
+}
+
+@media screen and (max-device-width: 600px) {
+    #header {
+        height: 60px;
+        line-height: 60px;
+    }
+    #header .brand {
+        font-size: 36px;
+    }
 }
 
 #footer {

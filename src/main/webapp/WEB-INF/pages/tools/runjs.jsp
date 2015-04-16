@@ -24,18 +24,6 @@
     <script type="text/javascript"
             src="<%=cp%>/cme/mode/htmlembedded/htmlembedded.js"></script>
     <style type="text/css">
-        body {
-
-            font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace;
-            margin: 0;
-            padding: 0;
-            height: 100%
-        }
-
-        html {
-            height: 100%
-        }
-
         .overlay {
             position: absolute;
             z-index: 999999;
@@ -223,6 +211,7 @@
             clearTimeout(timer);
             timer = setTimeout(delay, 1000);
         }
+
         updatePreivew();
     });
 

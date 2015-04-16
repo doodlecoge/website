@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public abstract class TheDao {
     @Autowired
-    @Qualifier(value = "h2Sf")
+    @Qualifier(value = "sessionFactory")
     protected SessionFactory sessionFactory;
 }

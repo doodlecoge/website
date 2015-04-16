@@ -34,7 +34,8 @@
         <property name="dataSource" ref="h2Ds"></property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect
+                </prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.default_schema">${db.schema}</prop>
@@ -64,7 +65,8 @@
 
     </bean>
 
-    <bean id="h2Tm" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean id="h2Tm"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="h2Sf"/>
     </bean>
 
@@ -82,4 +84,54 @@
     </tx:advice>
 
 
+    <!--==========================================================-->
+    <!-- mysql config                                             -->
+    <!--==========================================================-->
+
+    <bean id="mysqlDs"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driver}"></property>
+        <property name="url" value="${db.url}"></property>
+        <property name="username" value="${db.username}"></property>
+        <property name="password" value="${db.password}"></property>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="mysqlDs"></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${db.dialect}</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.default_schema">${db.schema}</prop>
+                <prop key="hibernate.connection.pool_size">10</prop>
+                <prop key="hibernate.c3p0.min_size">5</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.timeout">1800</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.connection.autocommit">true</prop>
+            </props>
+        </property>
+        <property name="packagesToScan">
+            <list>
+                <value>wang.huaichao.web.model</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="mysqlTm"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="mysqlSf"/>
+    </bean>
+
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="mysqlTm"/>
+
+    <tx:advice id="txAdvice2" transaction-manager="mysqlTm">
+        <tx:attributes>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="update" propagation="REQUIRED"/>
+            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 </beans>

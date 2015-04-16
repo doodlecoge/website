@@ -78,19 +78,25 @@
             var clientHeight = document.clientHeight ||
                     document.documentElement.clientHeight;
             var height = $(document.body).height();
-            console.log(clientHeight, height);
             var cls = 'dock_bottom';
+            var body = $(document.body);
+            var fh = $('#footer').outerHeight();
             if (clientHeight > height) {
-                if (!$('#footer').hasClass(cls))
+                if (!$('#footer').hasClass(cls)) {
                     $('#footer').addClass(cls);
+                    body.css('padding-bottom', (10 + fh) + 'px');
+                }
             } else {
-                if ($('#footer').hasClass(cls))
+                if ($('#footer').hasClass(cls)) {
                     $('#footer').removeClass(cls);
+                    body.css('padding-bottom', '0');
+                }
             }
         }
         $(function () {
             dockFooter();
             setTimeout(dockFooter, 200);
+            $(window).on('resize', dockFooter);
         });
     </script>
     <decorator:head/>

@@ -41,6 +41,19 @@
                 margin-top: 10px;
                 font-size: 18px;
             }
+
+            input {
+                width: 100%;
+                height: 50px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                font-size: 18px;
+            }
+
+            input[type="submit"] {
+                font-weight: bold;
+                background: #69c;
+            }
         }
     </style>
 </head>
@@ -57,7 +70,9 @@
 <br/>
 
 <form action="<%=cp%>/tag/add">
-    <input type="text" name="name" id="ipt">
+    <input type="text" name="name" id="ipt" placeholder="tag name...">
+    <br/>
+    <br/>
     <input type="submit" value="Add Tag">
 </form>
 

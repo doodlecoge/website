@@ -79,14 +79,18 @@
                     document.documentElement.clientHeight;
             var height = $(document.body).height();
             console.log(clientHeight, height);
+            var cls = 'dock_bottom';
             if (clientHeight > height) {
-                $('#footer').addClass('dock_bottom');
+                if (!$('#footer').hasClass(cls))
+                    $('#footer').addClass(cls);
             } else {
-                $('#footer').removeClass('dock_bottom');
+                if ($('#footer').hasClass(cls))
+                    $('#footer').removeClass(cls);
             }
         }
         $(function () {
             dockFooter();
+            setTimeout(dockFooter, 200);
         });
     </script>
     <decorator:head/>

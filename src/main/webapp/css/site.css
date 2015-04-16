@@ -76,6 +76,7 @@ body, input[type="text"] {
         height: 60px;
         line-height: 60px;
     }
+
     #header .brand {
         font-size: 36px;
     }
@@ -84,6 +85,7 @@ body, input[type="text"] {
 #footer {
     background: #ccc;
     padding: 10px 0;
+    margin-top: 10px;
 }
 
 /*===========================================================================*/
@@ -127,7 +129,6 @@ body, input[type="text"] {
     border-color: #14a;
 }
 
-
 ul.tags {
     padding: 0;
     margin: 0;
@@ -160,8 +161,6 @@ ul.tags li a {
 ul.tags li a:hover {
     color: #333;
 }
-
-
 
 /*===========================================================================*/
 /* preview                                                                   */

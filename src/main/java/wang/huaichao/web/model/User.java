@@ -4,6 +4,8 @@ import org.springframework.security.web.PortResolverImpl;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2015/1/5.
@@ -29,6 +31,10 @@ public class User {
 
     @Column(name = "created_at")
     private Date createdAt;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "username")
+    private Set<Image> images = new HashSet<Image>();
 
     public String getUsername() {
         return username;
@@ -76,6 +82,14 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public static enum UserRole {

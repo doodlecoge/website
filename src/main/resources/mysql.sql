@@ -55,3 +55,15 @@ CREATE TABLE IF NOT EXISTS articles_tags
   FOREIGN KEY (tid) REFERENCES tags (id)
     ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS images
+(
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  dirname    VARCHAR(10), -- yyyy-MM-dd
+  filename   VARCHAR(100),
+  username   VARCHAR(20),
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
+    ON DELETE CASCADE
+);

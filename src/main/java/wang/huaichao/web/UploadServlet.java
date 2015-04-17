@@ -29,6 +29,7 @@ public class UploadServlet extends HttpServlet {
         DiskFileItemFactory dfif = new DiskFileItemFactory(1024, new File(webroot + "/upload/tmp/"));
         ServletFileUpload sfu = new ServletFileUpload(dfif);
         sfu.setSizeMax(maxSize);
+        sfu.setHeaderEncoding("utf-8");
 
         sfu.setProgressListener(
                 new UploadProgressListener(

@@ -31,13 +31,18 @@
 
         #note_wrapper {
             margin-top: 10px;
-            background: #ddd;
             border-top: 1px dashed #69c;
             vertical-align: top;
             position: relative;
         }
 
+        #outline {
+            font-size: 18px;
+        }
 
+        #outline ul {
+            margin: 0;
+        }
 
         #note {
             padding-right: 10px;
@@ -46,41 +51,35 @@
             vertical-align: top;
         }
 
-        @media screen and (min-device-width: 960px) {
-            #note {
-                margin-right: 310px;
-            }
+        /*@media screen and (min-device-width: 960px) {*/
+            /*#note {*/
+                /*margin-right: 310px;*/
+            /*}*/
 
-            #outline {
-                float: right;
-                width: 300px;
-                padding: 5px 0;
-                min-height: 100px;
-            }
+            /*#outline {*/
+                /*float: right;*/
+                /*width: 300px;*/
+                /*padding: 5px 0;*/
+                /*min-height: 100px;*/
+            /*}*/
 
-            .overmenu {
-                position: fixed;
-                top: 0;
-                right: 0;
-            }
+            /*#outline ul {*/
+                /*padding: 0;*/
+                /*margin: 0;*/
+                /*padding-left: 30px;*/
+            /*}*/
 
-            #outline ul {
-                padding: 0;
-                margin: 0;
-                padding-left: 30px;
-            }
+            /*#outline ul li {*/
+                /*font-size: 18px;*/
+                /*line-height: 22px;*/
+            /*}*/
+        /*}*/
 
-            #outline ul li {
-                font-size: 18px;
-                line-height: 22px;
-            }
-        }
-
-        @media screen and (max-device-width: 960px) {
-            #outline {
-                display: none;
-            }
-        }
+        /*@media screen and (max-device-width: 960px) {*/
+            /*#outline {*/
+                /*display: none;*/
+            /*}*/
+        /*}*/
 
 
     </style>
@@ -135,6 +134,7 @@
     <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
 </c:if>
 <div id="note_wrapper">
+    <h1 style="margin: 0">Table of Contents:</h1>
     <div id="outline"></div>
     <div id="note" class="preview"></div>
 </div>

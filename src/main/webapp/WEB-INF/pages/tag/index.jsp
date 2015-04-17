@@ -16,9 +16,13 @@
     <title>Articles</title>
     <style type="text/css">
         @media screen and (min-device-width: 960px) {
+            ul.tags li {
+                min-width: 120px;
+            }
             ul.tags li i.fa-times {
                 color: #f55;
                 cursor: pointer;
+                float: right;
             }
 
             ul.tags li i.fa-times:hover {
@@ -26,11 +30,28 @@
             }
         }
 
+        input[type="text"] {
+            width: 350px;
+            height: 35px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            font-size: 18px;
+        }
+
+        input[type="submit"] {
+            font-weight: bold;
+            background: #69c;
+            width: auto;
+            height: 35px;
+            border: 1px solid #ccc;
+        }
+
         @media screen and (max-device-width: 600px) {
             ul.tags li {
-                display: block;
+                /*display: block;*/
                 line-height: 35px;
                 border-right-color: transparent;
+                min-width: 40%;
             }
             ul.tags li:active {
                 border: 1px solid transparent;
@@ -42,9 +63,9 @@
                 font-size: 18px;
             }
 
-            input {
+            input[type="text"] {
                 width: 100%;
-                height: 50px;
+                height: 35px;
                 margin-bottom: 10px;
                 border: 1px solid #ccc;
                 font-size: 18px;
@@ -53,6 +74,9 @@
             input[type="submit"] {
                 font-weight: bold;
                 background: #69c;
+                width: 100%;
+                height: 40px;
+                font-size: 18px;
             }
         }
     </style>
@@ -73,7 +97,7 @@
     <input type="text" name="name" id="ipt" placeholder="tag name...">
     <br/>
     <br/>
-    <input type="submit" value="Add Tag">
+    <input type="submit" value="Add Tag" class="button blue">
 </form>
 
 <br/>

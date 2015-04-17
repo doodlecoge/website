@@ -36,6 +36,8 @@
             src="<%=cp%>/cme/mode/xml/xml.js"></script>
     <script type="text/javascript"
             src="<%=cp%>/cme/mode/markdown/markdown.js"></script>
+    <script type="text/javascript"
+            src="<%=cp%>/js/modernizr.js"></script>
 
     <style type="text/css">
         .tbl_editor {
@@ -155,8 +157,6 @@
                     dataType: 'json'
                 });
                 xhr.done(function (data) {
-                    console.log(data.error);
-                    console.log(data);
                     if (data && data.error == false) {
                         location.href = "<%=request.getContextPath()%>/article/" + data.aid;
                     }
@@ -165,6 +165,16 @@
                     console.log(data);
                 });
             });
+
+            $(window).bind("beforeunload", function(e) {
+                if(Modernizr.localstorage) {
+                    localStorage.newText = mde.getValue();
+                }
+            });
+
+            if(Modernizr.localstorage) {
+                mde.setValue(localStorage.newText);
+            }
         });
     </script>
 
@@ -236,7 +246,8 @@
     </tr>
 
     <tr>
-        <td colspan="2" style="text-align: right;">
+        <td></td>
+        <td>
             <button class="button" id="btn_submit">Save</button>
         </td>
     </tr>

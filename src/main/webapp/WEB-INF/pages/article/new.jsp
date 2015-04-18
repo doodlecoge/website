@@ -8,11 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String cp = request.getContextPath();
+    String ctx = request.getContextPath();
+    String cp = ".";
+    String base = request.getScheme() + "://"
+            + request.getServerName()
+            + ":" + request.getServerPort()
+            + request.getContextPath()
+            + "/";
 %>
 <html>
 <head>
     <title>Add/Edit Article</title>
+    <base href="<%=base%>">
     <link rel="stylesheet" type="text/css"
           href="<%=cp%>/jqp/menu/jquery-menu.css">
     <link rel="stylesheet" type="text/css"
@@ -87,6 +94,63 @@
 
         .ui_menu {
             z-index: 1000;
+        }
+
+        .tool_bar {
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            background: #eee;
+        }
+
+        .tool_bar .btn {
+            padding: 5px 10px;
+            background: #69c;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #f8f8f8;
+        }
+
+        #overlay {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: none;
+            z-index: 1000;
+            opacity: 0.3;
+
+            background: #000;
+        }
+
+        #images {
+            position: fixed;
+            left: 50px;
+            right: 50px;
+            top: 50px;
+            bottom: 50px;
+            display: none;
+            z-index: 1001;
+            background: #f8f8f8;
+        }
+
+        #images ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        #images ul li {
+            list-style: none;
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        #images ul li img {
+            max-width: 100px;
+            max-height: 100px;
         }
     </style>
 
@@ -166,15 +230,46 @@
                 });
             });
 
-            $(window).bind("beforeunload", function(e) {
-                if(Modernizr.localstorage) {
+            $(window).bind("beforeunload", function (e) {
+                if (Modernizr.localstorage) {
                     localStorage.newText = mde.getValue();
                 }
             });
 
-            if(Modernizr.localstorage) {
+            if (Modernizr.localstorage) {
                 mde.setValue(localStorage.newText);
             }
+
+            $('#choose_image').click(function () {
+                var xhr = $.ajax({
+                    url: '<%=ctx%>/image/json',
+                    dataType: 'json'
+                });
+                xhr.done(function (data) {
+                    console.log(data);
+                    $('#overlay').show();
+                    $('#images').show();
+
+                    $('#images').html('');
+                    var ul = $('<ul>').appendTo('#images');
+                    $.each(data, function (i, image) {
+                        var li = $('<li>').appendTo(ul);
+                        var img = $('<img>')
+                                .attr('src', 'image/' + image.id)
+                                .attr('iid', image.id)
+                                .appendTo(li);
+                    });
+                });
+            });
+
+            $('#images').click(function (e) {
+                if (e.target.nodeName.toLowerCase() != 'img') return;
+                var img = $(e.target);
+                var iid = img.attr('iid');
+                mde.replaceSelection("![Alt text](image/" + iid + ")");
+                $('#overlay').hide();
+                $('#images').hide();
+            });
         });
     </script>
 
@@ -204,7 +299,8 @@
                     <input type="text" id="title" style="font-size: 24px;">
                 </c:when>
                 <c:otherwise>
-                    <input type="text" id="title" style="font-size: 24px;" value="${article.title}">
+                    <input type="text" id="title" style="font-size: 24px;"
+                           value="${article.title}">
                 </c:otherwise>
             </c:choose>
         </td>
@@ -228,6 +324,12 @@
     <tr>
         <td class="h">Content:</td>
         <td style="border-bottom: 1px solid #ccc;">
+            <div class="tool_bar">
+                <a class="btn" id="choose_image">
+                    <i class="fa fa-file-image-o"></i>
+                    Insert Image
+                </a>
+            </div>
             <div id="editor" style="height: 300px">
                 <c:choose>
                     <c:when test="${article == null}">
@@ -254,5 +356,10 @@
 </table>
 
 <div id="preview" class="preview"></div>
+
+<div id="overlay">
+</div>
+<div id="images">
+</div>
 </body>
 </html>

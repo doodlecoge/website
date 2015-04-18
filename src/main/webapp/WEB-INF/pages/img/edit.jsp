@@ -16,24 +16,40 @@
     <script type="text/javascript"
             src="<%=cp%>/js/jquery.Jcrop.min.js"></script>
     <style type="text/css">
-        /*.box img {*/
-        /*max-width: 100%;*/
-        /*min-width: 50%;*/
-        /*}*/
+        .val {
+            width: 50px;
+        }
+
+        @media screen and (max-device-width: 600px) {
+            .button {
+                width: 100%;
+                display: block;
+                text-align: center;
+                margin-top: 10px;
+                padding: 0.5em 0;
+                box-sizing: border-box;
+            }
+        }
+
+
     </style>
 </head>
 <body>
 
-<button id="zin">
-    <i class="fa fa-times"></i>
-    Zoom In
-</button>
-<button id="zout">
-    Zoom Out
-</button>
-<button id="cut">
+<br/>
+<br/>
+
+
+
+<b>Scale</b>,
+W: <input type="text" class="val" id="sw" value="200">px,
+H: <input type="text" class="val" id="sh" value="200">px
+
+<a id="cut" class="button blue">
+    <i class="fa fa-cut"></i>
     Cut
-</button>
+</a>
+
 <br/>
 <br/>
 
@@ -46,7 +62,7 @@
         $('#img').load(function () {
             $('#img').Jcrop({
                 aspectRatio: 1,
-                setSelect: [100, 100, 50, 50],
+                setSelect: [0, 0, 100, 100],
                 onSelect: crop
             });
         });
@@ -61,7 +77,9 @@
                 cut_w: coords.w,
                 cut_h: coords.h,
                 cut_x: coords.x,
-                cut_y: coords.y
+                cut_y: coords.y,
+                s_w: $('#sw').val(),
+                s_h: $('#sh').val()
             };
             console.log(data);
             var xhr = $.ajax({
@@ -80,7 +98,6 @@
     var coords = null;
     function crop(c) {
         coords = c;
-        console.log(c);
     }
 
 

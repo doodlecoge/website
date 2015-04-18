@@ -12,8 +12,10 @@
     <style type="text/css">
         form input[type=text], form input[type=password] {
             font-size: 18px;
-            padding: 5px;
             border: 1px solid #ccc;
+            width: 350px;
+            height: 35px;
+            padding-left: 10px;
         }
         table.login_tbl {
             width: 350px;

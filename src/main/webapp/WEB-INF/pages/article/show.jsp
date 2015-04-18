@@ -11,11 +11,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
-    String cp = request.getContextPath();
+    String cp = ".";
+    String base = request.getScheme() + "://"
+            + request.getServerName()
+            + ":" + request.getServerPort()
+            + request.getContextPath()
+            + "/";
 %>
 <html>
 <head>
     <title>Articles</title>
+    <base href="<%=base%>">
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/js/marked.js"></script>
     <style type="text/css">
@@ -51,37 +57,18 @@
             vertical-align: top;
         }
 
-        /*@media screen and (min-device-width: 960px) {*/
-            /*#note {*/
-                /*margin-right: 310px;*/
-            /*}*/
+        .overmenu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            background: #eee;
+        }
 
-            /*#outline {*/
-                /*float: right;*/
-                /*width: 300px;*/
-                /*padding: 5px 0;*/
-                /*min-height: 100px;*/
-            /*}*/
-
-            /*#outline ul {*/
-                /*padding: 0;*/
-                /*margin: 0;*/
-                /*padding-left: 30px;*/
-            /*}*/
-
-            /*#outline ul li {*/
-                /*font-size: 18px;*/
-                /*line-height: 22px;*/
-            /*}*/
-        /*}*/
-
-        /*@media screen and (max-device-width: 960px) {*/
-            /*#outline {*/
-                /*display: none;*/
-            /*}*/
-        /*}*/
-
-
+        @media screen and (max-device-width: 600px) {
+            .overmenu {
+               position: inherit;
+            }
+        }
     </style>
     <script type="text/javascript">
         $(function () {
@@ -97,10 +84,20 @@
             $(window).on('scroll', function () {
                 if ($(window).scrollTop() > h) {
                     outline.addClass('overmenu');
-                    outline.css('left', l + 'px');
                 } else {
                     outline.removeClass('overmenu');
-                    outline.css('left', '');
+                }
+            });
+
+
+            var href = location.href;
+            var idx = href.indexOf('#');
+            if (idx != -1) href = href.substr(0, idx);
+
+            $('#outline').click(function (e) {
+                if (e.target.nodeName.toLowerCase() == 'a') {
+                    e.preventDefault();
+                    location.href = href + $(e.target).attr('href');
                 }
             });
         });
@@ -124,7 +121,8 @@
     <ul class="tags">
         <c:forEach items="${article.tags}" var="tag">
             <li>
-                <a href="<%=cp%>/article/${tag.id}/tag" class="tag">${tag.name}</a>
+                <a href="<%=cp%>/article/${tag.id}/tag"
+                   class="tag">${tag.name}</a>
             </li>
         </c:forEach>
     </ul>
@@ -135,8 +133,11 @@
 </c:if>
 <div id="note_wrapper">
     <h1 style="margin: 0">Table of Contents:</h1>
+
     <div id="outline"></div>
+    <br/>
     <div id="note" class="preview"></div>
 </div>
+
 </body>
 </html>

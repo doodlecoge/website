@@ -1,5 +1,8 @@
 package wang.huaichao.web.action;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +66,22 @@ public class ImageController {
         map.put("images", images);
 
         return "/img/index";
+    }
+
+    @RequestMapping("/json")
+    @ResponseBody
+    public String json() {
+        Set<Image> images = userService.getImages(UserUtils.getUsername());
+
+        JsonArray jarr = new JsonArray();
+
+        for (Image image : images) {
+            JsonObject jobj = new JsonObject();
+            jobj.addProperty("id", image.getId());
+            jarr.add(jobj);
+        }
+
+        return jarr.toString();
     }
 
     @RequestMapping("/{id}")
@@ -152,7 +171,9 @@ public class ImageController {
                       @RequestParam int cut_w,
                       @RequestParam int cut_h,
                       @RequestParam int cut_x,
-                      @RequestParam int cut_y) {
+                      @RequestParam int cut_y,
+                      @RequestParam int s_w,
+                      @RequestParam int s_h) {
         Image image = imageService.getImage(id);
 
         String path = uploadDir + image.getDirname() + File.separator;
@@ -176,8 +197,8 @@ public class ImageController {
             bi = bi.getSubimage(cut_x, cut_y, cut_w, cut_h);
 
 
-            BufferedImage zoomImage = new BufferedImage(100, 100, bi.getType());
-            java.awt.Image zimg = bi.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+            BufferedImage zoomImage = new BufferedImage(s_w, s_h, bi.getType());
+            java.awt.Image zimg = bi.getScaledInstance(s_w, s_h, java.awt.Image.SCALE_SMOOTH);
             Graphics gc = zoomImage.getGraphics();
             gc.setColor(Color.WHITE);
             gc.drawImage(zimg, 0, 0, null);

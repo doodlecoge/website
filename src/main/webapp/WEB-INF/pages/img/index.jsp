@@ -37,6 +37,7 @@
             padding: 5px;
             vertical-align: top;
             line-height: 100px;
+            margin-bottom: 10px;
         }
 
         ul.imgs li div {
@@ -46,14 +47,49 @@
             font-size: 0;
         }
 
-        form input {
-            width: 350px;
+        form input[type="text"] {
+            width: 100%;
             display: block;
+        }
+
+        form table td {
+            height: 35px;
+        }
+
+        @media screen and (max-device-width: 600px) {
+            form .button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-<br/>
+
+<h2>Add Image:</h2>
+<form method="post" enctype="multipart/form-data"
+      action="<%=request.getContextPath()%>/image/upload">
+    <table style="width: 100%">
+        <tr>
+            <td>Description:</td>
+        </tr>
+        <tr>
+            <td><input type="text" name="imageName"></td>
+        </tr>
+
+        <tr>
+            <td>Choose Image:</td>
+        </tr>
+        <tr>
+            <td><input type="file" name="img"></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" class="button blue"></td>
+        </tr>
+    </table>
+</form>
+
+<h2>Images:</h2>
 <c:if test="${fn:length(images) > 0}">
     <ul class="imgs">
         <c:forEach items="${images}" var="image">
@@ -67,14 +103,6 @@
     </ul>
 </c:if>
 
-<hr/>
-
-<form method="post" enctype="multipart/form-data"
-      action="<%=request.getContextPath()%>/image/upload">
-    <input type="text" name="imageName">
-    <input type="file" name="img">
-    <input type="submit" class="button blue">
-</form>
 
 <script type="text/javascript">
     $(function () {

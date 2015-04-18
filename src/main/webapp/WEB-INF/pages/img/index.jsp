@@ -38,10 +38,17 @@
             vertical-align: top;
             line-height: 100px;
         }
+
         ul.imgs li div {
             height: 100px;
             width: 100px;
             background: #ccc;
+            font-size: 0;
+        }
+
+        form input {
+            width: 350px;
+            display: block;
         }
     </style>
 </head>
@@ -51,21 +58,32 @@
     <ul class="imgs">
         <c:forEach items="${images}" var="image">
             <li>
-                <div>
-                    <img class="img" src="<%=cp%>/image/${image.id}"
-                         alt="${image.filename}"/>
+                <div align="center"><img class="img" iid="${image.id}"
+                         src="<%=cp%>/image/${image.id}"
+                         title="${image.filename}"/>
                 </div>
             </li>
         </c:forEach>
     </ul>
 </c:if>
-<br/>
+
+<hr/>
 
 <form method="post" enctype="multipart/form-data"
       action="<%=request.getContextPath()%>/image/upload">
     <input type="text" name="imageName">
     <input type="file" name="img">
-    <input type="submit">
+    <input type="submit" class="button blue">
 </form>
+
+<script type="text/javascript">
+    $(function () {
+        $('.imgs').click(function (e) {
+            if (e.target.nodeName.toLowerCase() != 'img') return;
+            var iid = $(e.target).attr('iid');
+            location.href = "<%=cp%>/image/" + iid + "/edit";
+        });
+    });
+</script>
 </body>
 </html>

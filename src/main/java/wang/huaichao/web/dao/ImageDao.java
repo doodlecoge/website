@@ -22,8 +22,8 @@ public class ImageDao extends TheDao {
         else return (Image) o;
     }
 
-    public void addImage(String dirname, String filename,
-                         Date createdAt, Date updatedAt, String username) {
+    public Image addImage(String dirname, String filename,
+                          Date createdAt, Date updatedAt, String username) {
         Image image = new Image();
         image.setFilename(filename);
         image.setDirname(dirname);
@@ -33,5 +33,6 @@ public class ImageDao extends TheDao {
 
         Session session = sessionFactory.getCurrentSession();
         session.save(image);
+        return image;
     }
 }

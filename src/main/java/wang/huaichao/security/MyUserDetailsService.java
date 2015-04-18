@@ -33,6 +33,10 @@ public class MyUserDetailsService implements UserDetailsService {
         Collection<? extends GrantedAuthority> authorities =
                 AuthorityUtils.createAuthorityList("ROLE_USER");
 
+        if ("huaichao".equalsIgnoreCase(user.getUsername())) {
+            authorities = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
+        }
+
         return new org.springframework.security.core.userdetails.User(
                 username,
                 user.getPassword(),

@@ -17,13 +17,19 @@ import wang.huaichao.web.model.Image;
 import wang.huaichao.web.service.ImageService;
 import wang.huaichao.web.service.UserService;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -100,7 +106,6 @@ public class ImageController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST,
             produces = "text/html; charset=UTF-8")
-    @ResponseBody
     public String upload(@RequestParam MultipartFile img,
                          @RequestParam String imageName) {
         if (img.isEmpty()) {
@@ -117,17 +122,72 @@ public class ImageController {
         new File(uploadDir + dirName).mkdirs();
         String saveName = timeStamp + TextUtils.makeFileName(imageName) + ext;
 
+        Image image = null;
         try {
             FileUtils.copyInputStreamToFile(img.getInputStream(),
                     new File(uploadDir + dirName + File.separator + saveName)
             );
-            imageService.addImage(dirName, saveName,
+            image = imageService.addImage(dirName, saveName,
                     now.getTime(), now.getTime(),
                     UserUtils.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return dirName + File.separator + saveName;
+        return "redirect:/image/" + image.getId() + "/edit";
+    }
+
+    @RequestMapping("/{id}/edit")
+    public String edit(@PathVariable int id, ModelMap map) {
+        Image image = imageService.getImage(id);
+        map.put("image", image);
+        return "img/edit";
+    }
+
+    @RequestMapping(value = "/{id}/cut", method = RequestMethod.POST)
+    @ResponseBody
+    public String cut(@PathVariable int id,
+                      @RequestParam int img_w,
+                      @RequestParam int img_h,
+                      @RequestParam int cut_w,
+                      @RequestParam int cut_h,
+                      @RequestParam int cut_x,
+                      @RequestParam int cut_y) {
+        Image image = imageService.getImage(id);
+
+        String path = uploadDir + image.getDirname() + File.separator;
+        File file = new File(path + image.getFilename());
+
+        String subfix = image.getFilename().substring(image.getFilename().lastIndexOf(".") + 1);
+
+        if (!file.exists())
+            return "{\"error\":true, \"msg\":\"file not exists\"}";
+
+        try {
+            BufferedImage bi = ImageIO.read(file);
+            int width = bi.getWidth();
+            int height = bi.getHeight();
+
+            cut_x = cut_x * width / img_w;
+            cut_y = cut_y * height / img_h;
+            cut_w = cut_w * width / img_w;
+            cut_h = cut_h * height / img_h;
+
+            bi = bi.getSubimage(cut_x, cut_y, cut_w, cut_h);
+
+
+            BufferedImage zoomImage = new BufferedImage(100, 100, bi.getType());
+            java.awt.Image zimg = bi.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+            Graphics gc = zoomImage.getGraphics();
+            gc.setColor(Color.WHITE);
+            gc.drawImage(zimg, 0, 0, null);
+
+            ImageIO.write(zoomImage, subfix, new File(path +
+                    image.getFilename()));
+        } catch (IOException e) {
+            return "{\"error\":true, \"msg\":\"cut error\"}";
+        }
+
+        return "{\"error\": false}";
     }
 }

@@ -21,8 +21,10 @@ public class ImageService {
         return imageDao.getImage(id);
     }
 
-    public void addImage(String dirname, String filename,
-                         Date createdAt, Date updatedAt, String username) {
-        imageDao.addImage(dirname, filename, createdAt, updatedAt, username);
+    public Image addImage(String dirname, String filename,
+                          Date createdAt, Date updatedAt,
+                          String username) {
+        return imageDao.addImage(
+                dirname, filename, createdAt, updatedAt, username);
     }
 }

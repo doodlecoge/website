@@ -127,6 +127,12 @@
                 <i class="fa fa-wrench"></i>
                 Tools
             </a>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <a href="<%=cp%>/image">
+                    <i class="fa fa-file-image-o"></i>
+                    Images
+                </a>
+            </sec:authorize>
         </div>
         <div class="login_info">
             <sec:authorize access="isAuthenticated()">

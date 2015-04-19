@@ -170,6 +170,8 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             cursor: pointer;
+            max-height: 100px;
+            max-width: 100px;
         }
     </style>
 
@@ -367,7 +369,15 @@
     </tr>
     <tr>
         <td>
-            <img src="img/no-img.png" class="logo" id="select_logo">
+            <c:choose>
+                <c:when test="${article == null}">
+                    <img src="img/no-img.png" class="logo" id="select_logo">
+                </c:when>
+                <c:otherwise>
+                    <img src="image/${article.image.id}" class="logo"
+                         id="select_logo" iid="${article.image.id}">
+                </c:otherwise>
+            </c:choose>
         </td>
     </tr>
 

@@ -115,6 +115,12 @@ public class ArticleDao extends TheDao {
         article.getTags().clear();
         if (tags != null)
             article.getTags().addAll(tags);
+        if (iid != 0) {
+            // todo: check if iid exists
+            Image img = new Image();
+            img.setId(iid);
+            article.setImage(img);
+        }
         session.update(article);
         return article;
     }

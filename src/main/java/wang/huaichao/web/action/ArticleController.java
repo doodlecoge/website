@@ -98,7 +98,7 @@ public class ArticleController {
                 );
             else
                 a = articleService.updateArticle(
-                        id, iid,title, content, username, tids
+                        id, iid, title, content, username, tids
                 );
             jobj.addProperty("error", false);
             jobj.addProperty("aid", a.getId());

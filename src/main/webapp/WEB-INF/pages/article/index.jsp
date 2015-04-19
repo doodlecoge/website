@@ -62,8 +62,14 @@
             <li class="line">
                 <div class="img">
                     <div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">
-                        <img src="<%=cp%>/img/no-img.png"
-                             style="max-width: 60px; max-height: 60px;">
+                        <c:if test="${article.image != null}">
+                            <img src="<%=cp%>/image/${article.image.id}"
+                                 style="max-width: 60px; max-height: 60px;">
+                        </c:if>
+                        <c:if test="${article.image == null}">
+                            <img src="<%=cp%>/img/no-img.png"
+                                 style="max-width: 60px; max-height: 60px;">
+                        </c:if>
                     </div>
                 </div>
                 <div class="right">

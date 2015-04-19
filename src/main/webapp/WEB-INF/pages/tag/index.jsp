@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <%
     String cp = request.getContextPath();
 %>
@@ -19,6 +21,7 @@
             ul.tags li {
                 min-width: 120px;
             }
+
             ul.tags li i.fa-times {
                 color: #f55;
                 cursor: pointer;
@@ -53,10 +56,12 @@
                 border-right-color: transparent;
                 min-width: 40%;
             }
+
             ul.tags li:active {
                 border: 1px solid transparent;
                 border-bottom: 1px solid #468;
             }
+
             ul.tags li i {
                 float: right;
                 margin-top: 10px;
@@ -87,19 +92,21 @@
     <c:forEach items="${tags}" var="tag">
         <li>
             <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
-            <i class="del fa fa-times" tid="${tag.id}"></i>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <i class="del fa fa-times" tid="${tag.id}"></i>
+            </sec:authorize>
         </li>
     </c:forEach>
 </ul>
 <br/>
-
-<form action="<%=cp%>/tag/add">
-    <input type="text" name="name" id="ipt" placeholder="tag name...">
-    <br/>
-    <br/>
-    <input type="submit" value="Add Tag" class="button blue">
-</form>
-
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <form action="<%=cp%>/tag/add">
+        <input type="text" name="name" id="ipt" placeholder="tag name...">
+        <br/>
+        <br/>
+        <input type="submit" value="Add Tag" class="button blue">
+    </form>
+</sec:authorize>
 <br/>
 <br/>
 <script type="text/javascript">

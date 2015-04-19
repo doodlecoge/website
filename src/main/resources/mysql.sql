@@ -1,6 +1,9 @@
 -- ver 1.0
 
-CREATE DATABASE IF NOT EXISTS website;
+CREATE DATABASE IF NOT EXISTS website
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+
 
 USE website;
 
@@ -23,11 +26,16 @@ CREATE TABLE IF NOT EXISTS tags
 );
 
 
-CREATE TABLE IF NOT EXISTS logos
+CREATE TABLE IF NOT EXISTS images
 (
-  id          INT AUTO_INCREMENT PRIMARY KEY,
-  description VARCHAR(64) NOT NULL,
-  path        VARCHAR(82) NULL
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  dirname    VARCHAR(10), -- yyyy-MM-dd
+  filename   VARCHAR(100),
+  username   VARCHAR(20),
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
+    ON DELETE CASCADE
 );
 
 
@@ -39,9 +47,9 @@ CREATE TABLE IF NOT EXISTS articles
   username   VARCHAR(20)   NOT NULL,
   created_at DATETIME      NOT NULL,
   updated_at DATETIME      NOT NULL,
-  logo_id    INT           NULL,
+  image_id   INT           NULL,
   FOREIGN KEY (username) REFERENCES users (username),
-  FOREIGN KEY (logo_id) REFERENCES logos (id)
+  FOREIGN KEY (image_id) REFERENCES images (id)
 );
 
 
@@ -56,14 +64,3 @@ CREATE TABLE IF NOT EXISTS articles_tags
     ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS images
-(
-  id         INT AUTO_INCREMENT PRIMARY KEY,
-  dirname    VARCHAR(10), -- yyyy-MM-dd
-  filename   VARCHAR(100),
-  username   VARCHAR(20),
-  created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL,
-  FOREIGN KEY (username) REFERENCES users (username)
-    ON DELETE CASCADE
-);

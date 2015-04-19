@@ -35,18 +35,17 @@ public class ArticleService {
     }
 
 
-
     public List<Article> getArticles(int pageNum, int pageSize) {
         return articleDao.getArticles(pageNum, pageSize);
     }
 
-    public Article addArticle(String title, String content, String username, List<Integer> tids) {
+    public Article addArticle(int iid, String title, String content, String username, List<Integer> tids) {
         List<Tag> tags = tagDao.getTags(tids);
-        return articleDao.addArticle(title, content, username, tags);
+        return articleDao.addArticle(iid, title, content, username, tags);
     }
 
-    public Article updateArticle(int id, String title, String content, String username, List<Integer> tids) {
+    public Article updateArticle(int id, int iid, String title, String content, String username, List<Integer> tids) {
         List<Tag> tags = tagDao.getTags(tids);
-        return articleDao.updateArticle(id, title, content, username, tags);
+        return articleDao.updateArticle(id, iid, title, content, username, tags);
     }
 }

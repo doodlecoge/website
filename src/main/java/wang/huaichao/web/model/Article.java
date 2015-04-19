@@ -28,8 +28,9 @@ public class Article {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "logo_id")
-    private Integer logoId;
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @OneToOne
     @JoinColumn(name = "username")
@@ -86,12 +87,12 @@ public class Article {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getLogoId() {
-        return logoId;
+    public Image getImage() {
+        return image;
     }
 
-    public void setLogoId(Integer logoId) {
-        this.logoId = logoId;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public User getUser() {

@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 import wang.huaichao.web.model.Article;
+import wang.huaichao.web.model.Image;
 import wang.huaichao.web.model.Tag;
 import wang.huaichao.web.model.User;
 
@@ -70,13 +71,15 @@ public class ArticleDao extends TheDao {
         return criteria.list();
     }
 
-    public Article addArticle(String title, String content, String username, List<Tag> tags) {
+    public Article addArticle(int iid, String title, String content, String username, List<Tag> tags) {
         Session session = sessionFactory.getCurrentSession();
         Calendar now = Calendar.getInstance();
         Article article = new Article();
 
+        // todo: check if username exists
         User user = new User();
         user.setUsername(username);
+
 
         article.setUser(user);
         article.setTitle(title);
@@ -86,11 +89,18 @@ public class ArticleDao extends TheDao {
         if (tags != null)
             article.getTags().addAll(tags);
 
+        if (iid != 0) {
+            // todo: check if iid exists
+            Image img = new Image();
+            img.setId(iid);
+            article.setImage(img);
+        }
+
         session.save(article);
         return article;
     }
 
-    public Article updateArticle(int id, String title, String content,
+    public Article updateArticle(int id, int iid, String title, String content,
                                  String username, List<Tag> tags) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Article.class);

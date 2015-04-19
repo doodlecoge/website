@@ -71,6 +71,7 @@ public class ArticleController {
     @ResponseBody
     @RequestMapping(value = "/{id}/save", method = RequestMethod.POST)
     public String save(@PathVariable int id,
+                       @RequestParam int iid,
                        @RequestParam String title,
                        @RequestParam String tags,
                        @RequestParam String content) {
@@ -93,11 +94,11 @@ public class ArticleController {
             Article a;
             if (id == 0)
                 a = articleService.addArticle(
-                        title, content, username, tids
+                        iid, title, content, username, tids
                 );
             else
                 a = articleService.updateArticle(
-                        id, title, content, username, tids
+                        id, iid,title, content, username, tids
                 );
             jobj.addProperty("error", false);
             jobj.addProperty("aid", a.getId());

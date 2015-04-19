@@ -60,18 +60,35 @@
             height: 35px;
         }
 
-        .tbl_editor .h {
-            width: 1%;
-            /*background: #ccc;*/
-            padding: 5px;
+        .tbl_editor td.label {
+            font-weight: bold;
+            font-size: 18px;
+            color: #555;
+            height: 20px;
         }
 
         #title {
-            width: 100%;
-            height: 100%;
+            display: block;
+            padding: 0 5px;
             outline: none;
             border: 0px;
             font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 35px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #tags {
+            min-height: 25px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        #tags input {
+            height: auto;
         }
 
         #preview {
@@ -86,10 +103,6 @@
 
         .CodeMirror-gutters {
             height: 100% !important;
-        }
-
-        #tags {
-            min-height: 30px;
         }
 
         .ui_menu {
@@ -152,6 +165,12 @@
             max-width: 100px;
             max-height: 100px;
         }
+
+        .logo {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
     </style>
 
     <script type="text/javascript">
@@ -208,12 +227,14 @@
                     ids.push(tag.id);
                 });
                 var id = 0;
+                var iid = $('#select_logo').attr('iid') || 0;
                 if ($('#aid').length == 1) id = $('#aid').val();
                 var xhr = $.ajax({
                     method: 'POST',
                     url: '<%=request.getContextPath()%>/article/' + id + '/save',
                     data: {
                         id: id,
+                        iid: iid,
                         title: $('#title').val(),
                         tags: ids.join(','),
                         content: mde.getValue()
@@ -240,7 +261,17 @@
                 mde.setValue(localStorage.newText);
             }
 
+            var img_target = null;
             $('#choose_image').click(function () {
+                img_target = 'content';
+                loadImages();
+            });
+            $('#select_logo').click(function () {
+                img_target = 'logo';
+                loadImages();
+            });
+
+            function loadImages() {
                 var xhr = $.ajax({
                     url: '<%=ctx%>/image/json',
                     dataType: 'json'
@@ -260,13 +291,20 @@
                                 .appendTo(li);
                     });
                 });
-            });
+            }
 
             $('#images').click(function (e) {
                 if (e.target.nodeName.toLowerCase() != 'img') return;
                 var img = $(e.target);
                 var iid = img.attr('iid');
-                mde.replaceSelection("![Alt text](image/" + iid + ")");
+                if (img_target == 'logo') {
+                    $('#select_logo')
+                            .attr('src', 'image/' + iid)
+                            .attr('iid', iid);
+                } else {
+                    mde.replaceSelection("![Alt text](image/" + iid + ")");
+                }
+                img_target = null;
                 $('#overlay').hide();
                 $('#images').hide();
             });
@@ -291,34 +329,54 @@
         <td style="height: 15px;"></td>
     </tr>
     <tr>
-        <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
+        <td class="label">Title of this post</td>
+    </tr>
+    <tr>
+        <td>
             <c:choose>
                 <c:when test="${article == null}">
-                    <input type="text" id="title"
-                           placeholder="title of your post..."
-                           style="font-size: 24px;">
+                    <input type="text" id="title">
                 </c:when>
                 <c:otherwise>
                     <input type="text" id="title"
-                           placeholder="title of your post..."
-                           style="font-size: 24px;"
                            value="${article.title}">
                 </c:otherwise>
             </c:choose>
         </td>
     </tr>
 
+
     <tr>
         <td style="height: 15px;"></td>
     </tr>
     <tr>
-        <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
+        <td class="label">Add tags</td>
+    </tr>
+    <tr>
+        <td>
             <div id="tags"></div>
         </td>
     </tr>
 
+
     <tr>
-        <td colspan="2" style="height: 15px;"></td>
+        <td style="height: 15px;"></td>
+    </tr>
+    <tr>
+        <td class="label">Logo (click to change)</td>
+    </tr>
+    <tr>
+        <td>
+            <img src="img/no-img.png" class="logo" id="select_logo">
+        </td>
+    </tr>
+
+
+    <tr>
+        <td style="height: 15px;"></td>
+    </tr>
+    <tr>
+        <td class="label">Content</td>
     </tr>
     <tr>
         <td style="border-bottom: 1px solid #ccc;">
@@ -341,10 +399,10 @@
         </td>
     </tr>
 
+
     <tr>
         <td colspan="2" style="height: 15px;"></td>
     </tr>
-
     <tr>
         <td>
             <button class="button blue" id="btn_submit">Save</button>

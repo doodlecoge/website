@@ -98,7 +98,7 @@ input[type="text"] {
 /*===========================================================================*/
 
 .button {
-    display: inline;
+    display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
     outline: none;

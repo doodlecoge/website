@@ -66,7 +66,7 @@
 
         @media screen and (max-device-width: 600px) {
             .overmenu {
-               position: inherit;
+                position: inherit;
             }
         }
     </style>
@@ -78,8 +78,8 @@
             $("#outline").html(data.outline);
 
             var outline = $('#outline');
-            var h = outline.offset().top;
-            var l = outline.offset().left;
+            $('#pholder').height(outline.height());
+            var h = outline.offset().top + outline.height();
 
             $(window).on('scroll', function () {
                 if ($(window).scrollTop() > h) {
@@ -134,8 +134,11 @@
 <div id="note_wrapper">
     <h1 style="margin: 0">Table of Contents:</h1>
 
-    <div id="outline"></div>
+    <div id="pholder">
+        <div id="outline"></div>
+    </div>
     <br/>
+
     <div id="note" class="preview"></div>
 </div>
 

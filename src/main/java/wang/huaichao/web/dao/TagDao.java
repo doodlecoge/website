@@ -38,6 +38,7 @@ public class TagDao extends TheDao {
     }
 
     public List<Tag> getTags(List<Integer> tids) {
+        if (tids == null || tids.size() == 0) return null;
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Tag.class)
                 .add(Restrictions.in("id", tids));

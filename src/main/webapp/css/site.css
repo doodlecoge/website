@@ -175,32 +175,68 @@ ul.tags li a:hover {
     font-size: 18px;
 }
 
-.preview h1, .preview h2, .preview h3, .preview h4, .preview h5, .preview h6 {
+
+.preview h1, .preview h2 {
     margin: 0;
+    margin-bottom: 16px;
     color: #222;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    line-height: 35px;
+
+}
+
+.preview h3, .preview h4, .preview h5, .preview h6 {
+    line-height: 35px;
+    margin: 0;
+    margin-bottom: 16px;
+}
+
+.preview blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+
+.preview pre {
+    background: #eee;
+    border-radius: 3px;
+    padding: 1em;
 }
 
 .preview code {
-    background: #ddd;
-    font-family: inherit;
+    padding: 0.2em;
+    margin: 0;
+    background-color: #eee;
     border-radius: 3px;
-    padding: 0 10px;
+    font-family:  Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.preview pre code {
+    font-size: 85%;
 }
 
+
+
 .preview p {
-    margin: 0;
-    padding: 0;
-    line-height: 22px;
-    color: #222;
+    margin-bottom: 16px;
+    line-height: 1.6;
 }
 
 .preview table {
     border-collapse: collapse;
+    margin-bottom: 1em;
+}
+
+.preview table tr:nth-child(2n) {
+    background: #eee;
 }
 
 .preview table th {
     border: 1px solid #888;
-    background: #eee;
+    background: #ccc;
     padding: 0.5em 1em;
 }
 

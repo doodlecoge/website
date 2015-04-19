@@ -83,7 +83,8 @@ public class ArticleDao extends TheDao {
         article.setContent(content);
         article.setCreatedAt(now.getTime());
         article.setUpdatedAt(now.getTime());
-        article.getTags().addAll(tags);
+        if (tags != null)
+            article.getTags().addAll(tags);
 
         session.save(article);
         return article;
@@ -102,7 +103,8 @@ public class ArticleDao extends TheDao {
         article.setContent(content);
         article.setUpdatedAt(now.getTime());
         article.getTags().clear();
-        article.getTags().addAll(tags);
+        if (tags != null)
+            article.getTags().addAll(tags);
         session.update(article);
         return article;
     }

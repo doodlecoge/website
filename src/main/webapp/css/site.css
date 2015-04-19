@@ -248,3 +248,7 @@ ul.tags li a:hover {
 .preview del {
     color: #f33;
 }
+
+.preview img {
+    max-width: 100%;
+}

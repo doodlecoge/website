@@ -57,12 +57,12 @@
             padding: 0;
             margin: 0;
             border: 0;
-            height: 30px;
+            height: 35px;
         }
 
         .tbl_editor .h {
             width: 1%;
-            background: #ccc;
+            /*background: #ccc;*/
             padding: 5px;
         }
 
@@ -288,18 +288,20 @@
 </c:if>
 <table class="tbl_editor">
     <tr>
-        <td colspan="2" style="height: 5px;"></td>
+        <td style="height: 15px;"></td>
     </tr>
-
     <tr>
-        <td class="h">Title:</td>
         <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
             <c:choose>
                 <c:when test="${article == null}">
-                    <input type="text" id="title" style="font-size: 24px;">
+                    <input type="text" id="title"
+                           placeholder="title of your post..."
+                           style="font-size: 24px;">
                 </c:when>
                 <c:otherwise>
-                    <input type="text" id="title" style="font-size: 24px;"
+                    <input type="text" id="title"
+                           placeholder="title of your post..."
+                           style="font-size: 24px;"
                            value="${article.title}">
                 </c:otherwise>
             </c:choose>
@@ -307,22 +309,18 @@
     </tr>
 
     <tr>
-        <td colspan="2" style="height: 5px;"></td>
+        <td style="height: 15px;"></td>
     </tr>
-
     <tr>
-        <td class="h">Tags:</td>
         <td style="border-bottom: 1px solid #ccc; padding: 0 5px;">
             <div id="tags"></div>
         </td>
     </tr>
 
     <tr>
-        <td colspan="2" style="height: 5px;"></td>
+        <td colspan="2" style="height: 15px;"></td>
     </tr>
-
     <tr>
-        <td class="h">Content:</td>
         <td style="border-bottom: 1px solid #ccc;">
             <div class="tool_bar">
                 <a class="btn" id="choose_image">
@@ -344,13 +342,12 @@
     </tr>
 
     <tr>
-        <td colspan="2" style="height: 5px;"></td>
+        <td colspan="2" style="height: 15px;"></td>
     </tr>
 
     <tr>
-        <td></td>
         <td>
-            <button class="button" id="btn_submit">Save</button>
+            <button class="button blue" id="btn_submit">Save</button>
         </td>
     </tr>
 </table>

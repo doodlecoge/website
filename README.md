@@ -1,6 +1,6 @@
 # Github Markdowns
 
-a quick brown fox jumps over the lazy dog
+a quick brown fox `jumps` over the lazy dog
 
 ## Link
 
@@ -12,6 +12,8 @@ https://avatars0.githubusercontent.com/u/5117479?v=3&s=460
 
 ## Image
 
+![a photo](https://avatars0.githubusercontent.com/u/5117479?v=3&s=460)
+![a photo](https://avatars0.githubusercontent.com/u/5117479?v=3&s=460)
 ![a photo](https://avatars0.githubusercontent.com/u/5117479?v=3&s=460)
 
 ## List

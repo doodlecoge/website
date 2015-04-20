@@ -258,11 +258,11 @@
                     localStorage.newText = mde.getValue();
                 }
             });
-
+            <c:if test="${article == null}">
             if (Modernizr.localstorage) {
                 mde.setValue(localStorage.newText);
             }
-
+            </c:if>
             var img_target = null;
             $('#choose_image').click(function () {
                 img_target = 'content';
@@ -370,7 +370,7 @@
     <tr>
         <td>
             <c:choose>
-                <c:when test="${article == null}">
+                <c:when test="${article.image == null}">
                     <img src="img/no-img.png" class="logo" id="select_logo">
                 </c:when>
                 <c:otherwise>

@@ -132,7 +132,10 @@ public class ArticleDao extends TheDao {
 
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(id);
+        // todo: check id existence
+        Article article = new Article();
+        article.setId(id);
+        session.delete(article);
     }
 
 }

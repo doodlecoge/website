@@ -50,7 +50,7 @@
 
         ul.articles li.line .title:hover {
             text-decoration: underline;
-            color: #f66;
+            color: #f55;
         }
     </style>
 </head>
@@ -97,8 +97,14 @@
                     </div>
                     <c:if test="${username == article.user.username}">
                         <div>
-                            <a href="<%=cp%>/article/${article.id}/del">Delete</a>
-                            <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
+                            <a href="<%=cp%>/article/${article.id}/del"
+                               class="del"
+                               onclick="return confirm('delete this article?')">
+                                Delete</a>
+                            &nbsp;
+                            <a href="<%=cp%>/article/${article.id}/edit"
+                               class="edit">
+                                Edit</a>
                         </div>
                     </c:if>
                 </div>

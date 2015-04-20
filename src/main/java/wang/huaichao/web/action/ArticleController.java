@@ -105,4 +105,11 @@ public class ArticleController {
         } else jobj.addProperty("error", true);
         return jobj.toString();
     }
+
+
+    @RequestMapping(value = "/{id}/del")
+    public String delete(@PathVariable int id) {
+        articleService.delete(id);
+        return "redirect:/article";
+    }
 }

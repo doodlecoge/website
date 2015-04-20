@@ -3,6 +3,7 @@ package wang.huaichao.web.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
@@ -28,7 +29,8 @@ public class ArticleDao extends TheDao {
     public List<Article> getArticlesByUser(String username) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Article.class);
-        criteria.add(Restrictions.eq("username", username));
+        criteria.add(Restrictions.eq("username", username))
+        .addOrder(Order.desc("updatedAt"));
         return criteria.list();
     }
 
@@ -42,6 +44,7 @@ public class ArticleDao extends TheDao {
                 .addScalar("aid", StandardBasicTypes.INTEGER)
                 .setParameter("id", id)
                 .list();
+        if (rows.size() == 0) return null;
         List<Integer> aids = new ArrayList<Integer>();
         for (Object row : rows) {
             aids.add(Integer.valueOf(row.toString()));
@@ -49,6 +52,7 @@ public class ArticleDao extends TheDao {
 
         return session.createCriteria(Article.class)
                 .add(Restrictions.in("id", aids))
+                .addOrder(Order.desc("updatedAt"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                 .list();
     }
@@ -67,6 +71,7 @@ public class ArticleDao extends TheDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Article.class)
+                .addOrder(Order.desc("updatedAt"))
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
@@ -123,6 +128,11 @@ public class ArticleDao extends TheDao {
         }
         session.update(article);
         return article;
+    }
+
+    public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(id);
     }
 
 }

@@ -48,4 +48,8 @@ public class ArticleService {
         List<Tag> tags = tagDao.getTags(tids);
         return articleDao.updateArticle(id, iid, title, content, username, tags);
     }
+
+    public void delete(int id) {
+        articleDao.delete(id);
+    }
 }

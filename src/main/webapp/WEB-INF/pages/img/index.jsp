@@ -31,12 +31,10 @@
         ul.imgs li {
             list-style: none;
             display: inline-block;
-            height: 100px;
             width: 100px;
             border: 1px solid #ccc;
             padding: 5px;
             vertical-align: top;
-            line-height: 100px;
             margin-bottom: 10px;
         }
 
@@ -45,6 +43,12 @@
             width: 100px;
             background: #ccc;
             font-size: 0;
+        }
+
+        ul.imgs li a {
+            line-height: 25px;
+            display: block;
+            text-align: center;
         }
 
         form input[type="text"] {
@@ -66,6 +70,7 @@
 <body>
 
 <h2>Add Image:</h2>
+
 <form method="post" enctype="multipart/form-data"
       action="<%=request.getContextPath()%>/image/upload">
     <table style="width: 100%">
@@ -94,10 +99,15 @@
     <ul class="imgs">
         <c:forEach items="${images}" var="image">
             <li>
-                <div align="center"><img class="img" iid="${image.id}"
+                <div align="center">
+                    <img class="img" iid="${image.id}"
                          src="<%=cp%>/image/${image.id}"
                          title="${image.filename}"/>
                 </div>
+                <a class="del" href="<%=cp%>/image/${image.id}/del"
+                        onclick="return confirm('delete this image?')">
+                    delete
+                </a>
             </li>
         </c:forEach>
     </ul>

@@ -128,7 +128,7 @@ public class ImageController {
     public String upload(@RequestParam MultipartFile img,
                          @RequestParam String imageName) {
         if (img.isEmpty()) {
-            return "please select file to upload";
+            return "redirect:/image";
         }
 
 
@@ -197,18 +197,38 @@ public class ImageController {
             bi = bi.getSubimage(cut_x, cut_y, cut_w, cut_h);
 
 
-            BufferedImage zoomImage = new BufferedImage(s_w, s_h, bi.getType());
-            java.awt.Image zimg = bi.getScaledInstance(s_w, s_h, java.awt.Image.SCALE_SMOOTH);
-            Graphics gc = zoomImage.getGraphics();
-            gc.setColor(Color.WHITE);
-            gc.drawImage(zimg, 0, 0, null);
+            if (s_h > 0 && s_w > 0) {
+                BufferedImage zoomImage = new BufferedImage(s_w, s_h, bi.getType());
+                java.awt.Image zimg = bi.getScaledInstance(s_w, s_h, java.awt.Image.SCALE_SMOOTH);
+                Graphics gc = zoomImage.getGraphics();
+                gc.setColor(Color.WHITE);
+                gc.drawImage(zimg, 0, 0, null);
 
-            ImageIO.write(zoomImage, subfix, new File(path +
-                    image.getFilename()));
+                ImageIO.write(zoomImage, subfix, new File(path +
+                        image.getFilename()));
+            } else {
+                ImageIO.write(bi, subfix, new File(path +
+                        image.getFilename()));
+            }
+
+
         } catch (IOException e) {
             return "{\"error\":true, \"msg\":\"cut error\"}";
         }
 
         return "{\"error\": false}";
+    }
+
+
+    @RequestMapping(value = "/{id}/del")
+    public String del(@PathVariable int id) {
+        Image image = imageService.getImage(id);
+        imageService.delete(id);
+        String path = uploadDir + image.getDirname() + File.separator;
+        File file = new File(path + image.getFilename());
+        if (file.exists()) {
+            file.delete();
+        }
+        return "redirect:/image";
     }
 }

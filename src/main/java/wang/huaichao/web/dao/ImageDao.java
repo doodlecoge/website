@@ -35,4 +35,11 @@ public class ImageDao extends TheDao {
         session.save(image);
         return image;
     }
+
+    public void delete(int id) {
+        Session session = sessionFactory.getCurrentSession();
+        Image image = new Image();
+        image.setId(id);
+        session.delete(image);
+    }
 }

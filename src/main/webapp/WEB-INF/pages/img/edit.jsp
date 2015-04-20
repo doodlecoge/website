@@ -40,15 +40,36 @@
 <br/>
 
 
-
-<b>Scale</b>,
-W: <input type="text" class="val" id="sw" value="200">px,
-H: <input type="text" class="val" id="sh" value="200">px
-
 <a id="cut" class="button blue">
     <i class="fa fa-cut"></i>
     Cut
 </a>
+
+<a id="del" class="button red"
+   href="<%=cp%>/image/${image.id}/del"
+   onclick="return confirm('delete this image?')">
+    <i class="fa fa-times"></i>
+    Delete
+</a>
+
+<hr/>
+
+<input type="checkbox" id="fix_ratio">
+<label for="fix_ratio">
+    <b>Fixed Cut Ratio</b>,
+</label>
+X: <input type="text" class="val" id="rx" value="1" disabled>,
+Y: <input type="text" class="val" id="ry" value="1" disabled>;
+<hr>
+
+<input type="checkbox" id="scale">
+<label for="scale">
+    <b>Scale</b>,
+</label>
+W: <input type="text" class="val" id="sw" value="200" disabled>px,
+H: <input type="text" class="val" id="sh" value="200" disabled>px;
+<hr/>
+
 
 <br/>
 <br/>
@@ -59,13 +80,48 @@ H: <input type="text" class="val" id="sh" value="200">px
 
 <script type="text/javascript">
     $(function () {
+        var jcrop_api = null;
+
         $('#img').load(function () {
             $('#img').Jcrop({
-                aspectRatio: 1,
                 setSelect: [0, 0, 100, 100],
                 onSelect: crop
+            }, function () {
+                jcrop_api = this;
             });
         });
+
+        $('#fix_ratio').change(_changeRatio);
+        $('#rx').change(_changeRatio);
+        $('#ry').change(_changeRatio);
+
+        $('#scale').change(function () {
+            if ($(this).is(':checked')) {
+                $('#sw').prop('disabled', false);
+                $('#sh').prop('disabled', false);
+            } else {
+                $('#sw').prop('disabled', true);
+                $('#sh').prop('disabled', true);
+            }
+        });
+
+        function _changeRatio() {
+            if ($('#fix_ratio').is(':checked')) {
+                $('#rx').prop('disabled', false);
+                $('#ry').prop('disabled', false);
+                var x = parseInt($('#rx').val());
+                var y = parseInt($('#ry').val());
+                jcrop_api.setOptions({
+                    aspectRatio: x / y
+                });
+            } else {
+                $('#rx').prop('disabled', true);
+                $('#ry').prop('disabled', true);
+                jcrop_api.setOptions({
+                    aspectRatio: null
+                });
+            }
+        }
 
         $('#cut').click(function () {
             var img = $('#img');
@@ -78,8 +134,8 @@ H: <input type="text" class="val" id="sh" value="200">px
                 cut_h: coords.h,
                 cut_x: coords.x,
                 cut_y: coords.y,
-                s_w: $('#sw').val(),
-                s_h: $('#sh').val()
+                s_w: $('#scale').is(':checked') ? $('#sw').val() || 0 : 0,
+                s_h: $('#scale').is(':checked') ? $('#sh').val() || 0 : 0
             };
             console.log(data);
             var xhr = $.ajax({
@@ -92,6 +148,9 @@ H: <input type="text" class="val" id="sh" value="200">px
                 if (data.error == false)
                     location.href = "<%=cp%>/image";
             });
+            xhr.fail(function(data) {
+                console.log(data);
+            })
         });
     });
 

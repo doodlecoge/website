@@ -27,4 +27,8 @@ public class ImageService {
         return imageDao.addImage(
                 dirname, filename, createdAt, updatedAt, username);
     }
+
+    public void delete(int id) {
+        imageDao.delete(id);
+    }
 }

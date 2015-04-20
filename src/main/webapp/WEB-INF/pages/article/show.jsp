@@ -51,7 +51,6 @@
         }
 
         #note {
-            padding-right: 10px;
             height: 100%;
             background: #f8f8f8;
             vertical-align: top;

@@ -45,6 +45,17 @@
             font-size: 0;
         }
 
+        ul.imgs span.helper {
+            vertical-align: middle;
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        ul.img img {
+            vertical-align: middle;
+        }
+
         ul.imgs li a {
             line-height: 25px;
             display: block;
@@ -100,12 +111,13 @@
         <c:forEach items="${images}" var="image">
             <li>
                 <div align="center">
+                    <span class="helper"></span>
                     <img class="img" iid="${image.id}"
                          src="<%=cp%>/image/${image.id}"
                          title="${image.filename}"/>
                 </div>
                 <a class="del" href="<%=cp%>/image/${image.id}/del"
-                        onclick="return confirm('delete this image?')">
+                   onclick="return confirm('delete this image?')">
                     delete
                 </a>
             </li>

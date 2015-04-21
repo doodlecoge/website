@@ -35,6 +35,18 @@
             height: 60px;
             padding: 5px;
             border: 1px solid #ccc;
+            text-align: center;
+            font-size: 0;
+        }
+
+        ul.articles span.helper {
+            vertical-align: middle;
+            display: inline-block;
+            height: 100%;
+        }
+
+        ul.articles img {
+            vertical-align: middle;
         }
 
         ul.articles li.line div.right {
@@ -62,6 +74,7 @@
             <li class="line">
                 <div class="img">
                     <div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">
+                        <span class="helper"></span>
                         <c:if test="${article.image != null}">
                             <img src="<%=cp%>/image/${article.image.id}"
                                  style="max-width: 60px; max-height: 60px;">

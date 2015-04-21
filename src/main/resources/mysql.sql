@@ -64,3 +64,7 @@ CREATE TABLE IF NOT EXISTS articles_tags
     ON DELETE CASCADE
 );
 
+
+-- modify content of articles to accept up to 16kb characters
+ALTER TABLE articles CHANGE content content VARCHAR(16384) NULL;
+

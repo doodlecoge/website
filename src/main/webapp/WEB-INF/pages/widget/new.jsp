@@ -261,7 +261,7 @@
 
         htmlEditor = CodeMirror.fromTextArea($("#cm_html").get(0), {
             lineNumbers: true,
-            mode: "application/x-ejs",
+            mode: "text/html",
             indentUnit: 4,
             indentWithTabs: true
         });

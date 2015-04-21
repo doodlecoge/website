@@ -3,9 +3,7 @@ package wang.huaichao.web.model;
 import org.springframework.security.web.PortResolverImpl;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Administrator on 2015/1/5.
@@ -34,7 +32,8 @@ public class User {
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "username")
-    private Set<Image> images = new HashSet<Image>();
+    @OrderBy("updatedAt desc")
+    private List<Image> images = new ArrayList<Image>();
 
     public String getUsername() {
         return username;
@@ -84,11 +83,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public Set<Image> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(Set<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

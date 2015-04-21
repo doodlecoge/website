@@ -123,9 +123,13 @@
                 <i class="fa fa-pencil-square-o"></i>
                 Write sth.
             </a>
-            <a href="<%=cp%>/t">
-                <i class="fa fa-wrench"></i>
-                Tools
+            <%--<a href="<%=cp%>/t">--%>
+                <%--<i class="fa fa-wrench"></i>--%>
+                <%--Tools--%>
+            <%--</a>--%>
+            <a href="<%=cp%>/widget">
+                <i class="fa fa-th"></i>
+                Widgets
             </a>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <a href="<%=cp%>/image">

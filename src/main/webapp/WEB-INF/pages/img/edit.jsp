@@ -1,3 +1,4 @@
+<%@ page import="java.util.Calendar" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -8,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String cp = request.getContextPath();
+    long ts = Calendar.getInstance().getTimeInMillis();
 %>
 <html>
 <head>
@@ -75,7 +77,7 @@ H: <input type="text" class="val" id="sh" value="200" disabled>px;
 <br/>
 
 <img id="img" style="max-width: 100%" iid="${image.id}"
-     src="<%=request.getContextPath()%>/image/${image.id}">
+     src="<%=request.getContextPath()%>/image/${image.id}?t=<%=ts%>}">
 
 
 <script type="text/javascript">

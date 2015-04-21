@@ -42,4 +42,9 @@ public class ImageDao extends TheDao {
         image.setId(id);
         session.delete(image);
     }
+
+    public void update(Image image) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(image);
+    }
 }

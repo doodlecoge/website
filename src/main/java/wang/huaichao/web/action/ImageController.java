@@ -31,9 +31,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/4/17.
@@ -62,7 +61,7 @@ public class ImageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap map) {
-        Set<Image> images = userService.getImages(UserUtils.getUsername());
+        java.util.List<Image> images = userService.getImages(UserUtils.getUsername());
         map.put("images", images);
 
         return "/img/index";
@@ -71,7 +70,7 @@ public class ImageController {
     @RequestMapping("/json")
     @ResponseBody
     public String json() {
-        Set<Image> images = userService.getImages(UserUtils.getUsername());
+        List<Image> images = userService.getImages(UserUtils.getUsername());
 
         JsonArray jarr = new JsonArray();
 
@@ -222,7 +221,8 @@ public class ImageController {
                         image.getFilename()));
             }
 
-
+            image.setUpdatedAt(Calendar.getInstance().getTime());
+            imageService.update(image);
         } catch (IOException e) {
             return "{\"error\":true, \"msg\":\"cut error\"}";
         }

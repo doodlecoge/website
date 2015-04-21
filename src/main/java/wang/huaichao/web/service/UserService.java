@@ -27,7 +27,7 @@ public class UserService {
         return userDao.getUsers();
     }
 
-    public Set<Image> getImages(String username) {
+    public List<Image> getImages(String username) {
         return userDao.getImages(username);
     }
 }

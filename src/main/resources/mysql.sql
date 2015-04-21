@@ -68,3 +68,15 @@ CREATE TABLE IF NOT EXISTS articles_tags
 -- modify content of articles to accept up to 16kb characters
 ALTER TABLE articles CHANGE content content VARCHAR(16384) NULL;
 
+
+-- widgets
+
+CREATE TABLE IF NOT EXISTS widgets
+(
+  id       INT PRIMARY KEY AUTO_INCREMENT,
+  html     VARCHAR(4096) NULL,
+  js       VARCHAR(8192) NULL,
+  css      VARCHAR(4096) NULL,
+  username VARCHAR(20)   NOT NULL,
+  FOREIGN KEY (username) REFERENCES users (username)
+);

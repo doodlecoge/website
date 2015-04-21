@@ -31,7 +31,7 @@ public class UserDao extends TheDao {
         return criteria.list();
     }
 
-    public Set<Image> getImages(String username) {
+    public List<Image> getImages(String username) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(User.class)
                 .add(Restrictions.eq("username", username));

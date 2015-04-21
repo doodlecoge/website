@@ -31,4 +31,8 @@ public class ImageService {
     public void delete(int id) {
         imageDao.delete(id);
     }
+
+    public void update(Image image) {
+        imageDao.update(image);
+    }
 }

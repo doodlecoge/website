@@ -111,8 +111,19 @@ public class ImageController {
 
         int len;
         byte[] bytes = new byte[2048];
+        Calendar expires = Calendar.getInstance();
+        expires.add(Calendar.YEAR, 1);
         try {
             response.setContentType("image/png");
+            response.setHeader(
+                    "Expires",
+                    TimeUtils.format(expires.getTime(),
+                            "EEE, dd MMM yyyy HH:mm:ss z")
+            );
+            response.setHeader(
+                    "Cache-Control",
+                    "max-age=" + TimeUtils.YEAR_MS
+            );
             ServletOutputStream os = response.getOutputStream();
             while ((len = fis.read(bytes)) != -1)
                 os.write(bytes, 0, len);

@@ -21,6 +21,9 @@
         <intercept-url pattern="^/t" access="permitAll"/>
         <intercept-url pattern="^/t/.*" access="permitAll"/>
         <intercept-url pattern="^/image/\d+" access="permitAll"/>
+        <intercept-url pattern="^/widget" access="permitAll"/>
+        <intercept-url pattern="^/widget/\d+" access="permitAll"/>
+        <intercept-url pattern="^/widget/\d+/json" access="permitAll"/>
 
         <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*"
                        access="permitAll"/>

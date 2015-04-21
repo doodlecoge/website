@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import wang.huaichao.web.model.User;
+import wang.huaichao.web.model.Widget;
 import wang.huaichao.web.service.UserService;
+import wang.huaichao.web.service.WidgetService;
 
 import java.util.List;
 
@@ -18,10 +20,13 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private WidgetService widgetService;
+
     @RequestMapping("/")
     public String home(ModelMap map) {
-        List<User> users = userService.getUsers();
-        map.put("users", users);
+        Widget latest = widgetService.getLatest();
+        map.put("widget", latest);
         return "home";
     }
 

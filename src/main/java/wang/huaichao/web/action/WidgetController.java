@@ -1,5 +1,6 @@
 package wang.huaichao.web.action;
 
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,5 +43,23 @@ public class WidgetController {
         Widget widget = widgetService.get(id);
         map.put("widget", widget);
         return "widget/new";
+    }
+
+    @RequestMapping("/{id}/del")
+    @ResponseBody
+    public String del(@PathVariable int id) {
+        widgetService.delete(id);
+        return "{\"error\":false}";
+    }
+
+    @RequestMapping("/{id}/json")
+    @ResponseBody
+    public String json(@PathVariable int id) {
+        Widget widget = widgetService.get(id);
+        JsonObject jobj = new JsonObject();
+        jobj.addProperty("html", widget.getHtml());
+        jobj.addProperty("css", widget.getCss());
+        jobj.addProperty("js", widget.getJs());
+        return jobj.toString();
     }
 }

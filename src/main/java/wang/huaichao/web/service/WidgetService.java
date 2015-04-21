@@ -26,6 +26,10 @@ public class WidgetService {
         return widgetDao.get(id);
     }
 
+    public Widget getLatest() {
+        return widgetDao.getLatest();
+    }
+
     public void delete(int id) {
         widgetDao.delete(id);
     }

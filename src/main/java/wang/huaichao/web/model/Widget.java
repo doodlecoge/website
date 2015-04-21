@@ -1,6 +1,7 @@
 package wang.huaichao.web.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2015/4/21.
@@ -21,6 +22,12 @@ public class Widget {
 
     @Column
     private String css;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @OneToOne
     @JoinColumn(name = "username")
@@ -64,5 +71,21 @@ public class Widget {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

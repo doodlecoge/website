@@ -80,3 +80,9 @@ CREATE TABLE IF NOT EXISTS widgets
   username VARCHAR(20)   NOT NULL,
   FOREIGN KEY (username) REFERENCES users (username)
 );
+
+
+-- add timestamp
+
+ALTER TABLE widgets ADD created_at DATETIME NOT NULL;
+ALTER TABLE widgets ADD updated_at DATETIME NOT NULL;

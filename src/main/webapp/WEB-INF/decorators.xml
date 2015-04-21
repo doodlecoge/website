@@ -3,6 +3,7 @@
     <excludes>
         <pattern>/tag/json</pattern>
         <pattern>/widget</pattern>
+        <pattern>/widget/*</pattern>
     </excludes>
     <decorator name="layout" page="layout.jsp">
         <pattern>/*</pattern>

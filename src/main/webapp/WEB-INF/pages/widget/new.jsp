@@ -303,7 +303,7 @@
 
             xhr.done(function (data) {
                 if (data.error == false) {
-                    alert('success');
+                    location.href = '<%=cp%>/widget';
                 }
             });
 

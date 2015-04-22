@@ -173,8 +173,14 @@
         Copyright &copy; huaichao.wang since 2014.
     </div>
 </div>
-<script type="text/javascript">
-    //    dock_bottom();
-</script>
+<%
+    String host = request.getServerName();
+    boolean bLocal = "localhost".equalsIgnoreCase(host) ||
+            "127.0.0.1".equalsIgnoreCase(host);
+    pageContext.setAttribute("blocal", bLocal);
+%>
+<c:if test='${pageContext.getAttribute("blocal") == false}'>
+<jsp:include page="ga.jsp"></jsp:include>
+</c:if>
 </body>
 </html>

@@ -477,5 +477,6 @@
         $('.overlay').hide();
     }
 </script>
+<jsp:include page="../../decorators/ga.jsp"></jsp:include>
 </body>
 </html>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%
     String cp = request.getContextPath();
@@ -15,6 +16,8 @@
 <html>
 <head>
     <title>Online HTML/CSS/Javascript Editor</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel=stylesheet href="<%=cp%>/cme/lib/codemirror.css">
     <link rel=stylesheet href="<%=cp%>/css/font-awesome.min.css">
 
@@ -167,10 +170,13 @@
         }
 
         .toolbar {
-            height: 40px;
-            line-height: 40px;
+            /*line-height: 40px;*/
             background: #555;
+            display: table;
+            width: 100%;
             font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace, "微软雅黑", "宋体";
+            padding: 0;
+            margin: 0;
         }
 
         .toolbar .btn {
@@ -179,10 +185,29 @@
             padding: 0 10px;
             cursor: pointer;
             text-decoration: none;
+            display: table-cell;
+            width: 1%;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .toolbar .btn:hover {
             color: #f8f8f8;
+        }
+
+        .toolbar input.desc {
+            padding: 0 5px;
+            margin: 5px 0;
+            border: 0;
+            height: 30px;
+            display: inline;
+            display: table-cell;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: Monaco, Menlo, 'Ubuntu Mono', Consolas, source-code-pro, monospace, "微软雅黑", "宋体";
+            font-size: 18px;
+            background: #ffc;
+            outline: none;
         }
     </style>
 </head>
@@ -192,10 +217,27 @@
         <i class="fa fa-reply"></i>
         Exit
     </a>
-    <a class="btn" id="save">
-        <i class="fa fa-save"></i>
-        Save
-    </a>
+    <c:if test="${widget != null}">
+        <input type="text" class="desc" id="title" value="${widget.title}"
+               placeholder="type description of this widget here ...">
+    </c:if>
+    <c:if test="${widget == null}">
+        <input type="text" class="desc" id="title"
+               placeholder="type description of this widget here ...">
+    </c:if>
+    <sec:authorize access="isAuthenticated()">
+        <a class="btn" id="save">
+            <i class="fa fa-save"></i>
+            Save
+        </a>
+    </sec:authorize>
+    <sec:authorize access="isAnonymous()">
+        <a class="btn" href="<%=cp%>/login">
+            <i class="fa fa-key"></i>
+            Login to save
+        </a>
+    </sec:authorize>
+
 </div>
 <c:if test="${widget != null}">
     <input type="hidden" id="wid" value="${widget.id}">
@@ -292,7 +334,8 @@
             var css = cssEditor.getValue();
             var js = jsEditor.getValue();
             var id = $('#wid').val() || 0;
-            var data = {id: id, html: html, css: css, js: js};
+            var title = $('#title').val();
+            var data = {id: id, html: html, css: css, js: js, title: title};
 
             var xhr = $.ajax({
                 url: '<%=cp%>/widget/save',

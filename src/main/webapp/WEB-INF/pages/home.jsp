@@ -15,6 +15,15 @@
 <head>
     <title>Home Page</title>
     <script type="text/javascript" src="<%=cp%>/js/jquery.plugins.js"></script>
+    <style type="text/css">
+        #widget_link {
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            line-height: 50px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
     <script type="text/javascript">
         <c:if test="${widget != null}">
         $(function () {
@@ -35,6 +44,14 @@
     </script>
 </head>
 <body>
+<c:if test="${widget != null}">
+    <div id="widget_link">
+        <b>Widget of Day:</b>
+        <a href="<%=cp%>/widget/${widget.id}">
+                <i>${widget.title}</i>
+        </a>
+    </div>
+</c:if>
 <div id="ccc"></div>
 </body>
 </html>

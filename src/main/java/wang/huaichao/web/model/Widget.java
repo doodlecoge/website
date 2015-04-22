@@ -15,6 +15,9 @@ public class Widget {
     private int id;
 
     @Column
+    private String title;
+
+    @Column
     private String html;
 
     @Column
@@ -39,6 +42,14 @@ public class Widget {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getHtml() {

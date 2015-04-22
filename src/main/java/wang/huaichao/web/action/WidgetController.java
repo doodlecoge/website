@@ -9,6 +9,8 @@ import wang.huaichao.security.UserUtils;
 import wang.huaichao.web.model.Widget;
 import wang.huaichao.web.service.WidgetService;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/4/21.
  */
@@ -19,21 +21,29 @@ public class WidgetController {
     private WidgetService widgetService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String index() {
+    public String index(ModelMap map) {
+        List<Widget> widgets = widgetService.listAll();
+        map.put("widgets", widgets);
+        return "widget/index";
+    }
+
+    @RequestMapping("/new")
+    public String addNew() {
         return "widget/new";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public String save(@RequestParam int id,
+                       @RequestParam String title,
                        @RequestParam String html,
                        @RequestParam String js,
                        @RequestParam String css) {
         // todo: check if current user have privileges to add/update this widget
         if (id == 0)
-            widgetService.add(html, js, css, UserUtils.getUsername());
+            widgetService.add(title, html, js, css, UserUtils.getUsername());
         else
-            widgetService.update(id, html, js, css);
+            widgetService.update(id, title, html, js, css);
 
         return "{\"error\":false}";
     }

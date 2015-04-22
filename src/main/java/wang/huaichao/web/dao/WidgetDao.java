@@ -2,18 +2,27 @@ package wang.huaichao.web.dao;
 
 import org.hibernate.Criteria;
 import org.hibernate.classic.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import wang.huaichao.web.model.User;
 import wang.huaichao.web.model.Widget;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/4/21.
  */
 @Repository
 public class WidgetDao extends TheDao {
+    public List<Widget> listAll() {
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Widget.class)
+                .addOrder(Order.desc("updatedAt"));
+        return criteria.list();
+    }
+
     public Widget get(int id) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Widget.class)
@@ -37,10 +46,11 @@ public class WidgetDao extends TheDao {
         session.delete(widget);
     }
 
-    public void add(String html, String js, String css, String username) {
+    public void add(String title, String html, String js, String css, String username) {
         Calendar now = Calendar.getInstance();
 
         Widget widget = new Widget();
+        widget.setTitle(title);
         widget.setHtml(html);
         widget.setJs(js);
         widget.setCss(css);
@@ -53,9 +63,10 @@ public class WidgetDao extends TheDao {
         session.save(widget);
     }
 
-    public void update(int id, String html, String js, String css) {
+    public void update(int id, String title, String html, String js, String css) {
         Widget widget = get(id);
         if (widget == null) return;
+        widget.setTitle(title);
         widget.setCss(css);
         widget.setJs(js);
         widget.setHtml(html);

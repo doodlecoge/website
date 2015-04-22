@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS images
 CREATE TABLE IF NOT EXISTS articles
 (
   id         INT AUTO_INCREMENT PRIMARY KEY,
-  title      VARCHAR(200)  NOT NULL,
-  content    VARCHAR(4096) NOT NULL,
-  username   VARCHAR(20)   NOT NULL,
-  created_at DATETIME      NOT NULL,
-  updated_at DATETIME      NOT NULL,
-  image_id   INT           NULL,
+  title      VARCHAR(200)   NOT NULL,
+  content    VARCHAR(16384) NOT NULL,
+  username   VARCHAR(20)    NOT NULL,
+  created_at DATETIME       NOT NULL,
+  updated_at DATETIME       NOT NULL,
+  image_id   INT            NULL,
   FOREIGN KEY (username) REFERENCES users (username),
   FOREIGN KEY (image_id) REFERENCES images (id)
 );
@@ -65,24 +65,17 @@ CREATE TABLE IF NOT EXISTS articles_tags
 );
 
 
--- modify content of articles to accept up to 16kb characters
-ALTER TABLE articles CHANGE content content VARCHAR(16384) NULL;
-
-
 -- widgets
 
 CREATE TABLE IF NOT EXISTS widgets
 (
-  id       INT PRIMARY KEY AUTO_INCREMENT,
-  html     VARCHAR(4096) NULL,
-  js       VARCHAR(8192) NULL,
-  css      VARCHAR(4096) NULL,
-  username VARCHAR(20)   NOT NULL,
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  title      VARCHAR(128)  NOT NULL,
+  html       VARCHAR(4096) NULL,
+  js         VARCHAR(8192) NULL,
+  css        VARCHAR(4096) NULL,
+  username   VARCHAR(20)   NOT NULL,
+  created_at DATETIME      NOT NULL,
+  updated_at DATETIME      NOT NULL,
   FOREIGN KEY (username) REFERENCES users (username)
 );
-
-
--- add timestamp
-
-ALTER TABLE widgets ADD created_at DATETIME NOT NULL;
-ALTER TABLE widgets ADD updated_at DATETIME NOT NULL;

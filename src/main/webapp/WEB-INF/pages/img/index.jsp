@@ -100,7 +100,7 @@
         </tr>
 
         <tr>
-            <td><input type="submit" class="button blue"></td>
+            <td><input type="submit" class="button"></td>
         </tr>
     </table>
 </form>

@@ -45,7 +45,11 @@
 
     ul.articles li.line div.img {
         position: static;
-        margin: 0 auto;
+        margin: 0 auto 10px;
+        border: 0;
+        height: auto;
+        max-height: 60px;
+        max-width: 100%;
     }
 
     ul.articles li.line div.right {

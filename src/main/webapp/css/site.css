@@ -126,7 +126,7 @@ ul li, ol li {
 }
 
 ul li:nth-child(2n), ol li:nth-child(2n) {
-    background: #eee;
+    background: #f5f5f5;
 }
 
 /*===========================================================================*/

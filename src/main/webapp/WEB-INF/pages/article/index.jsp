@@ -30,7 +30,7 @@
         <c:forEach items="${articles}" var="article">
             <li class="line">
                 <div class="img">
-                    <div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">
+                    <%--<div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">--%>
                         <span class="helper"></span>
                         <c:if test="${article.image != null}">
                             <img src="<%=cp%>/image/${article.image.id}"
@@ -40,7 +40,7 @@
                             <img src="<%=cp%>/img/no-img.png"
                                  style="max-width: 60px; max-height: 60px;">
                         </c:if>
-                    </div>
+                    <%--</div>--%>
                 </div>
                 <div class="right">
                     <h2>

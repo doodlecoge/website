@@ -17,94 +17,38 @@
 <head>
     <title>Articles</title>
     <style type="text/css">
-        @media screen and (min-device-width: 960px) {
-            ul.tags li {
-                min-width: 120px;
-            }
-
-            ul.tags li i.fa-times {
-                color: #f55;
-                cursor: pointer;
-                float: right;
-            }
-
-            ul.tags li i.fa-times:hover {
-                color: #f00;
-            }
-        }
-
-        input[type="text"] {
-            width: 350px;
-            height: 35px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            font-size: 18px;
-        }
-
-        input[type="submit"] {
-            font-weight: bold;
-            background: #69c;
-            width: auto;
-            height: 35px;
-            border: 1px solid #ccc;
+        a.tag {
+            min-width: 150px;
         }
 
         @media screen and (max-device-width: 600px) {
-            ul.tags li {
-                /*display: block;*/
-                line-height: 35px;
-                border-right-color: transparent;
-                min-width: 40%;
-            }
-
-            ul.tags li:active {
-                border: 1px solid transparent;
-                border-bottom: 1px solid #468;
-            }
-
-            ul.tags li i {
-                float: right;
-                margin-top: 10px;
-                font-size: 18px;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                height: 35px;
-                margin-bottom: 10px;
-                border: 1px solid #ccc;
-                font-size: 18px;
-            }
-
-            input[type="submit"] {
-                font-weight: bold;
-                background: #69c;
-                width: 100%;
-                height: 40px;
-                font-size: 18px;
+            a.tag {
+                line-height: 40px;
+                width: 45%;
             }
         }
     </style>
 </head>
 <body>
 <br/>
-<ul class="tags">
+
+<div class="tags">
     <c:forEach items="${tags}" var="tag">
-        <li>
-            <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
+        <a class="tag" href="<%=cp%>/article/${tag.id}/tag">
+                ${tag.name}
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <i class="del fa fa-times" tid="${tag.id}"></i>
             </sec:authorize>
-        </li>
+        </a>
     </c:forEach>
-</ul>
+</div>
 <br/>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <form action="<%=cp%>/tag/add">
         <input type="text" name="name" id="ipt" placeholder="tag name...">
         <br/>
         <br/>
-        <input type="submit" value="Add Tag" class="button blue">
+        <input type="submit" value="Add Tag" class="button">
     </form>
 </sec:authorize>
 <br/>

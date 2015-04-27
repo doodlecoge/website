@@ -415,7 +415,7 @@
     </tr>
     <tr>
         <td>
-            <button class="button blue" id="btn_submit">Save</button>
+            <button class="button" id="btn_submit">Save</button>
         </td>
     </tr>
 </table>

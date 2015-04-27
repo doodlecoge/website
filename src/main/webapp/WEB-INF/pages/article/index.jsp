@@ -16,53 +16,10 @@
 <head>
     <title>Articles</title>
     <style type="text/css">
-        ul.articles {
-            margin: 0;
-            padding: 0;
-        }
-
-        ul.articles li.line {
-            padding-bottom: 20px;
-            list-style: none;
-            position: relative;
-        }
-
-        ul.articles li.line div.img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 60px;
-            height: 60px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            text-align: center;
-            font-size: 0;
-        }
-
-        ul.articles span.helper {
-            vertical-align: middle;
-            display: inline-block;
-            height: 100%;
-        }
-
-        ul.articles img {
-            vertical-align: middle;
-        }
-
-        ul.articles li.line div.right {
-            margin-left: 80px;
-        }
-
-        ul.articles li.line .title {
-            font-size: 1.6em;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        ul.articles li.line .title:hover {
-            text-decoration: underline;
-            color: #f55;
+        @media screen and (max-device-width: 600px) {
+            #content.c {
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -86,18 +43,17 @@
                     </div>
                 </div>
                 <div class="right">
-                    <a href="<%=cp%>/article/${article.id}"
-                       class="title">
-                            ${article.title}
-                    </a>
+                    <h2>
+                        <a href="<%=cp%>/article/${article.id}">${article.title}</a>
+                    </h2>
+
                     <c:if test="${fn:length(article.tags) > 0}">
-                        <ul class="tags">
+                        <div>
                             <c:forEach items="${article.tags}" var="tag">
-                                <li>
-                                    <a href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
-                                </li>
+                                <a class="tag"
+                                   href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
                             </c:forEach>
-                        </ul>
+                        </div>
                     </c:if>
                     <div style="margin-bottom:10px; color: #888;">
                         by ${article.user.fullname},

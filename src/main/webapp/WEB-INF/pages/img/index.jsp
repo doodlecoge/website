@@ -31,7 +31,7 @@
         ul.imgs li {
             list-style: none;
             display: inline-block;
-            width: 100px;
+            width: 112px;
             border: 1px solid #ccc;
             padding: 5px;
             vertical-align: top;

@@ -23,51 +23,12 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
+    <link rel="stylesheet" href="<%=cp%>/css/site.mobile.css" charset="utf-8">
     <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css"
           charset="utf-8">
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
-        html {
-            height: 100%;
-        }
 
-        body {
-            background: #f8f8f8;
-        }
-
-        .dock_bottom {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .menus {
-            float: left;
-            white-space: nowrap;
-        }
-
-        .login_info {
-            float: right;
-            white-space: nowrap;
-        }
-
-        @media screen and (max-device-width: 600px) {
-            .menus {
-                float: none;
-                white-space: normal;
-            }
-
-            .menus a {
-                display: inline-block;
-                width: 45%;
-                box-sizing: border-box;
-            }
-
-            .login_info {
-                float: none;
-            }
-        }
     </style>
     <script type="text/javascript">
         if (typeof console === 'undefined') {
@@ -124,8 +85,8 @@
                 Write sth.
             </a>
             <%--<a href="<%=cp%>/t">--%>
-                <%--<i class="fa fa-wrench"></i>--%>
-                <%--Tools--%>
+            <%--<i class="fa fa-wrench"></i>--%>
+            <%--Tools--%>
             <%--</a>--%>
             <a href="<%=cp%>/widget">
                 <i class="fa fa-th"></i>

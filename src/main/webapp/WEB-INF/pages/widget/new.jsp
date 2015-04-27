@@ -165,8 +165,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            min-width: 400px;
-            min-height: 300px;
+            min-width: 200px;
+            min-height: 150px;
         }
 
         .toolbar {

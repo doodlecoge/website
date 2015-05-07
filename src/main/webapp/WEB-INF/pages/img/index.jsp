@@ -96,11 +96,11 @@
             <td>Choose Image:</td>
         </tr>
         <tr>
-            <td><input type="file" name="img"></td>
+            <td><input type="file" name="img" value="Choose File"></td>
         </tr>
 
         <tr>
-            <td><input type="submit" class="button"></td>
+            <td><input type="submit" class="button" value="Add Image"></td>
         </tr>
     </table>
 </form>

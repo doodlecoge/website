@@ -80,10 +80,12 @@
                 <i class="fa fa-bookmark-o"></i>
                 tags
             </a>
-            <a href="<%=cp%>/article/new">
-                <i class="fa fa-pencil-square-o"></i>
-                Write sth.
-            </a>
+            <sec:authorize access="isAuthenticated()">
+                <a href="<%=cp%>/article/new">
+                    <i class="fa fa-pencil-square-o"></i>
+                    Write sth.
+                </a>
+            </sec:authorize>
             <%--<a href="<%=cp%>/t">--%>
             <%--<i class="fa fa-wrench"></i>--%>
             <%--Tools--%>
@@ -93,6 +95,12 @@
                 Widgets
             </a>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <a href="<%=cp%>/user">
+                    <i class="fa fa-users"></i>
+                    User
+                </a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
                 <a href="<%=cp%>/image">
                     <i class="fa fa-file-image-o"></i>
                     Images
@@ -101,7 +109,7 @@
         </div>
         <div class="login_info">
             <sec:authorize access="isAuthenticated()">
-                <a href="javascript:;">
+                <a href="<%=cp%>/profile">
                     Hi, <i class="fa fa-user"></i>
                     <sec:authentication property="principal.username"/>!
                 </a>
@@ -141,7 +149,7 @@
     pageContext.setAttribute("blocal", bLocal);
 %>
 <c:if test='${pageContext.getAttribute("blocal") == false}'>
-<jsp:include page="ga.jsp"></jsp:include>
+    <jsp:include page="ga.jsp"></jsp:include>
 </c:if>
 </body>
 </html>

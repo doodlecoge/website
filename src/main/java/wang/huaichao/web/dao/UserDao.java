@@ -24,6 +24,23 @@ public class UserDao extends TheDao {
         return (User) criteria.uniqueResult();
     }
 
+    public void delete(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        final User user = new User();
+        user.setUsername(username);
+        session.delete(user);
+    }
+
+    public void add(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+    }
+
+    public void update(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(user);
+    }
+
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
         Session session = sessionFactory.getCurrentSession();

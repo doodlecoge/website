@@ -42,17 +42,17 @@
 <br/>
 
 
-<a id="cut" class="button blue">
+<button id="cut" class="button">
     <i class="fa fa-cut"></i>
     Cut
-</a>
+</button>
 
-<a id="del" class="button red"
+<button id="del" class="button red"
    href="<%=cp%>/image/${image.id}/del"
    onclick="return confirm('delete this image?')">
     <i class="fa fa-times"></i>
     Delete
-</a>
+</button>
 
 <hr/>
 

@@ -29,6 +29,7 @@
         <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*"
                        access="permitAll"/>
 
+        <intercept-url pattern="^/user.*" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/.*" access="hasRole('ROLE_USER')"/>
 
         <form-login login-page="/login_page"

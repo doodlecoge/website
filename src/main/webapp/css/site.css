@@ -95,6 +95,7 @@ input[type=text], input[type=password] {
     height: 30px;
     padding: 0 10px;
     border: 1px solid #ccc;
+    min-width: 350px;
 }
 
 /*other elements*/
@@ -133,15 +134,20 @@ ul li:nth-child(2n), ol li:nth-child(2n) {
 /* buttons                                                                   */
 /*===========================================================================*/
 
+
+
 .button {
+    min-width: 80px;
     outline: none;
-    border: 1px solid #555;
-    font-weight: bold;
-    border-radius: 18px;
-    padding: 0 20px;
-    height: 35px;
-    text-decoration: none;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    border:1px solid #7d99ca;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;border-radius: 3px;
+    font-size:16px;
+    font-family:arial, helvetica, sans-serif;
+    padding: 7px 10px;
+    text-decoration:none; display:inline-block;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    font-weight:bold;
     color: #FFFFFF;
     background-color: #a5b8da;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#a5b8da), to(#7089b3));
@@ -150,12 +156,11 @@ ul li:nth-child(2n), ol li:nth-child(2n) {
     background-image: -ms-linear-gradient(top, #a5b8da, #7089b3);
     background-image: -o-linear-gradient(top, #a5b8da, #7089b3);
     background-image: linear-gradient(to bottom, #a5b8da, #7089b3);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a5b8da, endColorstr=#7089b3);
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#a5b8da, endColorstr=#7089b3);
 }
 
 .button:hover {
-    text-decoration: none;
-    border: 1px solid #555;
+    border: 1px solid #5d7fbc;
     background-color: #819bcb;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#819bcb), to(#536f9d));
     background-image: -webkit-linear-gradient(top, #819bcb, #536f9d);
@@ -167,9 +172,7 @@ ul li:nth-child(2n), ol li:nth-child(2n) {
 }
 
 .button:active {
-    background-color: #69c;
-    background-image: none;
-    border-color: #555;
+    background: #819bcb none;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -182,36 +185,33 @@ ul li:nth-child(2n), ol li:nth-child(2n) {
     box-shadow: none;
 }
 
-.button.blue {
-    background: #69c;
-    border-color: #27a;
-    color: #fff;
+.button.red{
+    border:1px solid #ff6262;
+    padding: 10px 10px 10px 10px;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    color: #FFFFFF;
+    background-color: #ff9a9a; background-image: -webkit-gradient(linear, left top, left bottom, from(#ff9a9a), to(#ff4040));
+    background-image: -webkit-linear-gradient(top, #ff9a9a, #ff4040);
+    background-image: -moz-linear-gradient(top, #ff9a9a, #ff4040);
+    background-image: -ms-linear-gradient(top, #ff9a9a, #ff4040);
+    background-image: -o-linear-gradient(top, #ff9a9a, #ff4040);
+    background-image: linear-gradient(to bottom, #ff9a9a, #ff4040);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ff9a9a, endColorstr=#ff4040);
 }
 
-.button.blue:hover {
-    background: #37b;
-    border-color: #247;
-}
-
-.button.blue:active {
-    background: #279;
-    border-color: #14a;
-}
-
-.button.red {
-    background: #f55;
-    border-color: #f33;
-    color: #fff;
-}
-
-.button.red:hover {
-    background: #f33;
-    border-color: #f11;
+.button.red:hover{
+    border:1px solid #ff3434;
+    background-color: #ff6767; background-image: -webkit-gradient(linear, left top, left bottom, from(#ff6767), to(#ff0d0d));
+    background-image: -webkit-linear-gradient(top, #ff6767, #ff0d0d);
+    background-image: -moz-linear-gradient(top, #ff6767, #ff0d0d);
+    background-image: -ms-linear-gradient(top, #ff6767, #ff0d0d);
+    background-image: -o-linear-gradient(top, #ff6767, #ff0d0d);
+    background-image: linear-gradient(to bottom, #ff6767, #ff0d0d);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ff6767, endColorstr=#ff0d0d);
 }
 
 .button.red:active {
-    background: #f11;
-    border-color: #f00;
+    background: #f33 none;
+    border-color: #ff3434;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 a.tag {

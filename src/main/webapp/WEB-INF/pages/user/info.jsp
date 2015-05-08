@@ -36,12 +36,6 @@
             </p>
 
             <p>
-                <label>Old Password</label>
-                <br/>
-                <input type="password" name="opassword">
-            </p>
-
-            <p>
                 <label>New Password</label>
                 <br/>
                 <input type="password" name="npassword">

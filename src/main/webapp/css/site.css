@@ -38,15 +38,28 @@ body, input, textarea, keygen, select, button {
 }
 
 #nav {
-    line-height: 40px;
+    padding: 10px 0;
     background: #555;
+}
+#nav .c {
+    display: table;
+    line-height: 30px;
+}
+#nav .menus {
+    display: table-cell;
+}
+
+#nav .login_info {
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
 }
 
 #nav a {
     color: #ccc;
     font-weight: bold;
     text-decoration: none;
-    margin-right: 10px;
+    margin-right: 20px;
     display: inline-block;
 }
 
@@ -54,13 +67,11 @@ body, input, textarea, keygen, select, button {
     color: #f8f8f8;
 }
 
-#nav .menus {
-    float: left;
+#nav .fa {
+    margin-right: -5px;
 }
 
-#nav .login_info {
-    float: right;
-}
+
 
 #header {
     background: #69c;
@@ -96,6 +107,7 @@ input[type=text], input[type=password] {
     padding: 0 10px;
     border: 1px solid #ccc;
     min-width: 350px;
+    box-sizing: border-box;
 }
 
 /*other elements*/
@@ -268,7 +280,7 @@ a.tag .fa {
 }
 
 .alert .icon {
-    font-size: 4em;
+    font-size: 3.5em;
     vertical-align: middle;
 }
 
@@ -276,6 +288,15 @@ a.tag .fa {
     font-size: 1.5em;
     vertical-align: middle;
     font-style: italic;
+}
+
+.alert.warn {
+    background: #fdc;
+    border: 1px solid #f80;
+}
+
+.alert.warn .icon {
+    color: #f80;
 }
 
 .alert.error {

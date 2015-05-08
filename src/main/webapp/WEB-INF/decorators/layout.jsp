@@ -148,7 +148,7 @@
             "127.0.0.1".equalsIgnoreCase(host);
     pageContext.setAttribute("blocal", bLocal);
 %>
-<c:if test='${pageContext.getAttribute("blocal") == false}'>
+<c:if test='${blocal == false}'>
     <jsp:include page="ga.jsp"></jsp:include>
 </c:if>
 </body>

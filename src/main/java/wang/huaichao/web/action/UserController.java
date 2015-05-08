@@ -59,13 +59,9 @@ public class UserController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(@RequestParam String username,
                          @RequestParam String fullname,
-                         @RequestParam String opassword,
                          @RequestParam String npassword,
                          @RequestParam String npassword2) {
         final User user = userService.getUser(username);
-        if (!user.getPassword().equals(opassword)) {
-            throw new RuntimeException("incorrect old password");
-        }
         if (!npassword.equals(npassword2)) {
             throw new RuntimeException("two new passwords not equal");
         }

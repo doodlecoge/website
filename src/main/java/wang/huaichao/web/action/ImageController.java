@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import wang.huaichao.ctx.Config;
 import wang.huaichao.security.UserUtils;
 import wang.huaichao.utils.PropertiesLoader;
 import wang.huaichao.utils.TextUtils;
@@ -42,20 +43,11 @@ import java.util.List;
 public class ImageController {
     private static final Logger log =
             LoggerFactory.getLogger(ImageController.class);
-    private static final PropertiesLoader pl =
-            PropertiesLoader.getInstance("sys");
-    private static String uploadDir;
-
-    public ImageController() {
-        uploadDir = pl.getString("upload_dir");
-        if (uploadDir == null || uploadDir.trim().isEmpty()) {
-            uploadDir = System.getProperty("web.root.dir") +
-                    File.separator + "upload" + File.separator;
-        }
-    }
+    private final String fs = File.separator;
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private ImageService imageService;
 
@@ -89,15 +81,15 @@ public class ImageController {
         Image image = imageService.getImage(id);
         File file = null;
         if (image != null) {
-            file = new File(uploadDir +
-                    File.separator + image.getDirname() +
-                    File.separator + image.getFilename());
+            file = new File(Config.UPLOAD_DIR +
+                    fs + image.getDirname() +
+                    fs + image.getFilename());
         }
 
         if (file == null || !file.exists()) {
             file = new File(System.getProperty("web.root.dir") +
-                    File.separator + "upload" +
-                    File.separator + "no-img.png");
+                    fs + "upload" +
+                    fs + "no-img.png");
         }
 
         FileInputStream fis = null;
@@ -148,13 +140,13 @@ public class ImageController {
         );
         String dirName = TimeUtils.getTimeStamp("yyyy-MM-dd");
         String timeStamp = TimeUtils.getTimeStamp("HH.mm.ss.SSS");
-        new File(uploadDir + dirName).mkdirs();
+        new File(Config.UPLOAD_DIR + dirName).mkdirs();
         String saveName = timeStamp + TextUtils.makeFileName(imageName) + ext;
 
         Image image = null;
         try {
             FileUtils.copyInputStreamToFile(img.getInputStream(),
-                    new File(uploadDir + dirName + File.separator + saveName)
+                    new File(Config.UPLOAD_DIR + dirName + fs + saveName)
             );
             image = imageService.addImage(dirName, saveName,
                     now.getTime(), now.getTime(),
@@ -186,7 +178,7 @@ public class ImageController {
                       @RequestParam int s_h) {
         Image image = imageService.getImage(id);
 
-        String path = uploadDir + image.getDirname() + File.separator;
+        String path = Config.UPLOAD_DIR + image.getDirname() + fs;
         File file = new File(path + image.getFilename());
 
         String subfix = image.getFilename().substring(image.getFilename().lastIndexOf(".") + 1);
@@ -235,7 +227,7 @@ public class ImageController {
     public String del(@PathVariable int id) {
         Image image = imageService.getImage(id);
         imageService.delete(id);
-        String path = uploadDir + image.getDirname() + File.separator;
+        String path = Config.UPLOAD_DIR + image.getDirname() + fs;
         File file = new File(path + image.getFilename());
         if (file.exists()) {
             file.delete();

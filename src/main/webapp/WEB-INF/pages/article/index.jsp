@@ -15,13 +15,6 @@
 <html>
 <head>
     <title>Articles</title>
-    <style type="text/css">
-        @media screen and (max-device-width: 600px) {
-            #content.c {
-                padding: 0;
-            }
-        }
-    </style>
 </head>
 <body>
 <br/>
@@ -82,11 +75,10 @@
 </c:if>
 
 <c:if test="${fn:length(articles) == 0}">
-    <p>
-        <i class="fa fa-exclamation-triangle"
-           style="font-size: 24px; color: #f33;"></i>
-        No Articles!
-    </p>
+    <div class="alert warn">
+        <i class="fa fa-exclamation-triangle icon"></i>
+        <span class="txt">No articles!</span>
+    </div>
 </c:if>
 </body>
 </html>

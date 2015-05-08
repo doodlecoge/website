@@ -25,7 +25,14 @@
     </context-param>
 
     <listener>
-        <listener-class>org.springframework.web.util.WebAppRootListener
+        <listener-class>
+            org.springframework.web.util.WebAppRootListener
+        </listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>
+            wang.huaichao.ctx.AppInitializer
         </listener-class>
     </listener>
 

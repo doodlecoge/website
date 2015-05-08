@@ -34,7 +34,6 @@ public class ArticleController {
     public String index(ModelMap map) {
         List<Article> articles = articleService.getArticles(1, 10);
         map.put("articles", articles);
-        map.put("username", UserUtils.getUsername());
         return "article/index";
     }
 
@@ -43,7 +42,6 @@ public class ArticleController {
     public String showArticlesByTag(@PathVariable int id, ModelMap map) {
         List<Article> articles = articleService.getArticlesByTag(id);
         map.put("articles", articles);
-        map.put("username", UserUtils.getUsername());
         return "article/index";
     }
 

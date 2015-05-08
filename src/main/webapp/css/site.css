@@ -46,7 +46,7 @@ body, input, textarea, keygen, select, button {
     color: #ccc;
     font-weight: bold;
     text-decoration: none;
-    margin-right: 20px;
+    margin-right: 10px;
     display: inline-block;
 }
 
@@ -108,6 +108,10 @@ label {
     display: inline-block;
 }
 
+label.error {
+    color: #f33;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -129,7 +133,7 @@ ul.list, ol.list {
 
 ul.list li, ol.list li {
     list-style: none;
-    border-bottom: 3px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 ul.list li:nth-child(2n), ol.list li:nth-child(2n) {
@@ -253,6 +257,34 @@ a.tag .fa {
     float: right;
     margin-top: 5px;
     margin-left: 5px;
+}
+
+
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d6e9c6;
+    background: #dff0d8;
+}
+
+.alert .icon {
+    font-size: 4em;
+    vertical-align: middle;
+}
+
+.alert .txt {
+    font-size: 1.5em;
+    vertical-align: middle;
+    font-style: italic;
+}
+
+.alert.error {
+    background: #fdc;
+    border: 1px solid #f55;
+}
+
+.alert.error .icon {
+    color: #f33;
 }
 
 /*===========================================================================*/

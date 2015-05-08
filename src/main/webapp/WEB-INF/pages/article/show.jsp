@@ -26,13 +26,16 @@
             src="<%=request.getContextPath()%>/js/marked.js"></script>
     <style type="text/css">
         .tags {
-            padding: 10px 0;
+            margin: 0;
+            padding: 0;
         }
 
-        .tags span {
-            padding: 5px 10px;
-            background: #eee;
-            margin-right: 10px;
+        .tags li {
+            display: inline;
+        }
+
+        .tags li a {
+            margin-bottom: 6px;
         }
 
         #note_wrapper {
@@ -50,9 +53,12 @@
             margin: 0;
         }
 
+        #outline ul a {
+            text-decoration: underline;
+        }
+
         #note {
             height: 100%;
-            background: #f8f8f8;
             vertical-align: top;
         }
 
@@ -67,6 +73,11 @@
             .overmenu {
                 position: inherit;
             }
+        }
+
+        p {
+            margin: 0;
+            color: #555;
         }
     </style>
     <script type="text/javascript">
@@ -105,31 +116,36 @@
 <body>
 <textarea id="raw" style="display: none;">${article.content}</textarea>
 
-<h1 style="margin-bottom: 10px;">${article.title}</h1>
+<div style="text-align: center">
+    <h1 style="margin-bottom: 6px;">${article.title}</h1>
 
-<div style="color: #888; margin-bottom: 10px">
-    by ${article.user.username}
-    created at
-    <fmt:formatDate value="${article.createdAt}"
-                    pattern="yyyy-MM-dd"/>,
-    updated at
-    <fmt:formatDate value="${article.updatedAt}"
-                    pattern="yyyy-MM-dd"/>
+    <p style="font-weight: bold;">${article.user.fullname}</p>
+
+    <p>
+        <fmt:formatDate value="${article.createdAt}" pattern="yyyy-MM-dd"/>
+        ~
+        <fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd"/>
+    </p>
+
+    <p class="h5"></p>
+
+    <c:if test="${fn:length(article.tags) > 0}">
+        <ul class="tags">
+            <c:forEach items="${article.tags}" var="tag">
+                <li>
+                    <a href="<%=cp%>/article/${tag.id}/tag"
+                       class="tag">${tag.name}</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </c:if>
+
+    <c:if test="${username == article.user.username}">
+        <a href="<%=cp%>/article/${article.id}/del">DELETE</a>
+        <a href="<%=cp%>/article/${article.id}/edit">EDIT</a>
+    </c:if>
 </div>
-<c:if test="${fn:length(article.tags) > 0}">
-    <ul class="tags">
-        <c:forEach items="${article.tags}" var="tag">
-            <li>
-                <a href="<%=cp%>/article/${tag.id}/tag"
-                   class="tag">${tag.name}</a>
-            </li>
-        </c:forEach>
-    </ul>
-</c:if>
-<c:if test="${username == article.user.username}">
-    <a href="<%=cp%>/article/${article.id}/del">Delete</a>
-    <a href="<%=cp%>/article/${article.id}/edit">Edit</a>
-</c:if>
+
 <div id="note_wrapper">
     <h1 style="margin: 0">Table of Contents:</h1>
 

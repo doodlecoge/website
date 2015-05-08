@@ -69,11 +69,10 @@
                             <a href="<%=cp%>/article/${article.id}/del"
                                class="del"
                                onclick="return confirm('delete this article?')">
-                                Delete</a>
-                            &nbsp;
+                                DELETE</a>
                             <a href="<%=cp%>/article/${article.id}/edit"
                                class="edit">
-                                Edit</a>
+                                EDIT</a>
                         </div>
                     </c:if>
                 </div>

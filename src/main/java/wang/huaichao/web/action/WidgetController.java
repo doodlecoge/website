@@ -1,6 +1,8 @@
 package wang.huaichao.web.action;
 
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -51,6 +53,7 @@ public class WidgetController {
     @RequestMapping("/{id}")
     public String show(@PathVariable int id, ModelMap map) {
         Widget widget = widgetService.get(id);
+        widget.setHtml(StringEscapeUtils.escapeHtml4(widget.getHtml()));
         map.put("widget", widget);
         return "widget/new";
     }

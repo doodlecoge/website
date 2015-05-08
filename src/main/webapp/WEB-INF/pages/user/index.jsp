@@ -43,7 +43,7 @@
         No User
     </c:when>
     <c:otherwise>
-        <ul>
+        <ul class="list">
             <c:forEach var="user" items="${users}">
                 <li class="group">
                     <span class="txt">${user.fullname}</span>

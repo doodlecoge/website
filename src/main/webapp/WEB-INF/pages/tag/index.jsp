@@ -17,10 +17,6 @@
 <head>
     <title>Articles</title>
     <style type="text/css">
-        a.tag {
-            min-width: 150px;
-        }
-
         @media screen and (max-device-width: 600px) {
             a.tag {
                 line-height: 40px;

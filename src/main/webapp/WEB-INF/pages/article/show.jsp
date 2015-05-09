@@ -53,8 +53,9 @@
             margin: 0;
         }
 
-        #outline ul a {
+        #outline ul a:hover {
             text-decoration: underline;
+            color: #69c;
         }
 
         #note {
@@ -64,9 +65,14 @@
 
         .overmenu {
             position: fixed;
-            top: 0;
-            right: 0;
-            background: #eee;
+            top: 0px;
+            right: 10px;
+            background: #f5f5f5;
+            max-width: 250px;
+            padding: 10px 0;
+            -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+            -moz-box-shadow:    0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+            box-shadow:         0px 0px 15px 0px rgba(50, 50, 50, 0.5);
         }
 
         @media screen and (max-device-width: 600px) {

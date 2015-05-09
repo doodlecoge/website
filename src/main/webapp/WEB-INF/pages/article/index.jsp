@@ -19,7 +19,7 @@
 <body>
 <br/>
 <c:if test="${fn:length(articles) > 0}">
-    <ul class="articles">
+    <ul class="articles" style="padding: 0;">
         <c:forEach items="${articles}" var="article">
             <li class="line">
                 <div class="img">

@@ -18,8 +18,10 @@
     <script type="text/javascript"
             src="<%=cp%>/js/jquery.Jcrop.min.js"></script>
     <style type="text/css">
-        .val {
+        input.val {
             width: 50px;
+            min-width: 50px;
+            text-align: center;
         }
 
         @media screen and (max-device-width: 600px) {
@@ -32,8 +34,6 @@
                 box-sizing: border-box;
             }
         }
-
-
     </style>
 </head>
 <body>
@@ -44,14 +44,14 @@
 
 <button id="cut" class="button">
     <i class="fa fa-cut"></i>
-    Cut
+    CUT
 </button>
 
 <button id="del" class="button red"
    href="<%=cp%>/image/${image.id}/del"
    onclick="return confirm('delete this image?')">
     <i class="fa fa-times"></i>
-    Delete
+    DELETE
 </button>
 
 <hr/>

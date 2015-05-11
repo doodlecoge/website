@@ -24,6 +24,12 @@
     <base href="<%=base%>">
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/js/marked.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
     <style type="text/css">
         .tags {
             margin: 0;
@@ -51,6 +57,7 @@
 
         #outline ul {
             margin: 0;
+            padding: 0 0 0 20px;
         }
 
         #outline ul a:hover {
@@ -69,10 +76,10 @@
             right: 10px;
             background: #f5f5f5;
             max-width: 250px;
-            padding: 10px 0;
+            padding: 10px;
             -webkit-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
-            -moz-box-shadow:    0px 0px 15px 0px rgba(50, 50, 50, 0.5);
-            box-shadow:         0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+            -moz-box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+            box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
         }
 
         @media screen and (max-device-width: 600px) {
@@ -91,6 +98,9 @@
             var txt = $('#raw').val();
             var data = marked.withOutline(txt);
             $("#note").html(data.html);
+            MathJax.Hub.Queue(
+                    ["Typeset", MathJax.Hub, $('#note').get(0)]
+            );
             $("#outline").html(data.outline);
 
             var outline = $('#outline');

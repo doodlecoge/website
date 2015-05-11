@@ -130,7 +130,7 @@
 </div>
 <div id="header">
     <div class="c">
-        <span class="brand">huaichao.wang</span>
+        <span class="brand">HUAICHAO.WANG</span>
     </div>
 </div>
 

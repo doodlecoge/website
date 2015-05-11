@@ -27,8 +27,8 @@
         li.group {
             display: table;
             width: 100%;
-            height: 40px;
-            line-height: 40px;
+            height: 35px;
+            line-height: 35px;
         }
 
         li.group > * {

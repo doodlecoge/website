@@ -4,28 +4,44 @@
         padding: 0 10px;
     }
 
+    #nav {
+        padding: 20px 0;
+    }
+
+    #nav div a:nth-child(2n) {
+        margin-left: 4%;
+    }
+
     #nav a {
         margin: 0;
-        width: 45%;
+        width: 48%;
         white-space: nowrap;
+        line-height: 40px;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
     }
 
     #nav .menus {
         display: block;
+        font-size: 0;
+        width: 100%;
     }
 
     #nav .login_info {
         display: block;
         width: 100%;
+        font-size: 0;
     }
 
     #header {
-        height: 60px;
-        line-height: 60px;
+        height: 80px;
+        line-height: 80px;
     }
 
     #header .brand {
         font-size: 36px;
+        text-align: center;
+        display: block;
     }
 
     input[type="text"], input[type="password"] {
@@ -45,16 +61,16 @@
         font-size: 18px;
     }
 
-    ul.articles li.line div.img {
-        position: static;
+    ul.articles li div.img {
+        float: none;
         margin: 0 auto 10px;
-        border: 0;
+        max-height: 72px;
+        max-width: 72px;
         height: auto;
-        max-height: 60px;
-        max-width: 100%;
+        width: auto;
     }
 
-    ul.articles li.line div.right {
+    ul.articles li div.right {
         margin-left: 0;
         text-align: center;
     }

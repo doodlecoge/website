@@ -41,10 +41,12 @@ body, input, textarea, keygen, select, button {
     padding: 5px 0;
     background: #555;
 }
+
 #nav .c {
     display: table;
     line-height: 30px;
 }
+
 #nav .menus {
     display: table-cell;
 }
@@ -70,8 +72,6 @@ body, input, textarea, keygen, select, button {
 #nav .fa {
     margin-right: -5px;
 }
-
-
 
 #header {
     background: #69c;
@@ -264,7 +264,6 @@ a.tag:active {
     border-top: 1px solid #468;
 }
 
-
 .alert {
     padding: 10px;
     border-radius: 5px;
@@ -304,48 +303,46 @@ a.tag:active {
 /*===========================================================================*/
 /* articles                                                                  */
 /*===========================================================================*/
-
-ul.articles li.line {
-    padding: 10px 0;
-    list-style: none;
-    position: relative;
+ul.articles {
+    padding: 0;
 }
 
-ul.articles li.line div.img {
-    margin: 10px 0 0 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
+ul.articles li {
+    padding: 20px 0 10px 0;
+    list-style: none;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+}
+
+ul.articles li div.img {
+    float: left;
     width: 72px;
-    height: 72px;
+    max-height: 72px;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
+    background: #eee;
     text-align: center;
     font-size: 0;
 }
 
-ul.articles span.helper {
-    vertical-align: middle;
-    display: inline-block;
-    height: 100%;
+ul.articles li div.img img {
+    max-height: 60px;
+    width: 60px;
+    background: #fff;
 }
 
-ul.articles img {
-    vertical-align: middle;
-}
-
-ul.articles li.line div.right {
+ul.articles li div.right {
     margin-left: 90px;
 }
 
-ul.articles li.line .title {
+ul.articles li .title {
     font-size: 1.6em;
     text-decoration: none;
     display: block;
     margin-bottom: 10px;
 }
 
-ul.articles li.line .title:hover {
+ul.articles li .title:hover {
     text-decoration: underline;
     color: #f55;
 }

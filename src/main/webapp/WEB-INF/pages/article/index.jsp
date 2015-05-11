@@ -19,21 +19,16 @@
 <body>
 <br/>
 <c:if test="${fn:length(articles) > 0}">
-    <ul class="articles" style="padding: 0;">
+    <ul class="articles">
         <c:forEach items="${articles}" var="article">
-            <li class="line">
+            <li>
                 <div class="img">
-                    <%--<div style="width: 60px; height: 60px; background: #ccc; overflow: hidden;">--%>
-                        <span class="helper"></span>
-                        <c:if test="${article.image != null}">
-                            <img src="<%=cp%>/image/${article.image.id}"
-                                 style="max-width: 60px; max-height: 60px;">
-                        </c:if>
-                        <c:if test="${article.image == null}">
-                            <img src="<%=cp%>/img/no-img.png"
-                                 style="max-width: 60px; max-height: 60px;">
-                        </c:if>
-                    <%--</div>--%>
+                    <c:if test="${article.image != null}">
+                        <img src="<%=cp%>/image/${article.image.id}">
+                    </c:if>
+                    <c:if test="${article.image == null}">
+                        <img src="<%=cp%>/img/no-img.png">
+                    </c:if>
                 </div>
                 <div class="right">
                     <h2>
@@ -41,24 +36,26 @@
                     </h2>
 
                     <c:if test="${fn:length(article.tags) > 0}">
-                        <div>
+                        <p style="margin-bottom: 0">
                             <c:forEach items="${article.tags}" var="tag">
                                 <a class="tag"
                                    href="<%=cp%>/article/${tag.id}/tag">${tag.name}</a>
                             </c:forEach>
-                        </div>
+                        </p>
                     </c:if>
-                    <div style="margin-bottom:10px; color: #888;">
-                        by ${article.user.fullname},
-                        created at
+                    <p style="margin: 0 0 5px 0;">
+                        <i>${article.user.fullname}</i>
+                    </p>
+
+                    <p style="margin: 0 0 5px 0;">
                         <fmt:formatDate value="${article.createdAt}"
-                                        pattern="yyyy-MM-dd"/>,
-                        updated at
+                                        pattern="yyyy-MM-dd"/>
+                        ~
                         <fmt:formatDate value="${article.updatedAt}"
                                         pattern="yyyy-MM-dd"/>
-                    </div>
+                    </p>
                     <c:if test="${username == article.user.username}">
-                        <div>
+                        <p style="margin: 0 0 5px 0;">
                             <a href="<%=cp%>/article/${article.id}/del"
                                class="del"
                                onclick="return confirm('delete this article?')">
@@ -66,7 +63,7 @@
                             <a href="<%=cp%>/article/${article.id}/edit"
                                class="edit">
                                 EDIT</a>
-                        </div>
+                        </p>
                     </c:if>
                 </div>
             </li>

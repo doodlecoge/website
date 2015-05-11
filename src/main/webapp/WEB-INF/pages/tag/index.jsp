@@ -18,9 +18,28 @@
     <title>Articles</title>
     <style type="text/css">
         @media screen and (max-device-width: 600px) {
+            .tags {
+                font-size: 0;
+            }
+            .tags a.tag:nth-child(2n) {
+                margin-left: 4%;
+            }
             a.tag {
+                position: relative;
                 line-height: 40px;
-                width: 45%;
+                width: 48%;
+                height: 40px;
+                font-size: 16px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                float: left;
+                overflow: hidden;
+                padding-right: 20px;
+            }
+            a.tag i {
+                position: absolute;
+                right: 10px;
+                top: 12px;
             }
         }
     </style>

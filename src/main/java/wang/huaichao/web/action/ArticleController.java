@@ -1,6 +1,7 @@
 package wang.huaichao.web.action;
 
 import com.google.gson.JsonObject;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -48,6 +49,7 @@ public class ArticleController {
     @RequestMapping(value = "/{id}")
     public String show(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);
+        article.setContent(StringEscapeUtils.escapeHtml4(article.getContent()));
         map.put("article", article);
         map.put("username", UserUtils.getUsername());
 
@@ -62,6 +64,7 @@ public class ArticleController {
     @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable int id, ModelMap map) {
         Article article = articleService.getArticleById(id);
+        article.setContent(StringEscapeUtils.escapeHtml4(article.getContent()));
         map.put("article", article);
         return "article/new";
     }

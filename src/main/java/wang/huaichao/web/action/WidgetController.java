@@ -59,10 +59,9 @@ public class WidgetController {
     }
 
     @RequestMapping("/{id}/del")
-    @ResponseBody
     public String del(@PathVariable int id) {
         widgetService.delete(id);
-        return "{\"error\":false}";
+        return "redirect:/widget";
     }
 
     @RequestMapping("/{id}/json")

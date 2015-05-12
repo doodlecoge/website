@@ -64,7 +64,8 @@ public class WidgetController {
         return "redirect:/widget";
     }
 
-    @RequestMapping("/{id}/json")
+    @RequestMapping(value = "/{id}/json",
+            produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String json(@PathVariable int id) {
         Widget widget = widgetService.get(id);

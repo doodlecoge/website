@@ -34,7 +34,7 @@ public class WidgetDao extends TheDao {
     public Widget getLatest() {
         Session session = sessionFactory.getCurrentSession();
         return (Widget) session.createSQLQuery(
-                "select * from widgets order by id desc limit 1"
+                "select * from widgets order by updated_at desc limit 1"
         ).addEntity(Widget.class).uniqueResult();
     }
 

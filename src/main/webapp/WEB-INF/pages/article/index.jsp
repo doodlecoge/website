@@ -48,9 +48,10 @@
                     </p>
 
                     <p style="margin: 0 0 5px 0;">
+                        Created at
                         <fmt:formatDate value="${article.createdAt}"
-                                        pattern="yyyy-MM-dd"/>
-                        ~
+                                        pattern="yyyy-MM-dd"/>,
+                        Updated at
                         <fmt:formatDate value="${article.updatedAt}"
                                         pattern="yyyy-MM-dd"/>
                     </p>

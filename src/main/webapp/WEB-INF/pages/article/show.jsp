@@ -154,8 +154,9 @@
     <p style="font-weight: bold;">${article.user.fullname}</p>
 
     <p>
-        <fmt:formatDate value="${article.createdAt}" pattern="yyyy-MM-dd"/>
-        ~
+        Created at
+        <fmt:formatDate value="${article.createdAt}" pattern="yyyy-MM-dd"/>,
+        Updated at
         <fmt:formatDate value="${article.updatedAt}" pattern="yyyy-MM-dd"/>
     </p>
 

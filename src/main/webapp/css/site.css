@@ -398,6 +398,7 @@ ul.articles li .title:hover {
 
 .preview p {
     margin: 1em 0;
+    line-height: 1.3em;
 }
 
 .preview img {
@@ -474,14 +475,15 @@ ul.articles li .title:hover {
     padding: 10px;
 }
 
-.preview pre code {
+.preview code {
     border: 0px !important;
-    background: transparent !important;
     line-height: 1.3em;
+    background: #ccc;
+    padding: 0 2px;
 }
 
-.preview code {
-    padding: 0 3px 0 3px;
+.preview pre code {
+    background: transparent;
 }
 
 .preview sub, .preview sup {

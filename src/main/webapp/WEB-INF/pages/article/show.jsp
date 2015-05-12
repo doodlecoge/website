@@ -22,6 +22,9 @@
 <head>
     <title>Articles</title>
     <base href="<%=base%>">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/js/marked.js"></script>
     <script type="text/x-mathjax-config">
@@ -94,6 +97,19 @@
         }
     </style>
     <script type="text/javascript">
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            },
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: false
+        });
         $(function () {
             var txt = $('#raw').val();
             var data = marked.withOutline(txt);
@@ -131,7 +147,7 @@
 </head>
 <body>
 <textarea id="raw" style="display: none;">${article.content}</textarea>
-
+<br/>
 <div style="text-align: center">
     <h1 style="margin-bottom: 6px;">${article.title}</h1>
 
@@ -157,7 +173,8 @@
     </c:if>
 
     <c:if test="${username == article.user.username}">
-        <a href="<%=cp%>/article/${article.id}/del">DELETE</a>
+        <a href="<%=cp%>/article/${article.id}/del"
+           onclick="return confirm('delete?')">DELETE</a>
         <a href="<%=cp%>/article/${article.id}/edit">EDIT</a>
     </c:if>
 </div>

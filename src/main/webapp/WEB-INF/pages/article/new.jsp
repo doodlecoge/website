@@ -26,16 +26,16 @@
           href="<%=cp%>/jqp/inputs/jquery-inputs.css">
     <link rel="stylesheet" type="text/css"
           href="<%=cp%>/cme/lib/codemirror.css">
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
     <script type="text/javascript"
             src="<%=cp%>/js/marked.js"></script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
           tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
         });
-
-
-
     </script>
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
     <script type="text/javascript"
@@ -179,6 +179,9 @@
     <script type="text/javascript">
         marked.setOptions({
             renderer: new marked.Renderer(),
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            },
             gfm: true,
             tables: true,
             breaks: false,

@@ -390,9 +390,14 @@
             var t = scripts.shift();
             script = doc.createElement("script");
             script.type = "text/javascript";
-            if (t.type == 'url') script.src = t.data;
-            else if (t.type == 'text') script.text = t.data;
-            head.appendChild(script);
+            if (t.type == 'url') {
+                script.src = t.data;
+                head.appendChild(script);
+            }
+            else if (t.type == 'text') {
+                script.text = t.data;
+                head.appendChild(script);
+            }
             script.onload = script.onreadystatechange = function () {
                 addScripts(scripts);
             }

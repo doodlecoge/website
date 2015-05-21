@@ -12,6 +12,8 @@
     <!--<http request-matcher="regex" pattern="/tag" security="none"></http>-->
 
     <http auto-config="true" path-type="regex" use-expressions="true">
+        <intercept-url pattern="^/widget/new" access="isAuthenticated()"/>
+
         <intercept-url pattern="^/favicon.ico" access="permitAll"/>
         <intercept-url pattern="^/login.*" access="permitAll"/>
         <intercept-url pattern="^/" access="permitAll"/>
@@ -21,10 +23,8 @@
         <intercept-url pattern="^/t" access="permitAll"/>
         <intercept-url pattern="^/t/.*" access="permitAll"/>
         <intercept-url pattern="^/image/\d+" access="permitAll"/>
-        <intercept-url pattern="^/widget" access="permitAll"/>
-        <intercept-url pattern="^/widget/new" access="permitAll"/>
-        <intercept-url pattern="^/widget/\d+" access="permitAll"/>
-        <intercept-url pattern="^/widget/\d+/json" access="permitAll"/>
+        <intercept-url pattern="^/widget.*" access="permitAll"/>
+
 
         <intercept-url pattern="^/(js|css|img|cme|jqp|fonts)/.*"
                        access="permitAll"/>

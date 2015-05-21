@@ -24,34 +24,18 @@
             border-bottom: 1px solid #ddd;
         }
     </style>
-    <script type="text/javascript">
-        <c:if test="${widget != null}">
-        $(function () {
-            var xhr = $.ajax({
-                url: '<%=cp%>/widget/${widget.id}/json',
-                dataType: 'json'
-            });
-            xhr.done(function (data) {
-                $.fn.loadWidget({
-                    appendTo: '#ccc',
-                    html: data.html,
-                    js: data.js,
-                    css: data.css
-                });
-            });
-        });
-        </c:if>
-    </script>
+    <style type="text/css">${widget.css}</style>
 </head>
 <body>
 <c:if test="${widget != null}">
     <div id="widget_link">
         <b>Widget of Day:</b>
         <a href="<%=cp%>/widget/${widget.id}">
-                <i>${widget.title}</i>
+            <i>${widget.title}</i>
         </a>
     </div>
 </c:if>
-<div id="ccc"></div>
+<div id="ccc">${widget.html}</div>
+<script type="text/javascript">${widget.js}</script>
 </body>
 </html>

@@ -75,4 +75,12 @@ public class WidgetController {
         jobj.addProperty("js", widget.getJs());
         return jobj.toString();
     }
+
+    @RequestMapping(value = "/{id}/view")
+    public String view(ModelMap map,
+                       @PathVariable int id) {
+        Widget widget = widgetService.get(id);
+        map.put("widget", widget);
+        return "widget/view";
+    }
 }

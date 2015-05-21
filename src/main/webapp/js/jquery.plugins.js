@@ -78,7 +78,7 @@
             script.type = "text/javascript";
             if (t.type == 'url') script.src = t.data;
             else if (t.type == 'text') script.text = t.data;
-            head.appendChild(script);
+            document.body.appendChild(script);
             script.onload = script.onreadystatechange = function () {
                 addScripts(scripts);
             }

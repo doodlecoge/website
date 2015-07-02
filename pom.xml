@@ -11,6 +11,11 @@
 
 
     <properties>
+        <developing>false</developing>
+        <ts>${maven.build.timestamp}</ts>
+        <maven.build.timestamp.format>
+            yyyyMMddHHmmss
+        </maven.build.timestamp.format>
         <spring.version>3.2.4.RELEASE</spring.version>
         <hibernate.version>3.6.10.Final</hibernate.version>
         <slf4j.version>1.7.7</slf4j.version>
@@ -170,6 +175,12 @@
 
 
     <build>
-        <finalName>website</finalName>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <finalName>website-${maven.build.timestamp}</finalName>
     </build>
 </project>

@@ -11,21 +11,24 @@
            prefix="decorator" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%
     String cp = request.getContextPath();
 %>
 <!doctype html>
 <html>
 <head>
-    <title><decorator:title/> - Huaichao Wang's Website</title>
+    <title><decorator:title/> - <spring:message code="site.title"/></title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="<%=cp%>/css/site.css" charset="utf-8">
-    <link rel="stylesheet" href="<%=cp%>/css/site.mobile.css" charset="utf-8">
+
+    <link rel="stylesheet" href="<%=cp%>/css/site.css?t=${ts}" charset="utf-8">
+    <link rel="stylesheet" href="<%=cp%>/css/site.mobile.css?t=<spring:message code="ts"/>" charset="utf-8">
     <link rel="stylesheet" href="<%=cp%>/css/font-awesome.min.css"
           charset="utf-8">
+
     <script type="text/javascript" src="<%=cp%>/js/jquery-1.11.1.js"></script>
     <style type="text/css">
 
@@ -70,40 +73,36 @@
         <div class="menus">
             <a href="<%=cp%>/">
                 <i class="fa fa-home"></i>
-                Home
+                <spring:message code="menu.home"/>
             </a>
             <a href="<%=cp%>/article">
                 <i class="fa fa-file-text-o"></i>
-                Articles
+                <spring:message code="menu.article"/>
             </a>
             <a href="<%=cp%>/tag">
                 <i class="fa fa-bookmark-o"></i>
-                tags
+                <spring:message code="menu.tag"/>
             </a>
             <sec:authorize access="isAuthenticated()">
                 <a href="<%=cp%>/article/new">
                     <i class="fa fa-pencil-square-o"></i>
-                    Write sth.
+                    <spring:message code="menu.write"/>
                 </a>
             </sec:authorize>
-            <%--<a href="<%=cp%>/t">--%>
-            <%--<i class="fa fa-wrench"></i>--%>
-            <%--Tools--%>
-            <%--</a>--%>
             <a href="<%=cp%>/widget">
                 <i class="fa fa-th"></i>
-                Widgets
+                <spring:message code="menu.widget"/>
             </a>
             <sec:authorize access="hasRole('ROLE_ADMIN')">
                 <a href="<%=cp%>/user">
                     <i class="fa fa-users"></i>
-                    User
+                    <spring:message code="menu.user"/>
                 </a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
                 <a href="<%=cp%>/image">
                     <i class="fa fa-file-image-o"></i>
-                    Images
+                    <spring:message code="menu.gallery"/>
                 </a>
             </sec:authorize>
         </div>
@@ -115,13 +114,13 @@
                 </a>
                 <a href="<%=cp%>/logout">
                     <i class="fa fa-power-off"></i>
-                    Logout
+                    <spring:message code="menu.logout"/>
                 </a>
             </sec:authorize>
             <sec:authorize access="isAnonymous()">
                 <a href="<%=cp%>/login">
                     <i class="fa fa-key"></i>
-                    Login
+                    <spring:message code="menu.login"/>
                 </a>
             </sec:authorize>
         </div>
@@ -130,7 +129,9 @@
 </div>
 <div id="header">
     <div class="c">
-        <span class="brand">HUAICHAO.WANG</span>
+        <span class="brand">
+            <spring:message code="site.brand"/>
+        </span>
     </div>
 </div>
 
@@ -139,16 +140,13 @@
 </div>
 <div id="footer">
     <div class="c">
-        Copyright &copy; huaichao.wang since 2014.
+        <spring:message code="site.foot.note"/>
     </div>
 </div>
-<%
-    String host = request.getServerName();
-    boolean bLocal = "localhost".equalsIgnoreCase(host) ||
-            "127.0.0.1".equalsIgnoreCase(host);
-    pageContext.setAttribute("blocal", bLocal);
-%>
-<c:if test='${blocal == false}'>
+<c:set var="developing">
+    <spring:message code="developing"/>
+</c:set>
+<c:if test='${developing == true}'>
     <jsp:include page="ga.jsp"></jsp:include>
 </c:if>
 </body>
